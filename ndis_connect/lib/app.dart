@@ -1,13 +1,12 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'l10n/app_localizations.dart';
 import 'screens/budget_screen.dart';
 import 'screens/calendar_screen.dart';
+import 'screens/chatbot_screen.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/feedback_screen.dart';
 import 'screens/login_screen.dart';
@@ -15,8 +14,8 @@ import 'screens/onboarding_role_screen.dart';
 import 'screens/service_map_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/splash_screen.dart';
+import 'screens/task_screen.dart';
 import 'screens/tutorial_screen.dart';
-import 'services/analytics_service.dart';
 import 'viewmodels/app_settings_viewmodel.dart';
 import 'viewmodels/connectivity_viewmodel.dart';
 
@@ -124,7 +123,9 @@ class _NdisAppState extends State<NdisApp> {
           FeedbackScreen.route: (_) => const FeedbackScreen(),
           CalendarScreen.route: (_) => const CalendarScreen(),
           BudgetScreen.route: (_) => const BudgetScreen(),
+          TaskScreen.route: (_) => const TaskScreen(),
           ServiceMapScreen.route: (_) => const ServiceMapScreen(),
+          ChatbotScreen.route: (_) => const ChatbotScreen(),
         },
         initialRoute: SplashScreen.route,
       ),

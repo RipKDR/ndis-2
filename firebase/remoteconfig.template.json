@@ -1,0 +1,210 @@
+{
+  "conditions": [
+    {
+      "name": "development",
+      "expression": "device.os == 'ios' && device.country in ['AU']",
+      "tagColor": "BLUE"
+    },
+    {
+      "name": "staging",
+      "expression": "device.os == 'android' && device.country in ['AU']",
+      "tagColor": "GREEN"
+    },
+    {
+      "name": "production",
+      "expression": "device.country in ['AU']",
+      "tagColor": "RED"
+    }
+  ],
+  "parameters": {
+    "points_enabled": {
+      "defaultValue": {
+        "value": "true"
+      },
+      "conditionalValues": {
+        "development": {
+          "value": "true"
+        },
+        "staging": {
+          "value": "true"
+        },
+        "production": {
+          "value": "true"
+        }
+      },
+      "description": "Enable points/gamification system"
+    },
+    "ai_assist_level": {
+      "defaultValue": {
+        "value": "basic"
+      },
+      "conditionalValues": {
+        "development": {
+          "value": "premium"
+        },
+        "staging": {
+          "value": "basic"
+        },
+        "production": {
+          "value": "basic"
+        }
+      },
+      "description": "AI assistance level: basic, premium"
+    },
+    "ab_badge_variant": {
+      "defaultValue": {
+        "value": "A"
+      },
+      "conditionalValues": {
+        "development": {
+          "value": "A"
+        },
+        "staging": {
+          "value": "B"
+        },
+        "production": {
+          "value": "A"
+        }
+      },
+      "description": "A/B test variant for badge design"
+    },
+    "reminders_function_url": {
+      "defaultValue": {
+        "value": ""
+      },
+      "conditionalValues": {
+        "development": {
+          "value": "https://us-central1-ndis-connect-dev.cloudfunctions.net/scheduleReminder"
+        },
+        "staging": {
+          "value": "https://us-central1-ndis-connect-staging.cloudfunctions.net/scheduleReminder"
+        },
+        "production": {
+          "value": "https://us-central1-ndis-connect-prod.cloudfunctions.net/scheduleReminder"
+        }
+      },
+      "description": "Cloud Function URL for scheduling reminders"
+    },
+    "max_offline_days": {
+      "defaultValue": {
+        "value": "7"
+      },
+      "conditionalValues": {
+        "development": {
+          "value": "30"
+        },
+        "staging": {
+          "value": "14"
+        },
+        "production": {
+          "value": "7"
+        }
+      },
+      "description": "Maximum days to store offline data"
+    },
+    "enable_analytics": {
+      "defaultValue": {
+        "value": "true"
+      },
+      "conditionalValues": {
+        "development": {
+          "value": "false"
+        },
+        "staging": {
+          "value": "true"
+        },
+        "production": {
+          "value": "true"
+        }
+      },
+      "description": "Enable Firebase Analytics"
+    },
+    "enable_crashlytics": {
+      "defaultValue": {
+        "value": "true"
+      },
+      "conditionalValues": {
+        "development": {
+          "value": "false"
+        },
+        "staging": {
+          "value": "true"
+        },
+        "production": {
+          "value": "true"
+        }
+      },
+      "description": "Enable Firebase Crashlytics"
+    },
+    "maintenance_mode": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "conditionalValues": {
+        "development": {
+          "value": "false"
+        },
+        "staging": {
+          "value": "false"
+        },
+        "production": {
+          "value": "false"
+        }
+      },
+      "description": "Enable maintenance mode"
+    },
+    "maintenance_message": {
+      "defaultValue": {
+        "value": "NDIS Connect is currently under maintenance. Please try again later."
+      },
+      "conditionalValues": {
+        "development": {
+          "value": "Development mode - NDIS Connect is under maintenance."
+        },
+        "staging": {
+          "value": "Staging mode - NDIS Connect is under maintenance."
+        },
+        "production": {
+          "value": "NDIS Connect is currently under maintenance. Please try again later."
+        }
+      },
+      "description": "Message to show during maintenance mode"
+    }
+  },
+  "parameterGroups": {
+    "Feature Flags": {
+      "description": "Feature flags for controlling app functionality",
+      "parameters": {
+        "points_enabled": {},
+        "ai_assist_level": {},
+        "ab_badge_variant": {}
+      }
+    },
+    "API Configuration": {
+      "description": "API endpoints and service URLs",
+      "parameters": {
+        "reminders_function_url": {}
+      }
+    },
+    "Offline Settings": {
+      "description": "Offline functionality configuration",
+      "parameters": {
+        "max_offline_days": {}
+      }
+    },
+    "Analytics & Monitoring": {
+      "description": "Analytics and monitoring configuration",
+      "parameters": {
+        "enable_analytics": {},
+        "enable_crashlytics": {}
+      }
+    },
+    "Maintenance": {
+      "description": "Maintenance mode configuration",
+      "parameters": {
+        "maintenance_mode": {},
+        "maintenance_message": {}
+      }
+    }
+  }
+}

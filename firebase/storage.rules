@@ -1,0 +1,37 @@
+rules_version = '2';
+
+// Craft rules based on data in your Firestore database
+// allow write: if firestore.get(
+//    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
+service firebase.storage {
+  match /b/{bucket}/o {
+    // User profile images
+    match /users/{userId}/profile/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Document uploads
+    match /users/{userId}/documents/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // NDIS plan documents
+    match /users/{userId}/plans/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Provider documents
+    match /providers/{providerId}/documents/{allPaths=**} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && 
+                      get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'provider';
+    }
+    
+    // Public assets
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                      get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'provider';
+    }
+  }
+}

@@ -1,9 +1,9 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/app_localizations.dart';
 import '../models/budget.dart';
 import '../services/budget_service.dart';
 import '../viewmodels/budget_viewmodel.dart';
@@ -39,13 +39,21 @@ class _BudgetBody extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Year ${vm.summary!.year}', style: Theme.of(context).textTheme.titleLarge),
+                      Text('Year ${vm.summary!.year}',
+                          style: Theme.of(context).textTheme.titleLarge),
                       const SizedBox(height: 12),
                       SizedBox(height: 220, child: _BudgetPie(summary: vm.summary!)),
                       const SizedBox(height: 12),
-                      _BudgetRow(label: 'Core', total: vm.summary!.core, spent: vm.summary!.spentCore),
-                      _BudgetRow(label: 'Capacity', total: vm.summary!.capacity, spent: vm.summary!.spentCapacity),
-                      _BudgetRow(label: 'Capital', total: vm.summary!.capital, spent: vm.summary!.spentCapital),
+                      _BudgetRow(
+                          label: 'Core', total: vm.summary!.core, spent: vm.summary!.spentCore),
+                      _BudgetRow(
+                          label: 'Capacity',
+                          total: vm.summary!.capacity,
+                          spent: vm.summary!.spentCapacity),
+                      _BudgetRow(
+                          label: 'Capital',
+                          total: vm.summary!.capital,
+                          spent: vm.summary!.spentCapital),
                       const SizedBox(height: 8),
                       Text(
                         'Tip: set alerts to avoid overspending. Alerts via Functions trigger push notifications when you near limits.',
@@ -67,7 +75,7 @@ class _BudgetPie extends StatelessWidget {
     final remaining = summary.remainingCore + summary.remainingCapacity + summary.remainingCapital;
     final spent = summary.spentCore + summary.spentCapacity + summary.spentCapital;
     final total = remaining + spent;
-    
+
     if (total == 0) {
       return const Center(child: Text('No budget data available'));
     }

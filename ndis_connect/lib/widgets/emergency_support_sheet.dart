@@ -7,7 +7,7 @@ class EmergencySupportSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
+    final s = AppLocalizations.of(context)!;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -55,4 +55,3 @@ class _EmergencyButton extends StatelessWidget {
     );
   }
 }
-

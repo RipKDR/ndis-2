@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/app_localizations.dart';
 import '../models/event.dart';
 import '../services/event_service.dart';
 import '../services/notifications_service.dart';
@@ -90,18 +90,21 @@ class _CalendarView extends StatelessWidget {
 
   void _showDayEvents(BuildContext context, DateTime day) {
     final vm = context.read<CalendarViewModel>();
-    final todaysEvents = vm.events.where((e) => _isSameDay(e.start, day) || _spansDay(e, day)).toList();
+    final todaysEvents =
+        vm.events.where((e) => _isSameDay(e.start, day) || _spansDay(e, day)).toList();
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
       builder: (_) => ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Text('Events on ${day.toLocal().toString().split(' ').first}', style: Theme.of(context).textTheme.titleMedium),
+          Text('Events on ${day.toLocal().toString().split(' ').first}',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           ...todaysEvents.map((e) => ListTile(
                 title: Text(e.title),
-                subtitle: Text('${e.start.hour.toString().padLeft(2, '0')}:${e.start.minute.toString().padLeft(2, '0')} - '
+                subtitle: Text(
+                    '${e.start.hour.toString().padLeft(2, '0')}:${e.start.minute.toString().padLeft(2, '0')} - '
                     '${e.end.hour.toString().padLeft(2, '0')}:${e.end.minute.toString().padLeft(2, '0')}'),
                 onTap: () => _showEventForm(context, existing: e),
               )),
@@ -119,12 +122,14 @@ class _CalendarView extends StatelessWidget {
     );
   }
 
-  Future<void> _showEventForm(BuildContext context, {EventModel? existing, DateTime? initialDay}) async {
+  Future<void> _showEventForm(BuildContext context,
+      {EventModel? existing, DateTime? initialDay}) async {
     final s = AppLocalizations.of(context)!;
     final titleCtrl = TextEditingController(text: existing?.title ?? '');
     final locationCtrl = TextEditingController(text: existing?.location ?? '');
     final notesCtrl = TextEditingController(text: existing?.notes ?? '');
-    DateTime start = existing?.start ?? (initialDay ?? DateTime.now()).add(const Duration(hours: 1));
+    DateTime start =
+        existing?.start ?? (initialDay ?? DateTime.now()).add(const Duration(hours: 1));
     DateTime end = existing?.end ?? start.add(const Duration(hours: 1));
     bool allDay = existing?.allDay ?? false;
     await showModalBottomSheet(
@@ -139,7 +144,8 @@ class _CalendarView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(existing == null ? s.newEvent : s.editEvent, style: Theme.of(context).textTheme.titleLarge),
+                Text(existing == null ? s.newEvent : s.editEvent,
+                    style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 12),
                 TextField(
                   controller: titleCtrl,
@@ -158,7 +164,8 @@ class _CalendarView extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: _DateTimeField(label: s.start, initial: start, onChanged: (v) => start = v),
+                      child: _DateTimeField(
+                          label: s.start, initial: start, onChanged: (v) => start = v),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
@@ -194,7 +201,8 @@ class _CalendarView extends StatelessWidget {
                           title: titleCtrl.text.trim(),
                           start: start,
                           end: end,
-                          location: locationCtrl.text.trim().isEmpty ? null : locationCtrl.text.trim(),
+                          location:
+                              locationCtrl.text.trim().isEmpty ? null : locationCtrl.text.trim(),
                           notes: notesCtrl.text.trim().isEmpty ? null : notesCtrl.text.trim(),
                           allDay: allDay,
                         );
@@ -209,7 +217,7 @@ class _CalendarView extends StatelessWidget {
                         final rc = context.read<RemoteConfigService>();
                         final url = rc.remindersFunctionUrl;
                         if (url.isNotEmpty && start.isAfter(DateTime.now())) {
-                          final token = await context.read<NotificationsService>().getToken();
+                          final token = await context.read<NotificationsService>().getFCMToken();
                           if (token != null) {
                             final svc = RemindersService(Uri.parse(url));
                             await svc.scheduleReminder(
@@ -236,7 +244,8 @@ class _CalendarView extends StatelessWidget {
     );
   }
 
-  bool _isSameDay(DateTime a, DateTime b) => a.year == b.year && a.month == b.month && a.day == b.day;
+  bool _isSameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
   bool _spansDay(EventModel e, DateTime day) => e.start.isBefore(day) && e.end.isAfter(day);
 }
 
@@ -269,7 +278,8 @@ class _DateTimeFieldState extends State<_DateTimeField> {
           lastDate: DateTime(2100),
         );
         if (d == null) return;
-        final t = await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(_value));
+        final t =
+            await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(_value));
         if (t == null) return;
         final next = DateTime(d.year, d.month, d.day, t.hour, t.minute);
         setState(() => _value = next);

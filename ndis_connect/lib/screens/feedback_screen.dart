@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/app_localizations.dart';
 import '../services/feedback_service.dart';
 
 class FeedbackScreen extends StatefulWidget {
@@ -31,19 +30,16 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               minLines: 3,
               maxLines: 6,
               decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'How can we improve NDIS Connect?'
-              ),
+                  border: OutlineInputBorder(), hintText: 'How can we improve NDIS Connect?'),
             ),
             const SizedBox(height: 12),
             DropdownButtonFormField<int>(
-              initialValue: _rating,
-              items: List.generate(5, (i) => i + 1)
-                  .map((e) => DropdownMenuItem(value: e, child: Text('Rating: $e')))
-                  .toList(),
-              onChanged: (v) => setState(() => _rating = v),
-              decoration: const InputDecoration(labelText: 'Rating (1-5)')
-            ),
+                initialValue: _rating,
+                items: List.generate(5, (i) => i + 1)
+                    .map((e) => DropdownMenuItem(value: e, child: Text('Rating: $e')))
+                    .toList(),
+                onChanged: (v) => setState(() => _rating = v),
+                decoration: const InputDecoration(labelText: 'Rating (1-5)')),
             const Spacer(),
             FilledButton.icon(
               icon: const Icon(Icons.send),
@@ -61,4 +57,3 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     );
   }
 }
-

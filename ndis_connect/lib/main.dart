@@ -6,14 +6,19 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart' as fnd show defaultTargetPlatform, TargetPlatform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'app.dart';
+import 'config/environment.dart';
+import 'firebase_options.dart';
 import 'services/analytics_service.dart';
 import 'services/auth_service.dart';
+import 'services/error_handling_service.dart';
 import 'services/notifications_service.dart';
 import 'services/remote_config_service.dart';
 import 'services/storage_encryption_service.dart';
@@ -36,9 +41,20 @@ Future<void> main() async {
     await secureStorage.write(key: 'hive_key', value: key.base64);
   }
 
-  await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  // Register background handler only on mobile platforms
+  if (!kIsWeb &&
+      (fnd.defaultTargetPlatform == fnd.TargetPlatform.android ||
+          fnd.defaultTargetPlatform == fnd.TargetPlatform.iOS)) {
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
+
+  // Only enable crashlytics in production/staging
+  if (AppConfig.enableCrashlytics) {
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  }
 
   // Remote Config defaults
   final remoteConfig = FirebaseRemoteConfig.instance;
@@ -56,7 +72,11 @@ Future<void> main() async {
   final ttsService = TtsService();
   final userService = UserService();
   final notificationsService = NotificationsService();
-  await notificationsService.init();
+  final errorHandlingService = ErrorHandlingService();
+
+  // Initialize services
+  await notificationsService.initialize();
+  errorHandlingService.initialize();
 
   runZonedGuarded(() {
     runApp(MultiProvider(
@@ -70,6 +90,7 @@ Future<void> main() async {
         Provider.value(value: storageEncryptionService),
         Provider.value(value: ttsService),
         Provider.value(value: notificationsService),
+        Provider.value(value: errorHandlingService),
       ],
       child: const NdisApp(),
     ));

@@ -1,6 +1,29 @@
 import 'package:flutter/material.dart';
 import '../models/event.dart';
 
+/// Calendar widget for displaying events
+class Calendar extends StatelessWidget {
+  final DateTime month;
+  final List<EventModel> events;
+  final void Function(DateTime day) onDayTap;
+  
+  const Calendar({
+    super.key,
+    required this.month,
+    required this.events,
+    required this.onDayTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CalendarGrid(
+      month: month,
+      events: events,
+      onDayTap: onDayTap,
+    );
+  }
+}
+
 class CalendarGrid extends StatelessWidget {
   final DateTime month;
   final List<EventModel> events;

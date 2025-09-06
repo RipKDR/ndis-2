@@ -4,7 +4,7 @@ import 'dart:async';
 
 class NdisApiService {
   Future<Map<String, dynamic>> fetchPlanSummary(String uid) async {
-    // TODO: Replace with real secure API calls via Cloud Functions
+    // TODO(dev): Replace with real secure API calls via Cloud Functions
     return Future.value({
       'budgets': {
         'core': 12000,
@@ -23,4 +23,3 @@ class NdisApiService {
     });
   }
 }
-

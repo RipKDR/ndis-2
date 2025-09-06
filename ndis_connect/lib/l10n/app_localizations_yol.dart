@@ -5,8 +5,8 @@ import 'app_localizations.dart';
 // ignore_for_file: type=lint
 
 /// The translations for Yola (`yol`).
-class SYol extends S {
-  SYol([String locale = 'yol']) : super(locale);
+class AppLocalizationsYol extends AppLocalizations {
+  AppLocalizationsYol([String locale = 'yol']) : super(locale);
 
   @override
   String get appTitle => 'NDIS Connect (Yolngu demo)';

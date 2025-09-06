@@ -10,7 +10,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
+    final s = AppLocalizations.of(context)!;
     final vm = context.watch<AppSettingsViewModel>();
     return Scaffold(
       appBar: AppBar(title: Text(s.settings)),
@@ -77,4 +77,3 @@ class _LanguageDialog extends StatelessWidget {
     );
   }
 }
-

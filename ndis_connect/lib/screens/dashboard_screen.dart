@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/app_localizations.dart';
 import '../services/analytics_service.dart';
 import '../services/remote_config_service.dart';
 import '../viewmodels/user_viewmodel.dart';
@@ -65,10 +65,27 @@ class ParticipantDashboardScreen extends StatelessWidget {
             spacing: 16,
             runSpacing: 16,
             children: [
-              _FeatureCard(title: s.budget, icon: Icons.pie_chart, onTap: () => Navigator.pushNamed(context, '/budget')),
-              _FeatureCard(title: s.calendar, icon: Icons.calendar_today, onTap: () => Navigator.pushNamed(context, '/calendar')),
-              _FeatureCard(title: s.tasks, icon: Icons.check_circle, onTap: () {}),
-              _FeatureCard(title: s.serviceMap, icon: Icons.map, onTap: () => Navigator.pushNamed(context, '/map')),
+              _FeatureCard(
+                  title: s.budget,
+                  icon: Icons.pie_chart,
+                  onTap: () => Navigator.pushNamed(context, '/budget')),
+              _FeatureCard(
+                  title: s.calendar,
+                  icon: Icons.calendar_today,
+                  onTap: () => Navigator.pushNamed(context, '/calendar')),
+              _FeatureCard(
+                  title: s.tasks,
+                  icon: Icons.check_circle,
+                  onTap: () => Navigator.pushNamed(context, '/tasks')),
+              _FeatureCard(
+                  title: s.serviceMap,
+                  icon: Icons.map,
+                  onTap: () => Navigator.pushNamed(context, '/map')),
+              _FeatureCard(
+                title: 'AI Assistant',
+                icon: Icons.smart_toy,
+                onTap: () => Navigator.pushNamed(context, '/chatbot'),
+              ),
               if (pointsEnabled)
                 _FeatureCard(
                   title: s.points,

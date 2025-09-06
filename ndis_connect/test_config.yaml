@@ -1,0 +1,145 @@
+# NDIS Connect Test Configuration
+# This file defines testing parameters and thresholds for the app
+
+# Test Execution Settings
+test_execution:
+  timeout: 30s  # Default timeout for tests
+  retry_count: 3  # Number of retries for flaky tests
+  parallel: true  # Run tests in parallel when possible
+  
+# Performance Thresholds
+performance:
+  app_startup:
+    max_time_ms: 3000  # App should start within 3 seconds
+    warning_time_ms: 2000  # Warning if startup takes more than 2 seconds
+    
+  memory_usage:
+    max_mb: 100  # App should not exceed 100MB memory usage
+    warning_mb: 80  # Warning if memory usage exceeds 80MB
+    
+  network_requests:
+    max_time_ms: 5000  # Network requests should complete within 5 seconds
+    timeout_ms: 10000  # Network timeout threshold
+    
+  ui_rendering:
+    max_frame_time_ms: 16  # 60 FPS target (16ms per frame)
+    warning_frame_time_ms: 12  # Warning if frame time exceeds 12ms
+
+# Accessibility Standards
+accessibility:
+  wcag_level: "AA"  # WCAG 2.2 AA compliance target
+  text_scaling:
+    min_scale: 0.8  # Minimum text scale factor
+    max_scale: 2.0  # Maximum text scale factor (200%)
+    
+  color_contrast:
+    min_ratio: 4.5  # Minimum contrast ratio for normal text
+    min_ratio_large: 3.0  # Minimum contrast ratio for large text
+    
+  touch_targets:
+    min_size_dp: 44  # Minimum touch target size in dp
+    
+  screen_reader:
+    semantic_labels_required: true
+    focus_management_required: true
+    keyboard_navigation_required: true
+
+# Security Requirements
+security:
+  data_encryption:
+    required: true
+    algorithm: "AES-256"
+    
+  network_security:
+    https_required: true
+    certificate_pinning: false  # Set to true for production
+    
+  authentication:
+    session_timeout_minutes: 30
+    max_login_attempts: 5
+    
+  data_privacy:
+    gdpr_compliant: true
+    data_retention_days: 365
+    user_consent_required: true
+
+# Test Coverage Requirements
+coverage:
+  minimum_percentage: 80  # Minimum test coverage percentage
+  critical_paths: 95  # Coverage for critical business logic
+  unit_tests: 70  # Minimum unit test coverage
+  integration_tests: 60  # Minimum integration test coverage
+  widget_tests: 50  # Minimum widget test coverage
+
+# Error Handling Standards
+error_handling:
+  max_error_rate: 0.01  # Maximum 1% error rate
+  critical_error_threshold: 0  # Zero tolerance for critical errors
+  user_friendly_messages: true
+  error_logging: true
+  crash_reporting: true
+
+# Offline Functionality
+offline:
+  core_features_available: true
+  data_sync_required: true
+  conflict_resolution: "last_write_wins"
+  offline_storage_limit_mb: 50
+
+# Platform-Specific Requirements
+platforms:
+  android:
+    min_sdk: 21  # Android 5.0
+    target_sdk: 34  # Android 14
+    permissions:
+      - "INTERNET"
+      - "ACCESS_NETWORK_STATE"
+      - "ACCESS_FINE_LOCATION"
+      - "CAMERA"
+      - "READ_EXTERNAL_STORAGE"
+      
+  ios:
+    min_version: "12.0"
+    target_version: "17.0"
+    permissions:
+      - "NSLocationWhenInUseUsageDescription"
+      - "NSCameraUsageDescription"
+      - "NSPhotoLibraryUsageDescription"
+
+# Firebase Configuration
+firebase:
+  security_rules_enabled: true
+  offline_persistence: true
+  data_validation: true
+  rate_limiting: true
+  
+# Testing Environments
+environments:
+  development:
+    firebase_project: "ndis-connect-dev"
+    debug_logging: true
+    crashlytics: false
+    
+  staging:
+    firebase_project: "ndis-connect-staging"
+    debug_logging: true
+    crashlytics: true
+    
+  production:
+    firebase_project: "ndis-connect-prod"
+    debug_logging: false
+    crashlytics: true
+
+# Test Data Management
+test_data:
+  cleanup_after_tests: true
+  use_mock_data: true
+  data_isolation: true
+  
+# Reporting
+reporting:
+  generate_html_report: true
+  include_screenshots: true
+  include_performance_metrics: true
+  include_accessibility_results: true
+  include_security_audit: true
