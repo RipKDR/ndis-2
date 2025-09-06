@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "BMAD: Brainstorm",
+      "type": "shell",
+      "command": "code README.md",
+      "problemMatcher": []
+    },
+    {
+      "label": "BMAD: Map Architecture",
+      "type": "shell",
+      "command": "echo 'Review MVVM + Provider modules and services'",
+      "problemMatcher": []
+    },
+    {
+      "label": "BMAD: Analyze Risks",
+      "type": "shell",
+      "command": "flutter analyze",
+      "options": {"cwd": "ndis_connect"},
+      "problemMatcher": []
+    },
+    {
+      "label": "BMAD: Develop (Run App)",
+      "type": "shell",
+      "command": "flutter run",
+      "options": {"cwd": "ndis_connect"},
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Get Deps",
+      "type": "shell",
+      "command": "flutter pub get",
+      "options": {"cwd": "ndis_connect"}
+    },
+    {
+      "label": "Flutter: Tests",
+      "type": "shell",
+      "command": "flutter test --reporter compact",
+      "options": {"cwd": "ndis_connect"}
+    },
+    {
+      "label": "Firebase: Emulators",
+      "type": "shell",
+      "command": "firebase emulators:start",
+      "options": {"cwd": "ndis_connect"}
+    }
+  ]
+}
+

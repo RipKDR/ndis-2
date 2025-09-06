@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "Dart-Code.flutter",
+    "Dart-Code.dart-code",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "CoenraadS.bracket-pair-colorizer-2",
+    "github.copilot",
+    "ms-vscode.vscode-typescript-next",
+    "streetsidesoftware.code-spell-checker",
+    "firsttris.vscode-jest",
+    "ms-azuretools.vscode-docker",
+    "pkief.material-icon-theme",
+    "ms-vsliveshare.vsliveshare",
+    "ms-vscode-remote.remote-containers",
+    "firebase.firebase-vscode", 
+    "deque.axe-linter"
+  ]
+}
+
