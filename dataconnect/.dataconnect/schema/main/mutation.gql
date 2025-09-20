@@ -1,0 +1,786 @@
+extend type Mutation {
+  """
+  ✨ Insert a single `ParticipantProfile` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  participantProfile_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: ParticipantProfile_Data!
+  ): ParticipantProfile_KeyOutput! @fdc_generated(from: "ParticipantProfile", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Provider` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  provider_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Provider_Data!
+  ): Provider_KeyOutput! @fdc_generated(from: "Provider", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Service` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  service_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Service_Data!
+  ): Service_KeyOutput! @fdc_generated(from: "Service", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `ServiceAgreement` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  serviceAgreement_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: ServiceAgreement_Data!
+  ): ServiceAgreement_KeyOutput! @fdc_generated(from: "ServiceAgreement", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `ServiceRequest` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  serviceRequest_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: ServiceRequest_Data!
+  ): ServiceRequest_KeyOutput! @fdc_generated(from: "ServiceRequest", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `SupportWorkerProfile` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  supportWorkerProfile_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: SupportWorkerProfile_Data!
+  ): SupportWorkerProfile_KeyOutput! @fdc_generated(from: "SupportWorkerProfile", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `User` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `ParticipantProfile` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  participantProfile_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [ParticipantProfile_Data!]!
+  ): [ParticipantProfile_KeyOutput!]! @fdc_generated(from: "ParticipantProfile", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Provider` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  provider_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Provider_Data!]!
+  ): [Provider_KeyOutput!]! @fdc_generated(from: "Provider", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Service` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  service_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Service_Data!]!
+  ): [Service_KeyOutput!]! @fdc_generated(from: "Service", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `ServiceAgreement` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  serviceAgreement_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [ServiceAgreement_Data!]!
+  ): [ServiceAgreement_KeyOutput!]! @fdc_generated(from: "ServiceAgreement", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `ServiceRequest` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  serviceRequest_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [ServiceRequest_Data!]!
+  ): [ServiceRequest_KeyOutput!]! @fdc_generated(from: "ServiceRequest", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `SupportWorkerProfile` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  supportWorkerProfile_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [SupportWorkerProfile_Data!]!
+  ): [SupportWorkerProfile_KeyOutput!]! @fdc_generated(from: "SupportWorkerProfile", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `User` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert or update a single `ParticipantProfile` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ParticipantProfile`.
+  """
+  participantProfile_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: ParticipantProfile_Data!
+  ): ParticipantProfile_KeyOutput! @fdc_generated(from: "ParticipantProfile", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Provider` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Provider`.
+  """
+  provider_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Provider_Data!
+  ): Provider_KeyOutput! @fdc_generated(from: "Provider", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Service` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Service`.
+  """
+  service_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Service_Data!
+  ): Service_KeyOutput! @fdc_generated(from: "Service", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `ServiceAgreement` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ServiceAgreement`.
+  """
+  serviceAgreement_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: ServiceAgreement_Data!
+  ): ServiceAgreement_KeyOutput! @fdc_generated(from: "ServiceAgreement", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `ServiceRequest` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ServiceRequest`.
+  """
+  serviceRequest_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: ServiceRequest_Data!
+  ): ServiceRequest_KeyOutput! @fdc_generated(from: "ServiceRequest", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `SupportWorkerProfile` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `SupportWorkerProfile`.
+  """
+  supportWorkerProfile_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: SupportWorkerProfile_Data!
+  ): SupportWorkerProfile_KeyOutput! @fdc_generated(from: "SupportWorkerProfile", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `User` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update `ParticipantProfile` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ParticipantProfile`.
+  """
+  participantProfile_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [ParticipantProfile_Data!]!
+  ): [ParticipantProfile_KeyOutput!]! @fdc_generated(from: "ParticipantProfile", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Provider` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Provider`.
+  """
+  provider_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Provider_Data!]!
+  ): [Provider_KeyOutput!]! @fdc_generated(from: "Provider", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Service` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Service`.
+  """
+  service_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Service_Data!]!
+  ): [Service_KeyOutput!]! @fdc_generated(from: "Service", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `ServiceAgreement` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ServiceAgreement`.
+  """
+  serviceAgreement_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [ServiceAgreement_Data!]!
+  ): [ServiceAgreement_KeyOutput!]! @fdc_generated(from: "ServiceAgreement", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `ServiceRequest` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ServiceRequest`.
+  """
+  serviceRequest_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [ServiceRequest_Data!]!
+  ): [ServiceRequest_KeyOutput!]! @fdc_generated(from: "ServiceRequest", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `SupportWorkerProfile` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `SupportWorkerProfile`.
+  """
+  supportWorkerProfile_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [SupportWorkerProfile_Data!]!
+  ): [SupportWorkerProfile_KeyOutput!]! @fdc_generated(from: "SupportWorkerProfile", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `User` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `ParticipantProfile` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `ParticipantProfile` or `null` if not found.
+  """
+  participantProfile_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ParticipantProfile_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ParticipantProfile_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: ParticipantProfile_Data!
+  ): ParticipantProfile_KeyOutput @fdc_generated(from: "ParticipantProfile", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Provider` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Provider` or `null` if not found.
+  """
+  provider_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Provider_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Provider_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Provider_Data!
+  ): Provider_KeyOutput @fdc_generated(from: "Provider", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Service` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Service` or `null` if not found.
+  """
+  service_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Service_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Service_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Service_Data!
+  ): Service_KeyOutput @fdc_generated(from: "Service", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `ServiceAgreement` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `ServiceAgreement` or `null` if not found.
+  """
+  serviceAgreement_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ServiceAgreement_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ServiceAgreement_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: ServiceAgreement_Data!
+  ): ServiceAgreement_KeyOutput @fdc_generated(from: "ServiceAgreement", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `ServiceRequest` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `ServiceRequest` or `null` if not found.
+  """
+  serviceRequest_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ServiceRequest_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ServiceRequest_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: ServiceRequest_Data!
+  ): ServiceRequest_KeyOutput @fdc_generated(from: "ServiceRequest", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `SupportWorkerProfile` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `SupportWorkerProfile` or `null` if not found.
+  """
+  supportWorkerProfile_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: SupportWorkerProfile_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: SupportWorkerProfile_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: SupportWorkerProfile_Data!
+  ): SupportWorkerProfile_KeyOutput @fdc_generated(from: "SupportWorkerProfile", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `User` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `User` or `null` if not found.
+  """
+  user_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: User_Data!
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update `ParticipantProfile` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  participantProfile_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: ParticipantProfile_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: ParticipantProfile_Data!
+  ): Int! @fdc_generated(from: "ParticipantProfile", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Provider` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  provider_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Provider_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Provider_Data!
+  ): Int! @fdc_generated(from: "Provider", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Service` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  service_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Service_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Service_Data!
+  ): Int! @fdc_generated(from: "Service", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `ServiceAgreement` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  serviceAgreement_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: ServiceAgreement_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: ServiceAgreement_Data!
+  ): Int! @fdc_generated(from: "ServiceAgreement", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `ServiceRequest` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  serviceRequest_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: ServiceRequest_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: ServiceRequest_Data!
+  ): Int! @fdc_generated(from: "ServiceRequest", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `SupportWorkerProfile` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  supportWorkerProfile_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: SupportWorkerProfile_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: SupportWorkerProfile_Data!
+  ): Int! @fdc_generated(from: "SupportWorkerProfile", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `User` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  user_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: User_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: User_Data!
+  ): Int! @fdc_generated(from: "User", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Delete a single `ParticipantProfile` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  participantProfile_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ParticipantProfile_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ParticipantProfile_FirstRow
+  ): ParticipantProfile_KeyOutput @fdc_generated(from: "ParticipantProfile", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Provider` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  provider_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Provider_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Provider_FirstRow
+  ): Provider_KeyOutput @fdc_generated(from: "Provider", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Service` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  service_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Service_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Service_FirstRow
+  ): Service_KeyOutput @fdc_generated(from: "Service", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `ServiceAgreement` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  serviceAgreement_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ServiceAgreement_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ServiceAgreement_FirstRow
+  ): ServiceAgreement_KeyOutput @fdc_generated(from: "ServiceAgreement", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `ServiceRequest` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  serviceRequest_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ServiceRequest_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ServiceRequest_FirstRow
+  ): ServiceRequest_KeyOutput @fdc_generated(from: "ServiceRequest", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `SupportWorkerProfile` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  supportWorkerProfile_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: SupportWorkerProfile_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: SupportWorkerProfile_FirstRow
+  ): SupportWorkerProfile_KeyOutput @fdc_generated(from: "SupportWorkerProfile", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `User` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  user_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `ParticipantProfile` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  participantProfile_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: ParticipantProfile_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "ParticipantProfile", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Provider` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  provider_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Provider_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Provider", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Service` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  service_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Service_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Service", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `ServiceAgreement` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  serviceAgreement_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: ServiceAgreement_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "ServiceAgreement", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `ServiceRequest` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  serviceRequest_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: ServiceRequest_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "ServiceRequest", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `SupportWorkerProfile` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  supportWorkerProfile_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: SupportWorkerProfile_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "SupportWorkerProfile", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `User` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  user_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: User_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "User", purpose: DELETE_MULTIPLE)
+}

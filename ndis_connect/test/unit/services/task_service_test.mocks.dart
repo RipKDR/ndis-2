@@ -144,8 +144,8 @@ class _FakeAggregateQuery_10 extends _i1.SmartFake
         );
 }
 
-class _FakeDocumentSnapshot_11<T1 extends Object?> extends _i1.SmartFake
-    implements _i4.DocumentSnapshot<T1> {
+class _FakeDocumentSnapshot_11<T extends Object?> extends _i1.SmartFake
+    implements _i4.DocumentSnapshot<T> {
   _FakeDocumentSnapshot_11(
     Object parent,
     Invocation parentInvocation,
@@ -506,8 +506,8 @@ class MockFirebaseFirestore extends _i1.Mock implements _i4.FirebaseFirestore {
 ///
 /// See the documentation for Mockito's code generation for more information.
 // ignore: must_be_immutable
-class MockCollectionReference<T extends Object?> extends _i1.Mock
-    implements _i4.CollectionReference<T> {
+class MockCollectionReference extends _i1.Mock
+    implements _i4.CollectionReference<Map<String, dynamic>> {
   MockCollectionReference() {
     _i1.throwOnMissingStub(this);
   }
@@ -546,35 +546,39 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
       ) as Map<String, dynamic>);
 
   @override
-  _i5.Future<_i4.DocumentReference<T>> add(T? data) => (super.noSuchMethod(
+  _i5.Future<_i4.DocumentReference<Map<String, dynamic>>> add(
+          Map<String, dynamic>? data) =>
+      (super.noSuchMethod(
         Invocation.method(
           #add,
           [data],
         ),
-        returnValue: _i5.Future<_i4.DocumentReference<T>>.value(
-            _FakeDocumentReference_7<T>(
+        returnValue:
+            _i5.Future<_i4.DocumentReference<Map<String, dynamic>>>.value(
+                _FakeDocumentReference_7<Map<String, dynamic>>(
           this,
           Invocation.method(
             #add,
             [data],
           ),
         )),
-      ) as _i5.Future<_i4.DocumentReference<T>>);
+      ) as _i5.Future<_i4.DocumentReference<Map<String, dynamic>>>);
 
   @override
-  _i4.DocumentReference<T> doc([String? path]) => (super.noSuchMethod(
+  _i4.DocumentReference<Map<String, dynamic>> doc([String? path]) =>
+      (super.noSuchMethod(
         Invocation.method(
           #doc,
           [path],
         ),
-        returnValue: _FakeDocumentReference_7<T>(
+        returnValue: _FakeDocumentReference_7<Map<String, dynamic>>(
           this,
           Invocation.method(
             #doc,
             [path],
           ),
         ),
-      ) as _i4.DocumentReference<T>);
+      ) as _i4.DocumentReference<Map<String, dynamic>>);
 
   @override
   _i4.CollectionReference<R> withConverter<R extends Object?>({
@@ -604,117 +608,122 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
       ) as _i4.CollectionReference<R>);
 
   @override
-  _i4.Query<T> endAtDocument(_i4.DocumentSnapshot<Object?>? documentSnapshot) =>
+  _i4.Query<Map<String, dynamic>> endAtDocument(
+          _i4.DocumentSnapshot<Object?>? documentSnapshot) =>
       (super.noSuchMethod(
         Invocation.method(
           #endAtDocument,
           [documentSnapshot],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #endAtDocument,
             [documentSnapshot],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> endAt(Iterable<Object?>? values) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> endAt(Iterable<Object?>? values) =>
+      (super.noSuchMethod(
         Invocation.method(
           #endAt,
           [values],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #endAt,
             [values],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> endBeforeDocument(
+  _i4.Query<Map<String, dynamic>> endBeforeDocument(
           _i4.DocumentSnapshot<Object?>? documentSnapshot) =>
       (super.noSuchMethod(
         Invocation.method(
           #endBeforeDocument,
           [documentSnapshot],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #endBeforeDocument,
             [documentSnapshot],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> endBefore(Iterable<Object?>? values) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> endBefore(Iterable<Object?>? values) =>
+      (super.noSuchMethod(
         Invocation.method(
           #endBefore,
           [values],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #endBefore,
             [values],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i5.Future<_i4.QuerySnapshot<T>> get([_i3.GetOptions? options]) =>
+  _i5.Future<_i4.QuerySnapshot<Map<String, dynamic>>> get(
+          [_i3.GetOptions? options]) =>
       (super.noSuchMethod(
         Invocation.method(
           #get,
           [options],
         ),
-        returnValue:
-            _i5.Future<_i4.QuerySnapshot<T>>.value(_FakeQuerySnapshot_5<T>(
+        returnValue: _i5.Future<_i4.QuerySnapshot<Map<String, dynamic>>>.value(
+            _FakeQuerySnapshot_5<Map<String, dynamic>>(
           this,
           Invocation.method(
             #get,
             [options],
           ),
         )),
-      ) as _i5.Future<_i4.QuerySnapshot<T>>);
+      ) as _i5.Future<_i4.QuerySnapshot<Map<String, dynamic>>>);
 
   @override
-  _i4.Query<T> limit(int? limit) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> limit(int? limit) => (super.noSuchMethod(
         Invocation.method(
           #limit,
           [limit],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #limit,
             [limit],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> limitToLast(int? limit) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> limitToLast(int? limit) =>
+      (super.noSuchMethod(
         Invocation.method(
           #limitToLast,
           [limit],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #limitToLast,
             [limit],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i5.Stream<_i4.QuerySnapshot<T>> snapshots({
+  _i5.Stream<_i4.QuerySnapshot<Map<String, dynamic>>> snapshots({
     bool? includeMetadataChanges = false,
     _i3.ListenSource? source = _i3.ListenSource.defaultSource,
   }) =>
@@ -727,11 +736,12 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
             #source: source,
           },
         ),
-        returnValue: _i5.Stream<_i4.QuerySnapshot<T>>.empty(),
-      ) as _i5.Stream<_i4.QuerySnapshot<T>>);
+        returnValue:
+            _i5.Stream<_i4.QuerySnapshot<Map<String, dynamic>>>.empty(),
+      ) as _i5.Stream<_i4.QuerySnapshot<Map<String, dynamic>>>);
 
   @override
-  _i4.Query<T> orderBy(
+  _i4.Query<Map<String, dynamic>> orderBy(
     Object? field, {
     bool? descending = false,
   }) =>
@@ -741,7 +751,7 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
           [field],
           {#descending: descending},
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #orderBy,
@@ -749,74 +759,76 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
             {#descending: descending},
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> startAfterDocument(
+  _i4.Query<Map<String, dynamic>> startAfterDocument(
           _i4.DocumentSnapshot<Object?>? documentSnapshot) =>
       (super.noSuchMethod(
         Invocation.method(
           #startAfterDocument,
           [documentSnapshot],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #startAfterDocument,
             [documentSnapshot],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> startAfter(Iterable<Object?>? values) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> startAfter(Iterable<Object?>? values) =>
+      (super.noSuchMethod(
         Invocation.method(
           #startAfter,
           [values],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #startAfter,
             [values],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> startAtDocument(
+  _i4.Query<Map<String, dynamic>> startAtDocument(
           _i4.DocumentSnapshot<Object?>? documentSnapshot) =>
       (super.noSuchMethod(
         Invocation.method(
           #startAtDocument,
           [documentSnapshot],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #startAtDocument,
             [documentSnapshot],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> startAt(Iterable<Object?>? values) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> startAt(Iterable<Object?>? values) =>
+      (super.noSuchMethod(
         Invocation.method(
           #startAt,
           [values],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #startAt,
             [values],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> where(
+  _i4.Query<Map<String, dynamic>> where(
     Object? field, {
     Object? isEqualTo,
     Object? isNotEqualTo,
@@ -848,7 +860,7 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
             #isNull: isNull,
           },
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #where,
@@ -868,7 +880,7 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
             },
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
   _i4.AggregateQuery count() => (super.noSuchMethod(
@@ -999,8 +1011,8 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 // ignore: must_be_immutable
-class MockDocumentReference<T extends Object?> extends _i1.Mock
-    implements _i4.DocumentReference<T> {
+class MockDocumentReference extends _i1.Mock
+    implements _i4.DocumentReference<Map<String, dynamic>> {
   MockDocumentReference() {
     _i1.throwOnMissingStub(this);
   }
@@ -1024,13 +1036,14 @@ class MockDocumentReference<T extends Object?> extends _i1.Mock
       ) as String);
 
   @override
-  _i4.CollectionReference<T> get parent => (super.noSuchMethod(
+  _i4.CollectionReference<Map<String, dynamic>> get parent =>
+      (super.noSuchMethod(
         Invocation.getter(#parent),
-        returnValue: _FakeCollectionReference_2<T>(
+        returnValue: _FakeCollectionReference_2<Map<String, dynamic>>(
           this,
           Invocation.getter(#parent),
         ),
-      ) as _i4.CollectionReference<T>);
+      ) as _i4.CollectionReference<Map<String, dynamic>>);
 
   @override
   String get path => (super.noSuchMethod(
@@ -1079,24 +1092,26 @@ class MockDocumentReference<T extends Object?> extends _i1.Mock
       ) as _i5.Future<void>);
 
   @override
-  _i5.Future<_i4.DocumentSnapshot<T>> get([_i3.GetOptions? options]) =>
+  _i5.Future<_i4.DocumentSnapshot<Map<String, dynamic>>> get(
+          [_i3.GetOptions? options]) =>
       (super.noSuchMethod(
         Invocation.method(
           #get,
           [options],
         ),
-        returnValue: _i5.Future<_i4.DocumentSnapshot<T>>.value(
-            _FakeDocumentSnapshot_11<T>(
+        returnValue:
+            _i5.Future<_i4.DocumentSnapshot<Map<String, dynamic>>>.value(
+                _FakeDocumentSnapshot_11<Map<String, dynamic>>(
           this,
           Invocation.method(
             #get,
             [options],
           ),
         )),
-      ) as _i5.Future<_i4.DocumentSnapshot<T>>);
+      ) as _i5.Future<_i4.DocumentSnapshot<Map<String, dynamic>>>);
 
   @override
-  _i5.Stream<_i4.DocumentSnapshot<T>> snapshots({
+  _i5.Stream<_i4.DocumentSnapshot<Map<String, dynamic>>> snapshots({
     bool? includeMetadataChanges = false,
     _i3.ListenSource? source = _i3.ListenSource.defaultSource,
   }) =>
@@ -1109,12 +1124,13 @@ class MockDocumentReference<T extends Object?> extends _i1.Mock
             #source: source,
           },
         ),
-        returnValue: _i5.Stream<_i4.DocumentSnapshot<T>>.empty(),
-      ) as _i5.Stream<_i4.DocumentSnapshot<T>>);
+        returnValue:
+            _i5.Stream<_i4.DocumentSnapshot<Map<String, dynamic>>>.empty(),
+      ) as _i5.Stream<_i4.DocumentSnapshot<Map<String, dynamic>>>);
 
   @override
   _i5.Future<void> set(
-    T? data, [
+    Map<String, dynamic>? data, [
     _i3.SetOptions? options,
   ]) =>
       (super.noSuchMethod(
@@ -1161,7 +1177,7 @@ class MockDocumentReference<T extends Object?> extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 // ignore: must_be_immutable
-class MockQuery<T extends Object?> extends _i1.Mock implements _i4.Query<T> {
+class MockQuery extends _i1.Mock implements _i4.Query<Map<String, dynamic>> {
   MockQuery() {
     _i1.throwOnMissingStub(this);
   }
@@ -1182,117 +1198,122 @@ class MockQuery<T extends Object?> extends _i1.Mock implements _i4.Query<T> {
       ) as Map<String, dynamic>);
 
   @override
-  _i4.Query<T> endAtDocument(_i4.DocumentSnapshot<Object?>? documentSnapshot) =>
+  _i4.Query<Map<String, dynamic>> endAtDocument(
+          _i4.DocumentSnapshot<Object?>? documentSnapshot) =>
       (super.noSuchMethod(
         Invocation.method(
           #endAtDocument,
           [documentSnapshot],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #endAtDocument,
             [documentSnapshot],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> endAt(Iterable<Object?>? values) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> endAt(Iterable<Object?>? values) =>
+      (super.noSuchMethod(
         Invocation.method(
           #endAt,
           [values],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #endAt,
             [values],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> endBeforeDocument(
+  _i4.Query<Map<String, dynamic>> endBeforeDocument(
           _i4.DocumentSnapshot<Object?>? documentSnapshot) =>
       (super.noSuchMethod(
         Invocation.method(
           #endBeforeDocument,
           [documentSnapshot],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #endBeforeDocument,
             [documentSnapshot],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> endBefore(Iterable<Object?>? values) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> endBefore(Iterable<Object?>? values) =>
+      (super.noSuchMethod(
         Invocation.method(
           #endBefore,
           [values],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #endBefore,
             [values],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i5.Future<_i4.QuerySnapshot<T>> get([_i3.GetOptions? options]) =>
+  _i5.Future<_i4.QuerySnapshot<Map<String, dynamic>>> get(
+          [_i3.GetOptions? options]) =>
       (super.noSuchMethod(
         Invocation.method(
           #get,
           [options],
         ),
-        returnValue:
-            _i5.Future<_i4.QuerySnapshot<T>>.value(_FakeQuerySnapshot_5<T>(
+        returnValue: _i5.Future<_i4.QuerySnapshot<Map<String, dynamic>>>.value(
+            _FakeQuerySnapshot_5<Map<String, dynamic>>(
           this,
           Invocation.method(
             #get,
             [options],
           ),
         )),
-      ) as _i5.Future<_i4.QuerySnapshot<T>>);
+      ) as _i5.Future<_i4.QuerySnapshot<Map<String, dynamic>>>);
 
   @override
-  _i4.Query<T> limit(int? limit) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> limit(int? limit) => (super.noSuchMethod(
         Invocation.method(
           #limit,
           [limit],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #limit,
             [limit],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> limitToLast(int? limit) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> limitToLast(int? limit) =>
+      (super.noSuchMethod(
         Invocation.method(
           #limitToLast,
           [limit],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #limitToLast,
             [limit],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i5.Stream<_i4.QuerySnapshot<T>> snapshots({
+  _i5.Stream<_i4.QuerySnapshot<Map<String, dynamic>>> snapshots({
     bool? includeMetadataChanges = false,
     _i3.ListenSource? source = _i3.ListenSource.defaultSource,
   }) =>
@@ -1305,11 +1326,12 @@ class MockQuery<T extends Object?> extends _i1.Mock implements _i4.Query<T> {
             #source: source,
           },
         ),
-        returnValue: _i5.Stream<_i4.QuerySnapshot<T>>.empty(),
-      ) as _i5.Stream<_i4.QuerySnapshot<T>>);
+        returnValue:
+            _i5.Stream<_i4.QuerySnapshot<Map<String, dynamic>>>.empty(),
+      ) as _i5.Stream<_i4.QuerySnapshot<Map<String, dynamic>>>);
 
   @override
-  _i4.Query<T> orderBy(
+  _i4.Query<Map<String, dynamic>> orderBy(
     Object? field, {
     bool? descending = false,
   }) =>
@@ -1319,7 +1341,7 @@ class MockQuery<T extends Object?> extends _i1.Mock implements _i4.Query<T> {
           [field],
           {#descending: descending},
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #orderBy,
@@ -1327,74 +1349,76 @@ class MockQuery<T extends Object?> extends _i1.Mock implements _i4.Query<T> {
             {#descending: descending},
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> startAfterDocument(
+  _i4.Query<Map<String, dynamic>> startAfterDocument(
           _i4.DocumentSnapshot<Object?>? documentSnapshot) =>
       (super.noSuchMethod(
         Invocation.method(
           #startAfterDocument,
           [documentSnapshot],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #startAfterDocument,
             [documentSnapshot],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> startAfter(Iterable<Object?>? values) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> startAfter(Iterable<Object?>? values) =>
+      (super.noSuchMethod(
         Invocation.method(
           #startAfter,
           [values],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #startAfter,
             [values],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> startAtDocument(
+  _i4.Query<Map<String, dynamic>> startAtDocument(
           _i4.DocumentSnapshot<Object?>? documentSnapshot) =>
       (super.noSuchMethod(
         Invocation.method(
           #startAtDocument,
           [documentSnapshot],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #startAtDocument,
             [documentSnapshot],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> startAt(Iterable<Object?>? values) => (super.noSuchMethod(
+  _i4.Query<Map<String, dynamic>> startAt(Iterable<Object?>? values) =>
+      (super.noSuchMethod(
         Invocation.method(
           #startAt,
           [values],
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #startAt,
             [values],
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
-  _i4.Query<T> where(
+  _i4.Query<Map<String, dynamic>> where(
     Object? field, {
     Object? isEqualTo,
     Object? isNotEqualTo,
@@ -1426,7 +1450,7 @@ class MockQuery<T extends Object?> extends _i1.Mock implements _i4.Query<T> {
             #isNull: isNull,
           },
         ),
-        returnValue: _FakeQuery_6<T>(
+        returnValue: _FakeQuery_6<Map<String, dynamic>>(
           this,
           Invocation.method(
             #where,
@@ -1446,7 +1470,7 @@ class MockQuery<T extends Object?> extends _i1.Mock implements _i4.Query<T> {
             },
           ),
         ),
-      ) as _i4.Query<T>);
+      ) as _i4.Query<Map<String, dynamic>>);
 
   @override
   _i4.Query<R> withConverter<R>({
@@ -1603,23 +1627,25 @@ class MockQuery<T extends Object?> extends _i1.Mock implements _i4.Query<T> {
 /// A class which mocks [QuerySnapshot].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockQuerySnapshot<T extends Object?> extends _i1.Mock
-    implements _i4.QuerySnapshot<T> {
+class MockQuerySnapshot extends _i1.Mock
+    implements _i4.QuerySnapshot<Map<String, dynamic>> {
   MockQuerySnapshot() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  List<_i4.QueryDocumentSnapshot<T>> get docs => (super.noSuchMethod(
+  List<_i4.QueryDocumentSnapshot<Map<String, dynamic>>> get docs =>
+      (super.noSuchMethod(
         Invocation.getter(#docs),
-        returnValue: <_i4.QueryDocumentSnapshot<T>>[],
-      ) as List<_i4.QueryDocumentSnapshot<T>>);
+        returnValue: <_i4.QueryDocumentSnapshot<Map<String, dynamic>>>[],
+      ) as List<_i4.QueryDocumentSnapshot<Map<String, dynamic>>>);
 
   @override
-  List<_i4.DocumentChange<T>> get docChanges => (super.noSuchMethod(
+  List<_i4.DocumentChange<Map<String, dynamic>>> get docChanges =>
+      (super.noSuchMethod(
         Invocation.getter(#docChanges),
-        returnValue: <_i4.DocumentChange<T>>[],
-      ) as List<_i4.DocumentChange<T>>);
+        returnValue: <_i4.DocumentChange<Map<String, dynamic>>>[],
+      ) as List<_i4.DocumentChange<Map<String, dynamic>>>);
 
   @override
   _i4.SnapshotMetadata get metadata => (super.noSuchMethod(
@@ -1640,8 +1666,8 @@ class MockQuerySnapshot<T extends Object?> extends _i1.Mock
 /// A class which mocks [DocumentSnapshot].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDocumentSnapshot<T extends Object?> extends _i1.Mock
-    implements _i4.DocumentSnapshot<T> {
+class MockDocumentSnapshot extends _i1.Mock
+    implements _i4.DocumentSnapshot<Map<String, dynamic>> {
   MockDocumentSnapshot() {
     _i1.throwOnMissingStub(this);
   }
@@ -1656,13 +1682,14 @@ class MockDocumentSnapshot<T extends Object?> extends _i1.Mock
       ) as String);
 
   @override
-  _i4.DocumentReference<T> get reference => (super.noSuchMethod(
+  _i4.DocumentReference<Map<String, dynamic>> get reference =>
+      (super.noSuchMethod(
         Invocation.getter(#reference),
-        returnValue: _FakeDocumentReference_7<T>(
+        returnValue: _FakeDocumentReference_7<Map<String, dynamic>>(
           this,
           Invocation.getter(#reference),
         ),
-      ) as _i4.DocumentReference<T>);
+      ) as _i4.DocumentReference<Map<String, dynamic>>);
 
   @override
   _i4.SnapshotMetadata get metadata => (super.noSuchMethod(
@@ -1678,6 +1705,71 @@ class MockDocumentSnapshot<T extends Object?> extends _i1.Mock
         Invocation.getter(#exists),
         returnValue: false,
       ) as bool);
+
+  @override
+  dynamic get(Object? field) => super.noSuchMethod(Invocation.method(
+        #get,
+        [field],
+      ));
+
+  @override
+  dynamic operator [](Object? field) => super.noSuchMethod(Invocation.method(
+        #[],
+        [field],
+      ));
+}
+
+/// A class which mocks [QueryDocumentSnapshot].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockQueryDocumentSnapshot extends _i1.Mock
+    implements _i4.QueryDocumentSnapshot<Map<String, dynamic>> {
+  MockQueryDocumentSnapshot() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get id => (super.noSuchMethod(
+        Invocation.getter(#id),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.getter(#id),
+        ),
+      ) as String);
+
+  @override
+  _i4.DocumentReference<Map<String, dynamic>> get reference =>
+      (super.noSuchMethod(
+        Invocation.getter(#reference),
+        returnValue: _FakeDocumentReference_7<Map<String, dynamic>>(
+          this,
+          Invocation.getter(#reference),
+        ),
+      ) as _i4.DocumentReference<Map<String, dynamic>>);
+
+  @override
+  _i4.SnapshotMetadata get metadata => (super.noSuchMethod(
+        Invocation.getter(#metadata),
+        returnValue: _FakeSnapshotMetadata_12(
+          this,
+          Invocation.getter(#metadata),
+        ),
+      ) as _i4.SnapshotMetadata);
+
+  @override
+  bool get exists => (super.noSuchMethod(
+        Invocation.getter(#exists),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  Map<String, dynamic> data() => (super.noSuchMethod(
+        Invocation.method(
+          #data,
+          [],
+        ),
+        returnValue: <String, dynamic>{},
+      ) as Map<String, dynamic>);
 
   @override
   dynamic get(Object? field) => super.noSuchMethod(Invocation.method(

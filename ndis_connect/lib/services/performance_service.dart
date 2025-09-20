@@ -274,7 +274,8 @@ class PerformanceService {
   Future<void> _clearUnusedCaches() async {
     try {
       // Clear old performance metrics
-      final cutoff = DateTime.now().subtract(const Duration(days: 7));
+      // Note: This is a simplified implementation
+      // In a real implementation, you'd track timestamps and use a cutoff date
       for (final operation in _performanceMetrics.keys) {
         _performanceMetrics[operation]!.removeWhere((duration) {
           // This is a simplified check - in reality, you'd track timestamps

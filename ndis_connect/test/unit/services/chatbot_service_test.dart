@@ -24,7 +24,10 @@ void main() {
       when(mockUser.uid).thenReturn('test-user-id');
       when(mockAuth.currentUser).thenReturn(mockUser);
 
-      chatbotService = ChatbotService();
+      chatbotService = ChatbotService(
+        auth: mockAuth,
+        connectivity: mockConnectivity,
+      );
     });
 
     group('sendMessage', () {

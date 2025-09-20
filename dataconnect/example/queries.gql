@@ -1,0 +1,35 @@
+query ListAllUsers @auth(level: PUBLIC) {
+  users {
+    id
+    firstName
+    lastName
+    email
+  }
+}
+
+mutation CreateNewServiceRequest($participantProfileId: UUID!, $serviceId: UUID!, $startTime: String!, $endTime: String!, $requestedDate: Date!, $status: String!) @auth(level: USER) {
+  serviceRequest_insert(data: {
+    participantProfileId: $participantProfileId
+    serviceId: $serviceId
+    startTime: $startTime
+    endTime: $endTime
+    requestedDate: $requestedDate
+    status: $status
+  })
+}
+
+query ListSupportWorkersWithPoliceCheck @auth(level: USER) {
+  supportWorkerProfiles(where: {policeCheckStatus: {eq: "completed"}}) {
+    id
+    user {
+      firstName
+      lastName
+    }
+    qualifications
+    servicesOffered
+  }
+}
+
+mutation UpdateUserEmail($id: UUID!, $email: String!) @auth(level: USER) {
+  user_update(key: {id: $id}, data: {email: $email})
+}

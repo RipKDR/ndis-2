@@ -1,0 +1,76 @@
+mutation SeedDatabase @auth(level: USER) {
+  user_upsertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      address: "123 Main St",
+      email: "test@example.com",
+      firstName: "Test",
+      lastName: "User",
+      phoneNumber: "555-1234",
+      userType: "participant"
+    }
+  ])
+  participantProfile_upsertMany(data: [
+    {
+      id: "660e8400-e29b-41d4-a716-446655440001",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      goals: "Improve mobility",
+      ndisNumber: "1234567890",
+      supportNeeds: "Physiotherapy"
+    }
+  ])
+  provider_upsertMany(data: [
+    {
+      id: "770e8400-e29b-41d4-a716-446655440002",
+      ABN: "11222333444",
+      contactEmail: "provider@example.com",
+      contactPerson: "Provider Contact",
+      name: "Test Provider"
+    }
+  ])
+  service_upsertMany(data: [
+    {
+      id: "880e8400-e29b-41d4-a716-446655440003",
+      providerId: "770e8400-e29b-41d4-a716-446655440002",
+      category: "Therapy",
+      costPerUnit: 50.0,
+      description: "Physiotherapy session",
+      name: "Physiotherapy",
+      unitOfMeasure: "hour"
+    }
+  ])
+  serviceAgreement_upsertMany(data: [
+    {
+      id: "990e8400-e29b-41d4-a716-446655440004",
+      participantProfileId: "660e8400-e29b-41d4-a716-446655440001",
+      providerId: "770e8400-e29b-41d4-a716-446655440002",
+      agreedServices: "Physiotherapy",
+      endDate: "2024-12-31",
+      startDate: "2024-01-01",
+      status: "active",
+      totalBudget: 5000.0
+    }
+  ])
+  serviceRequest_upsertMany(data: [
+    {
+      id: "aa0e8400-e29b-41d4-a716-446655440005",
+      participantProfileId: "660e8400-e29b-41d4-a716-446655440001",
+      serviceId: "880e8400-e29b-41d4-a716-446655440003",
+      endTime: "11:00",
+      requestedDate: "2024-07-20",
+      startTime: "10:00",
+      status: "scheduled"
+    }
+  ])
+  supportWorkerProfile_upsertMany(data: [
+    {
+      id: "bb0e8400-e29b-41d4-a716-446655440006",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      availability: "Mon-Fri",
+      experience: "5 years",
+      hourlyRate: 60.0,
+      qualifications: "Physiotherapist",
+      servicesOffered: "Physiotherapy"
+    }
+  ])
+}

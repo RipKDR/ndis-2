@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import '../models/chat_message.dart';
 import '../services/chatbot_service.dart';
 import '../services/error_handling_service.dart';
+import '../widgets/accessibility_widgets.dart';
+import '../widgets/error_boundary.dart';
 
 class ChatbotScreen extends StatefulWidget {
   static const route = '/chatbot';
@@ -45,7 +47,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       context.read<ErrorHandlingService>().handleError(e);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to send message: $e')),
+          SnackBar(content: AccessibleText('Failed to send message: $e')),
         );
       }
     } finally {
@@ -71,67 +73,73 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   Widget build(BuildContext context) {
     // AppLocalizations not currently used in this screen; remove unused local to satisfy lints.
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('NDIS Assistant'),
-        actions: [
-          IconButton(
-            onPressed: _showQuickActions,
-            icon: const Icon(Icons.help_outline),
-            tooltip: 'Quick Actions',
-          ),
-          PopupMenuButton<String>(
-            onSelected: _handleMenuAction,
-            itemBuilder: (context) => [
-              const PopupMenuItem(value: 'new_session', child: Text('New Chat')),
-              const PopupMenuItem(value: 'clear_history', child: Text('Clear History')),
-              const PopupMenuItem(value: 'sessions', child: Text('Chat History')),
-            ],
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: StreamBuilder<List<ChatMessage>>(
-              stream: _getChatStream(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.error_outline, size: 64, color: Colors.red),
-                        const SizedBox(height: 16),
-                        Text('Error loading chat: ${snapshot.error}'),
-                        const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: () => setState(() {}),
-                          child: const Text('Retry'),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return _buildWelcomeMessage();
-                }
-
-                return ListView.builder(
-                  controller: _scrollController,
-                  padding: const EdgeInsets.all(16),
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    final message = snapshot.data![index];
-                    return _buildMessageBubble(message);
-                  },
-                );
-              },
+    return ErrorBoundary(
+      context: 'ChatbotScreen',
+      onRetry: () {
+        // Retry functionality
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const AccessibleText('NDIS Assistant'),
+          actions: [
+            AccessibleIconButton(
+              onPressed: _showQuickActions,
+              icon: Icons.help_outline,
+              tooltip: 'Quick Actions',
             ),
-          ),
-          _buildInputArea(),
-        ],
+            PopupMenuButton<String>(
+              onSelected: _handleMenuAction,
+              itemBuilder: (context) => [
+                const PopupMenuItem(value: 'new_session', child: AccessibleText('New Chat')),
+                const PopupMenuItem(value: 'clear_history', child: AccessibleText('Clear History')),
+                const PopupMenuItem(value: 'sessions', child: AccessibleText('Chat History')),
+              ],
+            ),
+          ],
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: StreamBuilder<List<ChatMessage>>(
+                stream: _getChatStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                          const SizedBox(height: 16),
+                          AccessibleText('Error loading chat: ${snapshot.error}'),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: () => setState(() {}),
+                            child: const AccessibleText('Retry'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return _buildWelcomeMessage();
+                  }
+
+                  return ListView.builder(
+                    controller: _scrollController,
+                    padding: const EdgeInsets.all(16),
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      final message = snapshot.data![index];
+                      return _buildMessageBubble(message);
+                    },
+                  );
+                },
+              ),
+            ),
+            _buildInputArea(),
+          ],
+        ),
       ),
     );
   }
@@ -143,12 +151,12 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         children: [
           const Icon(Icons.smart_toy, size: 64, color: Colors.blue),
           const SizedBox(height: 16),
-          Text(
+          AccessibleText(
             'Welcome to NDIS Assistant',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: 8),
-          Text(
+          AccessibleText(
             'I can help you with tasks, services, budget information, and more.',
             style: Theme.of(context).textTheme.bodyLarge,
             textAlign: TextAlign.center,
@@ -168,7 +176,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       runSpacing: 8,
       children: quickActions.map((action) {
         return ActionChip(
-          label: Text(action['title'] as String),
+          label: AccessibleText(action['title'] as String),
           onPressed: () => _sendQuickMessage(action['message'] as String),
         );
       }).toList(),
@@ -201,14 +209,14 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  AccessibleText(
                     message.text,
                     style: TextStyle(
                       color: isUser ? Colors.white : Colors.black87,
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
+                  AccessibleText(
                     _formatTime(message.timestamp),
                     style: TextStyle(
                       color: isUser ? Colors.white70 : Colors.grey[600],
@@ -312,7 +320,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            AccessibleText(
               'Quick Actions',
               style: Theme.of(context).textTheme.titleLarge,
             ),
@@ -320,7 +328,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
             ..._chatbotService.getQuickActions().map((action) {
               return ListTile(
                 leading: Icon(_getActionIcon(action['intent'] as ChatbotIntent)),
-                title: Text(action['title'] as String),
+                title: AccessibleText(action['title'] as String),
                 onTap: () {
                   Navigator.pop(context);
                   _sendQuickMessage(action['message'] as String);
@@ -368,16 +376,16 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Clear Chat History'),
-        content: const Text('Are you sure you want to clear all chat history?'),
+        title: const AccessibleText('Clear Chat History'),
+        content: const AccessibleText('Are you sure you want to clear all chat history?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: const AccessibleText('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Clear'),
+            child: const AccessibleText('Clear'),
           ),
         ],
       ),
@@ -399,7 +407,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            AccessibleText(
               'Chat History',
               style: Theme.of(context).textTheme.titleLarge,
             ),
@@ -414,7 +422,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
                   final sessions = snapshot.data!;
                   if (sessions.isEmpty) {
-                    return const Center(child: Text('No chat history found'));
+                    return const Center(child: AccessibleText('No chat history found'));
                   }
 
                   return ListView.builder(
@@ -422,11 +430,12 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     itemBuilder: (context, index) {
                       final session = sessions[index];
                       return ListTile(
-                        title: Text('Chat ${index + 1}'),
-                        subtitle: Text(_formatTime(DateTime.parse(session['createdAt']))),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete),
+                        title: AccessibleText('Chat ${index + 1}'),
+                        subtitle: AccessibleText(_formatTime(DateTime.parse(session['createdAt']))),
+                        trailing: AccessibleIconButton(
+                          icon: Icons.delete,
                           onPressed: () => _deleteSession(session['id'] as String),
+                          tooltip: 'Delete Session',
                         ),
                         onTap: () {
                           Navigator.pop(context);

@@ -175,9 +175,9 @@ class TaskModel {
       };
 
   factory TaskModel.fromMap(Map<String, dynamic> map) => TaskModel(
-        id: map['id'] as String,
-        ownerUid: map['ownerUid'] as String,
-        title: map['title'] as String,
+        id: (map['id'] as String?) ?? '',
+        ownerUid: (map['ownerUid'] as String?) ?? '',
+        title: (map['title'] as String?) ?? '',
         description: map['description'] as String?,
         category: TaskCategory.values.firstWhere(
           (e) => e.name == map['category'],
@@ -191,7 +191,9 @@ class TaskModel {
           (e) => e.name == map['status'],
           orElse: () => TaskStatus.pending,
         ),
-        createdAt: DateTime.parse(map['createdAt'] as String),
+        createdAt: map['createdAt'] != null 
+            ? DateTime.parse(map['createdAt'] as String) 
+            : DateTime.now(),
         dueDate: map['dueDate'] != null ? DateTime.parse(map['dueDate'] as String) : null,
         completedAt: map['completedAt'] != null ? DateTime.parse(map['completedAt'] as String) : null,
         progress: (map['progress'] as num?)?.toInt() ?? 0,

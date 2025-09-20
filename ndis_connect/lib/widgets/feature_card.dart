@@ -69,7 +69,7 @@ class FeatureCard extends StatelessWidget {
     final color = theme.colorScheme.primary;
     // Slightly stronger gradient and subtle secondary tint for depth
     final bg = LinearGradient(
-      colors: [color.withOpacity(0.12), color.withOpacity(0.04)],
+      colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.04)],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       stops: const [0.0, 1.0],
@@ -89,7 +89,7 @@ class FeatureCard extends StatelessWidget {
 
     return Card(
       elevation: 6,
-      shadowColor: color.withOpacity(0.18),
+      shadowColor: color.withValues(alpha: 0.18),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       clipBehavior: Clip.hardEdge,
       child: InkWell(

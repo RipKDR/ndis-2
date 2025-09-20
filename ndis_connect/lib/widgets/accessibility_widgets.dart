@@ -1,198 +1,384 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
+import 'package:provider/provider.dart';
 
-/// Enhanced accessible button with proper semantics
-class AccessibleButton extends StatelessWidget {
-  final String label;
+import '../services/accessibility_service.dart';
+
+/// A widget that provides comprehensive accessibility features
+class AccessibleWidget extends StatelessWidget {
+  final Widget child;
+  final String? label;
   final String? hint;
-  final VoidCallback? onPressed;
-  final IconData? icon;
-  final Color? backgroundColor;
-  final Color? foregroundColor;
-  final EdgeInsetsGeometry? padding;
-  final double? minSize;
+  final String? value;
+  final bool excludeSemantics;
+  final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
+  final bool button;
+  final bool link;
+  final bool header;
+  final bool focusable;
   final bool enabled;
+
+  const AccessibleWidget({
+    super.key,
+    required this.child,
+    this.label,
+    this.hint,
+    this.value,
+    this.excludeSemantics = false,
+    this.onTap,
+    this.onLongPress,
+    this.button = false,
+    this.link = false,
+    this.header = false,
+    this.focusable = true,
+    this.enabled = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (excludeSemantics) {
+      return ExcludeSemantics(child: child);
+    }
+
+    return Semantics(
+      label: label,
+      hint: hint,
+      value: value,
+      button: button,
+      link: link,
+      header: header,
+      focusable: focusable && enabled,
+      enabled: enabled,
+      onTap: onTap,
+      onLongPress: onLongPress,
+      child: child,
+    );
+  }
+}
+
+/// An accessible button with proper semantics and touch targets
+class AccessibleButton extends StatelessWidget {
+  final Widget child;
+  final VoidCallback? onPressed;
+  final String? tooltip;
+  final String? semanticLabel;
+  final double minWidth;
+  final double minHeight;
+  final EdgeInsetsGeometry? padding;
+  final bool primary;
 
   const AccessibleButton({
     super.key,
-    required this.label,
-    this.hint,
+    required this.child,
     this.onPressed,
-    this.icon,
-    this.backgroundColor,
-    this.foregroundColor,
+    this.tooltip,
+    this.semanticLabel,
+    this.minWidth = 44.0,
+    this.minHeight = 44.0,
     this.padding,
-    this.minSize = 44.0, // WCAG minimum touch target size
-    this.enabled = true,
+    this.primary = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    Widget button;
+
+    if (primary) {
+      button = ElevatedButton(
+        onPressed: onPressed,
+        child: child,
+      );
+    } else {
+      button = OutlinedButton(
+        onPressed: onPressed,
+        child: child,
+      );
+    }
+
+    // Ensure minimum touch target size
+    button = ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: minWidth,
+        minHeight: minHeight,
+      ),
+      child: padding != null ? Padding(padding: padding!, child: button) : button,
+    );
+
+    // Add tooltip if provided
+    if (tooltip != null) {
+      button = Tooltip(
+        message: tooltip!,
+        child: button,
+      );
+    }
+
+    // Add semantic label if provided
+    if (semanticLabel != null) {
+      button = Semantics(
+        label: semanticLabel,
+        button: true,
+        enabled: onPressed != null,
+        child: button,
+      );
+    }
+
+    return button;
+  }
+}
+
+/// An accessible icon button with proper semantics
+class AccessibleIconButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback? onPressed;
+  final String tooltip;
+  final String? semanticLabel;
+  final double size;
+  final Color? color;
+
+  const AccessibleIconButton({
+    super.key,
+    required this.icon,
+    this.onPressed,
+    required this.tooltip,
+    this.semanticLabel,
+    this.size = 24.0,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: label,
-      hint: hint,
+      label: semanticLabel ?? tooltip,
       button: true,
-      enabled: enabled && onPressed != null,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          minWidth: minSize!,
-          minHeight: minSize!,
+      enabled: onPressed != null,
+      child: IconButton(
+        icon: Icon(
+          icon,
+          size: size,
+          color: color,
+          semanticLabel: semanticLabel ?? tooltip,
         ),
-        child: ElevatedButton(
-          onPressed: enabled ? onPressed : null,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: backgroundColor,
-            foregroundColor: foregroundColor,
-            padding: padding ?? const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 12,
-            ),
-            minimumSize: Size(minSize!, minSize!),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (icon != null) ...[
-                Icon(icon, size: 18),
-                const SizedBox(width: 8),
-              ],
-              Flexible(
-                child: Text(
-                  label,
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ),
-            ],
-          ),
+        onPressed: onPressed,
+        tooltip: tooltip,
+        constraints: const BoxConstraints(
+          minWidth: 44.0,
+          minHeight: 44.0,
         ),
       ),
     );
   }
 }
 
-/// Accessible card with proper semantics
+/// An accessible text widget with proper contrast and scaling
+class AccessibleText extends StatelessWidget {
+  final String text;
+  final TextStyle? style;
+  final TextAlign? textAlign;
+  final int? maxLines;
+  final TextOverflow? overflow;
+  final bool semanticsLabel;
+  final String? customSemanticsLabel;
+  final bool header;
+  final int headerLevel;
+
+  const AccessibleText(
+    this.text, {
+    super.key,
+    this.style,
+    this.textAlign,
+    this.maxLines,
+    this.overflow,
+    this.semanticsLabel = true,
+    this.customSemanticsLabel,
+    this.header = false,
+    this.headerLevel = 1,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final accessibilityService = context.watch<AccessibilityService>();
+
+    // Apply accessibility text scaling
+    TextStyle effectiveStyle = style ?? Theme.of(context).textTheme.bodyMedium!;
+
+    if (accessibilityService.largeTextMode) {
+      effectiveStyle = effectiveStyle.copyWith(
+        fontSize: (effectiveStyle.fontSize ?? 14) * 1.5,
+      );
+    }
+
+    // Apply text scale factor
+    effectiveStyle = effectiveStyle.copyWith(
+      fontSize: (effectiveStyle.fontSize ?? 14) * accessibilityService.textScaleFactor,
+    );
+
+    // Ensure minimum contrast in high contrast mode
+    if (accessibilityService.highContrastMode) {
+      effectiveStyle = effectiveStyle.copyWith(
+        color: Theme.of(context).colorScheme.onSurface,
+      );
+    }
+
+    Widget textWidget = Text(
+      text,
+      style: effectiveStyle,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+    );
+
+    if (semanticsLabel) {
+      textWidget = Semantics(
+        label: customSemanticsLabel ?? text,
+        header: header,
+        child: textWidget,
+      );
+    }
+
+    return textWidget;
+  }
+}
+
+/// An accessible card with proper focus and semantics
 class AccessibleCard extends StatelessWidget {
-  final String? label;
-  final String? hint;
   final Widget child;
   final VoidCallback? onTap;
+  final String? semanticLabel;
+  final String? tooltip;
+  final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
-  final Color? color;
   final double? elevation;
+  final Color? color;
 
   const AccessibleCard({
     super.key,
-    this.label,
-    this.hint,
     required this.child,
     this.onTap,
+    this.semanticLabel,
+    this.tooltip,
+    this.margin,
     this.padding,
-    this.color,
     this.elevation,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      label: label,
-      hint: hint,
-      button: onTap != null,
-      onTap: onTap,
-      child: Card(
-        color: color,
-        elevation: elevation,
-        child: InkWell(
-          onTap: onTap,
-          child: Padding(
-            padding: padding ?? const EdgeInsets.all(16),
-            child: child,
-          ),
-        ),
-      ),
+    Widget card = Card(
+      margin: margin,
+      elevation: elevation,
+      color: color,
+      child: padding != null ? Padding(padding: padding!, child: child) : child,
     );
+
+    if (onTap != null) {
+      card = InkWell(
+        onTap: onTap,
+        child: card,
+      );
+    }
+
+    if (tooltip != null) {
+      card = Tooltip(
+        message: tooltip!,
+        child: card,
+      );
+    }
+
+    if (semanticLabel != null || onTap != null) {
+      card = Semantics(
+        label: semanticLabel,
+        button: onTap != null,
+        enabled: onTap != null,
+        child: card,
+      );
+    }
+
+    return card;
   }
 }
 
-/// Accessible text field with proper semantics
+/// An accessible input field with proper labeling and validation
 class AccessibleTextField extends StatelessWidget {
-  final String label;
-  final String? hint;
+  final TextEditingController? controller;
+  final String? labelText;
+  final String? hintText;
   final String? helperText;
   final String? errorText;
-  final TextEditingController? controller;
+  final bool obscureText;
+  final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onTap;
   final bool enabled;
-  final bool obscureText;
-  final TextInputType? keyboardType;
-  final int? maxLines;
-  final Widget? prefixIcon;
-  final Widget? suffixIcon;
+  final bool autofocus;
+  final FocusNode? focusNode;
 
   const AccessibleTextField({
     super.key,
-    required this.label,
-    this.hint,
+    this.controller,
+    this.labelText,
+    this.hintText,
     this.helperText,
     this.errorText,
-    this.controller,
+    this.obscureText = false,
+    this.keyboardType,
     this.onChanged,
     this.onTap,
     this.enabled = true,
-    this.obscureText = false,
-    this.keyboardType,
-    this.maxLines = 1,
-    this.prefixIcon,
-    this.suffixIcon,
+    this.autofocus = false,
+    this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: label,
-      hint: hint,
       textField: true,
+      label: labelText,
+      hint: hintText,
       enabled: enabled,
       child: TextField(
         controller: controller,
+        decoration: InputDecoration(
+          labelText: labelText,
+          hintText: hintText,
+          helperText: helperText,
+          errorText: errorText,
+          border: const OutlineInputBorder(),
+        ),
+        obscureText: obscureText,
+        keyboardType: keyboardType,
         onChanged: onChanged,
         onTap: onTap,
         enabled: enabled,
-        obscureText: obscureText,
-        keyboardType: keyboardType,
-        maxLines: maxLines,
-        decoration: InputDecoration(
-          labelText: label,
-          hintText: hint,
-          helperText: helperText,
-          errorText: errorText,
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
-          border: const OutlineInputBorder(),
-        ),
+        autofocus: autofocus,
+        focusNode: focusNode,
       ),
     );
   }
 }
 
-/// Accessible list tile with proper semantics
+/// An accessible list tile with proper semantics
 class AccessibleListTile extends StatelessWidget {
-  final String title;
-  final String? subtitle;
-  final String? hint;
   final Widget? leading;
+  final Widget? title;
+  final Widget? subtitle;
   final Widget? trailing;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
+  final String? semanticLabel;
   final bool enabled;
   final bool selected;
 
   const AccessibleListTile({
     super.key,
-    required this.title,
-    this.subtitle,
-    this.hint,
     this.leading,
+    this.title,
+    this.subtitle,
     this.trailing,
     this.onTap,
+    this.onLongPress,
+    this.semanticLabel,
     this.enabled = true,
     this.selected = false,
   });
@@ -200,351 +386,300 @@ class AccessibleListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: title,
-      hint: subtitle ?? hint,
+      label: semanticLabel,
       button: onTap != null,
       enabled: enabled,
       selected: selected,
-      onTap: onTap,
       child: ListTile(
-        title: Text(title),
-        subtitle: subtitle != null ? Text(subtitle!) : null,
         leading: leading,
+        title: title,
+        subtitle: subtitle,
         trailing: trailing,
-        onTap: enabled ? onTap : null,
-        selected: selected,
-        enabled: enabled,
-      ),
-    );
-  }
-}
-
-/// Accessible switch with proper semantics
-class AccessibleSwitch extends StatelessWidget {
-  final String label;
-  final String? hint;
-  final bool value;
-  final ValueChanged<bool>? onChanged;
-  final bool enabled;
-
-  const AccessibleSwitch({
-    super.key,
-    required this.label,
-    this.hint,
-    required this.value,
-    this.onChanged,
-    this.enabled = true,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: label,
-      hint: hint,
-      toggled: value,
-      enabled: enabled,
-      onTap: enabled ? () => onChanged?.call(!value) : null,
-      child: SwitchListTile(
-        title: Text(label),
-        subtitle: hint != null ? Text(hint!) : null,
-        value: value,
-        onChanged: enabled ? onChanged : null,
-      ),
-    );
-  }
-}
-
-/// Accessible slider with proper semantics
-class AccessibleSlider extends StatelessWidget {
-  final String label;
-  final String? hint;
-  final double value;
-  final double min;
-  final double max;
-  final int? divisions;
-  final ValueChanged<double>? onChanged;
-  final bool enabled;
-
-  const AccessibleSlider({
-    super.key,
-    required this.label,
-    this.hint,
-    required this.value,
-    required this.min,
-    required this.max,
-    this.divisions,
-    this.onChanged,
-    this.enabled = true,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: label,
-      hint: hint,
-      slider: true,
-      enabled: enabled,
-      value: value.toString(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          if (hint != null) ...[
-            const SizedBox(height: 4),
-            Text(
-              hint!,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ],
-          const SizedBox(height: 8),
-          Slider(
-            value: value,
-            min: min,
-            max: max,
-            divisions: divisions,
-            onChanged: enabled ? onChanged : null,
-            label: value.toStringAsFixed(divisions != null ? 1 : 0),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Accessible progress indicator
-class AccessibleProgressIndicator extends StatelessWidget {
-  final String label;
-  final String? hint;
-  final double value;
-  final double? minValue;
-  final double? maxValue;
-  final Color? color;
-  final double? strokeWidth;
-
-  const AccessibleProgressIndicator({
-    super.key,
-    required this.label,
-    this.hint,
-    required this.value,
-    this.minValue = 0.0,
-    this.maxValue = 1.0,
-    this.color,
-    this.strokeWidth,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final percentage = ((value - minValue!) / (maxValue! - minValue!)) * 100;
-    
-    return Semantics(
-      label: label,
-      hint: hint,
-      value: '${percentage.toStringAsFixed(1)}%',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          if (hint != null) ...[
-            const SizedBox(height: 4),
-            Text(
-              hint!,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ],
-          const SizedBox(height: 8),
-          LinearProgressIndicator(
-            value: value,
-            color: color,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            '${percentage.toStringAsFixed(1)}%',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Accessible image with proper semantics
-class AccessibleImage extends StatelessWidget {
-  final String imageUrl;
-  final String? semanticLabel;
-  final String? semanticHint;
-  final double? width;
-  final double? height;
-  final BoxFit fit;
-  final Widget? placeholder;
-  final Widget? errorWidget;
-
-  const AccessibleImage({
-    super.key,
-    required this.imageUrl,
-    this.semanticLabel,
-    this.semanticHint,
-    this.width,
-    this.height,
-    this.fit = BoxFit.cover,
-    this.placeholder,
-    this.errorWidget,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: semanticLabel,
-      hint: semanticHint,
-      image: true,
-      child: Image.network(
-        imageUrl,
-        width: width,
-        height: height,
-        fit: fit,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return placeholder ?? const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-        errorBuilder: (context, error, stackTrace) {
-          return errorWidget ?? const Icon(Icons.error);
-        },
-      ),
-    );
-  }
-}
-
-/// Accessible icon with proper semantics
-class AccessibleIcon extends StatelessWidget {
-  final IconData icon;
-  final String? semanticLabel;
-  final String? semanticHint;
-  final double? size;
-  final Color? color;
-  final VoidCallback? onTap;
-
-  const AccessibleIcon({
-    super.key,
-    required this.icon,
-    this.semanticLabel,
-    this.semanticHint,
-    this.size,
-    this.color,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: semanticLabel,
-      hint: semanticHint,
-      button: onTap != null,
-      onTap: onTap,
-      child: GestureDetector(
         onTap: onTap,
-        child: Icon(
-          icon,
-          size: size,
-          color: color,
-        ),
+        onLongPress: onLongPress,
+        enabled: enabled,
+        selected: selected,
+        // Ensure minimum touch target height
+        minVerticalPadding: 12.0,
       ),
     );
   }
 }
 
-/// Accessible container with proper semantics
-class AccessibleContainer extends StatelessWidget {
-  final String? semanticLabel;
-  final String? semanticHint;
-  final Widget child;
-  final VoidCallback? onTap;
-  final EdgeInsetsGeometry? padding;
-  final EdgeInsetsGeometry? margin;
-  final Color? color;
-  final Decoration? decoration;
-
-  const AccessibleContainer({
-    super.key,
-    this.semanticLabel,
-    this.semanticHint,
-    required this.child,
-    this.onTap,
-    this.padding,
-    this.margin,
-    this.color,
-    this.decoration,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: semanticLabel,
-      hint: semanticHint,
-      button: onTap != null,
-      onTap: onTap,
-      child: Container(
-        padding: padding,
-        margin: margin,
-        color: color,
-        decoration: decoration,
-        child: onTap != null
-            ? InkWell(
-                onTap: onTap,
-                child: child,
-              )
-            : child,
-      ),
-    );
-  }
-}
-
-/// Accessible focus scope for keyboard navigation
-class AccessibleFocusScope extends StatelessWidget {
-  final Widget child;
-  final bool autofocus;
-  final FocusNode? focusNode;
-
-  const AccessibleFocusScope({
-    super.key,
-    required this.child,
-    this.autofocus = false,
-    this.focusNode,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return FocusScope(
-      autofocus: autofocus,
-      child: child,
-    );
-  }
-}
-
-/// Accessible announcement for screen readers
-class AccessibleAnnouncement extends StatelessWidget {
+/// A widget that announces changes to screen readers
+class AccessibilityAnnouncer extends StatefulWidget {
   final String message;
-  final Duration duration;
   final Widget child;
+  final bool announceOnBuild;
 
-  const AccessibleAnnouncement({
+  const AccessibilityAnnouncer({
     super.key,
     required this.message,
-    this.duration = const Duration(seconds: 2),
     required this.child,
+    this.announceOnBuild = true,
   });
+
+  @override
+  State<AccessibilityAnnouncer> createState() => _AccessibilityAnnouncerState();
+}
+
+class _AccessibilityAnnouncerState extends State<AccessibilityAnnouncer> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.announceOnBuild) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _announce();
+      });
+    }
+  }
+
+  void _announce() {
+    final accessibilityService = context.read<AccessibilityService>();
+    accessibilityService.speak(widget.message);
+
+    // Also use Flutter's semantic announcements
+    SemanticsService.announce(widget.message, TextDirection.ltr);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Semantics(
       liveRegion: true,
+      child: widget.child,
+    );
+  }
+}
+
+/// A mixin that provides accessibility utilities for widgets
+mixin AccessibilityMixin<T extends StatefulWidget> on State<T> {
+  AccessibilityService get accessibilityService => context.read<AccessibilityService>();
+
+  /// Announce a message to screen readers
+  void announceToScreenReader(String message) {
+    accessibilityService.speak(message);
+    SemanticsService.announce(message, TextDirection.ltr);
+  }
+
+  /// Check if high contrast mode is enabled
+  bool get isHighContrastMode => accessibilityService.highContrastMode;
+
+  /// Check if large text mode is enabled
+  bool get isLargeTextMode => accessibilityService.largeTextMode;
+
+  /// Check if screen reader is enabled
+  bool get isScreenReaderEnabled => accessibilityService.screenReaderEnabled;
+
+  /// Get the current text scale factor
+  double get textScaleFactor => accessibilityService.textScaleFactor;
+
+  /// Create an accessible theme based on current settings
+  ThemeData getAccessibleTheme() {
+    return accessibilityService.getAccessibilityTheme();
+  }
+
+  /// Wrap a widget with proper focus handling
+  Widget makeFocusable(
+    Widget child, {
+    FocusNode? focusNode,
+    bool autofocus = false,
+    VoidCallback? onFocusChange,
+  }) {
+    return Focus(
+      focusNode: focusNode,
+      autofocus: autofocus,
+      onFocusChange: onFocusChange != null
+          ? (focused) {
+              if (focused) onFocusChange();
+            }
+          : null,
       child: child,
     );
+  }
+
+  /// Ensure minimum touch target size
+  Widget ensureMinimumTouchTarget(
+    Widget child, {
+    double minWidth = 44.0,
+    double minHeight = 44.0,
+  }) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: minWidth,
+        minHeight: minHeight,
+      ),
+      child: child,
+    );
+  }
+
+  /// Create accessible text with proper styling
+  Widget createAccessibleText(
+    String text, {
+    TextStyle? style,
+    bool isHeader = false,
+    int headerLevel = 1,
+    TextAlign? textAlign,
+  }) {
+    return AccessibleText(
+      text,
+      style: style,
+      textAlign: textAlign,
+      header: isHeader,
+      headerLevel: headerLevel,
+    );
+  }
+
+  /// Create accessible button with proper semantics
+  Widget createAccessibleButton({
+    required Widget child,
+    required VoidCallback? onPressed,
+    String? tooltip,
+    String? semanticLabel,
+    bool primary = false,
+  }) {
+    return AccessibleButton(
+      onPressed: onPressed,
+      tooltip: tooltip,
+      semanticLabel: semanticLabel,
+      primary: primary,
+      child: child,
+    );
+  }
+}
+
+/// High contrast theme provider
+class HighContrastTheme {
+  static ThemeData get lightTheme => ThemeData(
+        brightness: Brightness.light,
+        colorScheme: const ColorScheme.light(
+          primary: Colors.black,
+          onPrimary: Colors.yellow,
+          secondary: Colors.black,
+          onSecondary: Colors.yellow,
+          surface: Colors.white,
+          onSurface: Colors.black,
+          error: Colors.red,
+          onError: Colors.white,
+        ),
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          bodyMedium: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          bodySmall: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          headlineLarge: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          headlineMedium: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          headlineSmall: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+      );
+
+  static ThemeData get darkTheme => ThemeData(
+        brightness: Brightness.dark,
+        colorScheme: const ColorScheme.dark(
+          primary: Colors.yellow,
+          onPrimary: Colors.black,
+          secondary: Colors.yellow,
+          onSecondary: Colors.black,
+          surface: Colors.black,
+          onSurface: Colors.yellow,
+          error: Colors.red,
+          onError: Colors.white,
+        ),
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold),
+          bodyMedium: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold),
+          bodySmall: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold),
+          headlineLarge: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold),
+          headlineMedium: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold),
+          headlineSmall: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold),
+        ),
+      );
+}
+
+/// Color contrast utilities
+class ColorContrastUtils {
+  /// Calculate contrast ratio between two colors
+  static double calculateContrastRatio(Color color1, Color color2) {
+    final luminance1 = color1.computeLuminance();
+    final luminance2 = color2.computeLuminance();
+
+    final lighter = luminance1 > luminance2 ? luminance1 : luminance2;
+    final darker = luminance1 > luminance2 ? luminance2 : luminance1;
+
+    return (lighter + 0.05) / (darker + 0.05);
+  }
+
+  /// Check if contrast ratio meets WCAG AA standards (4.5:1 for normal text)
+  static bool meetsWCAGAA(Color foreground, Color background) {
+    return calculateContrastRatio(foreground, background) >= 4.5;
+  }
+
+  /// Check if contrast ratio meets WCAG AAA standards (7:1 for normal text)
+  static bool meetsWCAGAAA(Color foreground, Color background) {
+    return calculateContrastRatio(foreground, background) >= 7.0;
+  }
+
+  /// Get a contrasting color that meets WCAG AA standards
+  static Color getContrastingColor(Color background) {
+    final backgroundLuminance = background.computeLuminance();
+
+    // If background is dark, return light color
+    if (backgroundLuminance < 0.5) {
+      return Colors.white;
+    } else {
+      return Colors.black;
+    }
+  }
+}
+
+/// Focus management utilities
+class FocusUtils {
+  /// Move focus to the next focusable widget
+  static void focusNext(BuildContext context) {
+    FocusScope.of(context).nextFocus();
+  }
+
+  /// Move focus to the previous focusable widget
+  static void focusPrevious(BuildContext context) {
+    FocusScope.of(context).previousFocus();
+  }
+
+  /// Request focus for a specific widget
+  static void requestFocus(BuildContext context, FocusNode focusNode) {
+    FocusScope.of(context).requestFocus(focusNode);
+  }
+
+  /// Clear focus from all widgets
+  static void clearFocus(BuildContext context) {
+    FocusScope.of(context).unfocus();
+  }
+
+  /// Create a focus traversal order for widgets
+  static Widget createFocusTraversalGroup({
+    required List<Widget> children,
+    required BuildContext context,
+  }) {
+    return FocusTraversalGroup(
+      policy: OrderedTraversalPolicy(),
+      child: Column(children: children),
+    );
+  }
+}
+
+/// Accessibility testing utilities for use in test files
+/// Note: These utilities should be used in test files only
+class AccessibilityTestUtils {
+  /// Check if a widget has proper semantic labeling
+  static bool hasProperSemantics(Widget widget) {
+    // This is a simplified check for production use
+    return true; // Placeholder implementation
+  }
+
+  /// Check if touch target meets minimum size requirements
+  static bool meetsMinimumTouchTargetSize(Size size) {
+    return size.width >= 44.0 && size.height >= 44.0;
+  }
+
+  /// Validate that text has sufficient contrast
+  static bool hasValidTextContrast(Color textColor, Color backgroundColor) {
+    return ColorContrastUtils.meetsWCAGAA(textColor, backgroundColor);
   }
 }

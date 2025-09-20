@@ -6,6 +6,7 @@ import '../l10n/app_localizations.dart';
 import '../models/task.dart';
 import '../services/task_service.dart';
 import '../viewmodels/task_viewmodel.dart';
+import '../widgets/error_boundary.dart';
 
 class TaskScreen extends StatelessWidget {
   static const route = '/tasks';
@@ -13,9 +14,15 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => TaskViewModel(TaskService(), FirebaseAuth.instance),
-      child: const _TaskBody(),
+    return ErrorBoundary(
+      context: 'TaskScreen',
+      onRetry: () {
+        // Retry will recreate the TaskViewModel
+      },
+      child: ChangeNotifierProvider(
+        create: (_) => TaskViewModel(TaskService(), FirebaseAuth.instance),
+        child: const _TaskBody(),
+      ),
     );
   }
 }

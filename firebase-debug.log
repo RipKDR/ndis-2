@@ -1,0 +1,98 @@
+[debug] [2025-09-20T15:47:36.249Z] ----------------------------------------------------------------------
+[debug] [2025-09-20T15:47:36.252Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\H\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-09-20T15:47:36.253Z] CLI Version:   14.15.2
+[debug] [2025-09-20T15:47:36.253Z] Platform:      win32
+[debug] [2025-09-20T15:47:36.253Z] Node Version:  v24.8.0
+[debug] [2025-09-20T15:47:36.253Z] Time:          Sun Sep 21 2025 01:47:36 GMT+1000 (Australian Eastern Standard Time)
+[debug] [2025-09-20T15:47:36.253Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-20T15:47:36.513Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-20T15:47:36.514Z] > authorizing via signed-in user (harrisonferraro99@gmail.com)
+[debug] [2025-09-20T15:47:36.514Z] [iam] checking project distributed-inn-419801 for permissions ["cloudconfig.configs.get","cloudconfig.configs.update","cloudsql.databases.create","cloudsql.databases.update","cloudsql.instances.connect","cloudsql.instances.create","cloudsql.instances.get","cloudsql.instances.list","cloudsql.instances.update","cloudsql.users.create","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedataconnect.connectors.create","firebasedataconnect.connectors.delete","firebasedataconnect.connectors.list","firebasedataconnect.connectors.update","firebasedataconnect.operations.get","firebasedataconnect.schemas.create","firebasedataconnect.schemas.delete","firebasedataconnect.schemas.list","firebasedataconnect.schemas.update","firebasedataconnect.services.create","firebasedataconnect.services.delete","firebasedataconnect.services.list","firebasedataconnect.services.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2025-09-20T15:47:36.516Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:36.516Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:36.517Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/distributed-inn-419801:testIamPermissions [none]
+[debug] [2025-09-20T15:47:36.517Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/distributed-inn-419801:testIamPermissions x-goog-quota-user=projects/distributed-inn-419801
+[debug] [2025-09-20T15:47:36.517Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/distributed-inn-419801:testIamPermissions {"permissions":["cloudconfig.configs.get","cloudconfig.configs.update","cloudsql.databases.create","cloudsql.databases.update","cloudsql.instances.connect","cloudsql.instances.create","cloudsql.instances.get","cloudsql.instances.list","cloudsql.instances.update","cloudsql.users.create","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedataconnect.connectors.create","firebasedataconnect.connectors.delete","firebasedataconnect.connectors.list","firebasedataconnect.connectors.update","firebasedataconnect.operations.get","firebasedataconnect.schemas.create","firebasedataconnect.schemas.delete","firebasedataconnect.schemas.list","firebasedataconnect.schemas.update","firebasedataconnect.services.create","firebasedataconnect.services.delete","firebasedataconnect.services.list","firebasedataconnect.services.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2025-09-20T15:47:37.627Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/distributed-inn-419801:testIamPermissions 200
+[debug] [2025-09-20T15:47:37.627Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/distributed-inn-419801:testIamPermissions {"permissions":["cloudconfig.configs.get","cloudconfig.configs.update","cloudsql.databases.create","cloudsql.databases.update","cloudsql.instances.connect","cloudsql.instances.create","cloudsql.instances.get","cloudsql.instances.list","cloudsql.instances.update","cloudsql.users.create","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedataconnect.connectors.create","firebasedataconnect.connectors.delete","firebasedataconnect.connectors.list","firebasedataconnect.connectors.update","firebasedataconnect.operations.get","firebasedataconnect.schemas.create","firebasedataconnect.schemas.delete","firebasedataconnect.schemas.list","firebasedataconnect.schemas.update","firebasedataconnect.services.create","firebasedataconnect.services.delete","firebasedataconnect.services.list","firebasedataconnect.services.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[info] 
+[info] === Deploying to 'distributed-inn-419801'...
+[info] 
+[info] i  deploying storage, firestore, remoteconfig, dataconnect 
+[info] i  storage: ensuring required API firebasestorage.googleapis.com is enabled... 
+[debug] [2025-09-20T15:47:37.669Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:37.669Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:37.669Z] >>> [apiv2][query] GET https://firebasestorage.googleapis.com/v1alpha/projects/distributed-inn-419801/defaultBucket [none]
+[debug] [2025-09-20T15:47:38.560Z] <<< [apiv2][status] GET https://firebasestorage.googleapis.com/v1alpha/projects/distributed-inn-419801/defaultBucket 200
+[debug] [2025-09-20T15:47:38.560Z] <<< [apiv2][body] GET https://firebasestorage.googleapis.com/v1alpha/projects/distributed-inn-419801/defaultBucket {"name":"projects/distributed-inn-419801/defaultBucket","location":"US-CENTRAL1","bucket":{"name":"projects/distributed-inn-419801/buckets/distributed-inn-419801.firebasestorage.app"},"storageClass":"REGIONAL"}
+[info] i  firebase.storage: checking firebase/storage.rules for compilation errors... 
+[debug] [2025-09-20T15:47:38.563Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:38.564Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:38.564Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/distributed-inn-419801:test [none]
+[debug] [2025-09-20T15:47:38.564Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/distributed-inn-419801:test [omitted]
+[debug] [2025-09-20T15:47:40.237Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/distributed-inn-419801:test 200
+[debug] [2025-09-20T15:47:40.237Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/distributed-inn-419801:test {"issues":[{"sourcePosition":{"fileName":"firebase/storage.rules","line":27,"column":23,"currentOffset":940,"endOffset":942},"description":"Invalid function name: get.","severity":"WARNING"},{"sourcePosition":{"fileName":"firebase/storage.rules","line":34,"column":23,"currentOffset":1189,"endOffset":1191},"description":"Invalid function name: get.","severity":"WARNING"}]}
+[warn] !  [W] 27:23 - Invalid function name: get. 
+[warn] !  [W] 34:23 - Invalid function name: get. 
+[info] +  firebase.storage: rules file firebase/storage.rules compiled successfully 
+[info] i  firestore: reading indexes from firebase/firestore.indexes.json... 
+[info] i  cloud.firestore: checking firebase/firestore.rules for compilation errors... 
+[debug] [2025-09-20T15:47:40.242Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:40.243Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:40.243Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/distributed-inn-419801:test [none]
+[debug] [2025-09-20T15:47:40.243Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/distributed-inn-419801:test [omitted]
+[debug] [2025-09-20T15:47:40.644Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/distributed-inn-419801:test 200
+[debug] [2025-09-20T15:47:40.644Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/distributed-inn-419801:test {"issues":[{"sourcePosition":{"fileName":"firebase/firestore.rules","line":13,"column":14,"currentOffset":297,"endOffset":307},"description":"Unused function: isValidUser.","severity":"WARNING"},{"sourcePosition":{"fileName":"firebase/firestore.rules","line":15,"column":14,"currentOffset":356,"endOffset":362},"description":"Invalid variable name: request.","severity":"WARNING"},{"sourcePosition":{"fileName":"firebase/firestore.rules","line":18,"column":14,"currentOffset":423,"endOffset":435},"description":"Unused function: isParticipant.","severity":"WARNING"},{"sourcePosition":{"fileName":"firebase/firestore.rules","line":20,"column":14,"currentOffset":484,"endOffset":486},"description":"Invalid function name: get.","severity":"WARNING"},{"sourcePosition":{"fileName":"firebase/firestore.rules","line":20,"column":59,"currentOffset":529,"endOffset":535},"description":"Invalid variable name: request.","severity":"WARNING"}]}
+[warn] !  [W] 13:14 - Unused function: isValidUser. 
+[warn] !  [W] 15:14 - Invalid variable name: request. 
+[warn] !  [W] 18:14 - Unused function: isParticipant. 
+[warn] !  [W] 20:14 - Invalid function name: get. 
+[warn] !  [W] 20:59 - Invalid variable name: request. 
+[info] +  cloud.firestore: rules file firebase/firestore.rules compiled successfully 
+[debug] [2025-09-20T15:47:40.649Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:40.649Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:40.649Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/distributed-inn-419801/services/cloudresourcemanager.googleapis.com [none]
+[debug] [2025-09-20T15:47:40.649Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/distributed-inn-419801/services/cloudresourcemanager.googleapis.com x-goog-quota-user=projects/distributed-inn-419801
+[debug] [2025-09-20T15:47:41.141Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/distributed-inn-419801/services/cloudresourcemanager.googleapis.com 200
+[debug] [2025-09-20T15:47:41.142Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/distributed-inn-419801/services/cloudresourcemanager.googleapis.com [omitted]
+[debug] [2025-09-20T15:47:41.147Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:41.147Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:41.148Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/distributed-inn-419801 [none]
+[debug] [2025-09-20T15:47:41.430Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/distributed-inn-419801 200
+[debug] [2025-09-20T15:47:41.430Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/distributed-inn-419801 {"projectNumber":"669169575872","projectId":"distributed-inn-419801","lifecycleState":"ACTIVE","name":"My First Project","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2024-04-09T01:22:58.412684Z"}
+[debug] [2025-09-20T15:47:41.430Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:41.430Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:41.431Z] >>> [apiv2][query] GET https://firebaseremoteconfig.googleapis.com/v1/projects/669169575872/remoteConfig 
+[debug] [2025-09-20T15:47:42.079Z] <<< [apiv2][status] GET https://firebaseremoteconfig.googleapis.com/v1/projects/669169575872/remoteConfig 200
+[debug] [2025-09-20T15:47:42.079Z] <<< [apiv2][body] GET https://firebaseremoteconfig.googleapis.com/v1/projects/669169575872/remoteConfig {}
+[debug] [2025-09-20T15:47:42.080Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:42.080Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:42.080Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/distributed-inn-419801/billingInfo [none]
+[debug] [2025-09-20T15:47:43.675Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/distributed-inn-419801/billingInfo 200
+[debug] [2025-09-20T15:47:43.675Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/distributed-inn-419801/billingInfo {"name":"projects/distributed-inn-419801/billingInfo","projectId":"distributed-inn-419801","billingAccountName":"billingAccounts/012A49-7B6A26-C2FF7E","billingEnabled":true}
+[info] i  dataconnect: ensuring required API firebasedataconnect.googleapis.com is enabled... 
+[info] i  dataconnect: ensuring required API sqladmin.googleapis.com is enabled... 
+[debug] [2025-09-20T15:47:43.677Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:43.677Z] Checked if tokens are valid: true, expires at: 1758386300639
+[debug] [2025-09-20T15:47:43.678Z] >>> [apiv2][query] GET https://mobilesdk-pa.googleapis.com/v1/accessmanagement/tos:getStatus [none]
+[debug] [2025-09-20T15:47:44.559Z] <<< [apiv2][status] GET https://mobilesdk-pa.googleapis.com/v1/accessmanagement/tos:getStatus 200
+[debug] [2025-09-20T15:47:44.560Z] <<< [apiv2][body] GET https://mobilesdk-pa.googleapis.com/v1/accessmanagement/tos:getStatus {"overallStatus":"ACCEPTED","uTosStatus":{"tos":{"id":"firebase","tosId":"FIREBASE_UNIVERSAL"},"status":"ACCEPTED","acceptedVersion":7},"childTosStatus":[{"tos":{"id":"cloud","tosId":"CLOUD_PLATFORM"},"status":"ACCEPTED","acceptedVersion":39},{"tos":{"id":"firebase_b2b","tosId":"FIREBASE_B2B"},"status":"ACCEPTED","acceptedVersion":1},{"tos":{"id":"universal","tosId":"GOOGLE_APIS"},"status":"ACCEPTED","acceptedVersion":6}],"termsUrl":"https://firebase.google.com/terms","perServiceStatus":[{"tosId":"APP_CHECK","serviceStatus":{"tos":{"id":"app_check","tosId":"APP_CHECK"},"status":"ACCEPTED","acceptedVersion":3}},{"tosId":"APP_HOSTING_TOS","serviceStatus":{"tos":{"id":"app_hosting","tosId":"APP_HOSTING_TOS"},"status":"ACCEPTED","acceptedVersion":3}},{"tosId":"FIREBASE_DATA_CONNECT","serviceStatus":{"tos":{"id":"data_connect","tosId":"FIREBASE_DATA_CONNECT"},"status":"ACCEPTED","acceptedVersion":3}},{"tosId":"CORE_APPS","serviceStatus":{"tos":{"id":"core_apps","tosId":"CORE_APPS"},"status":"ACCEPTED","acceptedVersion":1}},{"tosId":"VERTEX_AI_IN_FIREBASE","serviceStatus":{"tos":{"id":"vertex_ai_in_firebase","tosId":"VERTEX_AI_IN_FIREBASE"},"status":"ACCEPTED","acceptedVersion":2}},{"tosId":"FIREBASE_CRASHLYTICS_APP_DISTRIBUTION","serviceStatus":{"tos":{"id":"firebase_crashlytics_app_distribution","tosId":"FIREBASE_CRASHLYTICS_APP_DISTRIBUTION"},"status":"ACCEPTED","acceptedVersion":4}},{"tosId":"GENERATIVE_LANGUAGE","serviceStatus":{"tos":{"id":"generative-language-api","tosId":"GENERATIVE_LANGUAGE"},"status":"ACCEPTED","acceptedVersion":3}}]}
+[info] i  dataconnect: downloading dataconnect-emulator-2.12.0.exe... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-2.12.0.exe..."}}
+[debug] [2025-09-20T15:47:44.596Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v2.12.0 
+[debug] [2025-09-20T15:47:45.138Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v2.12.0 200
+[debug] [2025-09-20T15:47:45.138Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v2.12.0 [stream]
+[info] i  dataconnect: Removing outdated emulator files: dataconnect-emulator-2.13.0.exe {"metadata":{"emulator":{"name":"dataconnect"},"message":"Removing outdated emulator files: dataconnect-emulator-2.13.0.exe"}}
+[debug] [2025-09-20T15:47:48.857Z] Error: EPERM, Permission denied: \\?\C:\Users\H\.cache\firebase\emulators\dataconnect-emulator-2.13.0.exe '\\?\C:\Users\H\.cache\firebase\emulators\dataconnect-emulator-2.13.0.exe'
+    at Object.rmSync (node:fs:1236:18)
+    at Object.removeSync (C:\Users\H\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\fs-extra\lib\remove\index.js:15:28)
+    at removeOldFiles (C:\Users\H\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\download.js:68:16)
+    at downloadEmulator (C:\Users\H\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\download.js:36:5)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async downloadIfNecessary (C:\Users\H\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\downloadableEmulators.js:369:9)
+    at async DataConnectEmulator.build (C:\Users\H\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\dataconnectEmulator.js:192:29)
+    at async build (C:\Users\H\AppData\Roaming\npm\node_modules\firebase-tools\lib\dataconnect\build.js:17:25)
+    at async default_1 (C:\Users\H\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\dataconnect\prepare.js:31:33)
+    at async chain (C:\Users\H\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:42:9)
+[error] 
+[error] Error: An unexpected error has occurred.

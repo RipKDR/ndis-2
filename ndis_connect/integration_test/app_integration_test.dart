@@ -118,7 +118,8 @@ void main() {
 
       // Verify message was sent and response received
       expect(find.text('Hello, I need help'), findsOneWidget);
-      expect(find.byType(ChatMessage), findsWidgets);
+      expect(
+          find.byWidgetPredicate((w) => w.runtimeType.toString() == 'ChatMessage'), findsWidgets);
 
       // Test quick actions
       await tester.tap(find.text('Help with tasks'));
@@ -165,7 +166,10 @@ void main() {
       expect(find.text('Calendar'), findsOneWidget);
 
       // Verify calendar is displayed
-      expect(find.byType(Calendar), findsOneWidget);
+      expect(find.text('Calendar'), findsOneWidget);
+
+      // Verify calendar is displayed (use runtimeType predicate to avoid undefined Calendar type)
+      expect(find.byWidgetPredicate((w) => w.runtimeType.toString() == 'Calendar'), findsOneWidget);
     });
 
     testWidgets('Complete user journey - Settings Screen', (WidgetTester tester) async {
@@ -236,7 +240,7 @@ void main() {
 
       // Simulate offline mode (this would need to be implemented in the app)
       // For now, just verify the app handles connectivity changes gracefully
-      
+
       // Navigate to tasks screen
       await tester.tap(find.text('Tasks'));
       await tester.pumpAndSettle();

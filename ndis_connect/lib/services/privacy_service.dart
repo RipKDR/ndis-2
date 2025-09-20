@@ -1,20 +1,11 @@
 import 'dart:convert';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrivacyService {
-  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
   late SharedPreferences _prefs;
 
   // Privacy settings keys
   static const String _privacySettingsKey = 'privacy_settings';
-  static const String _dataCollectionKey = 'data_collection_consent';
-  static const String _analyticsKey = 'analytics_consent';
-  static const String _crashReportingKey = 'crash_reporting_consent';
-  static const String _personalizationKey = 'personalization_consent';
-  static const String _locationTrackingKey = 'location_tracking_consent';
-  static const String _biometricDataKey = 'biometric_data_consent';
-  static const String _dataRetentionKey = 'data_retention_settings';
 
   // Initialize the service
   Future<void> initialize() async {
@@ -59,9 +50,9 @@ class PrivacyService {
         ...settings,
         'lastUpdated': DateTime.now().toIso8601String(),
       };
-      
+
       await _prefs.setString(_privacySettingsKey, jsonEncode(updatedSettings));
-      
+
       // Log privacy settings change
       await _logPrivacyEvent('settings_updated', updatedSettings);
     } catch (e) {
@@ -85,7 +76,7 @@ class PrivacyService {
       final settings = await getPrivacySettings();
       settings[consentType] = value;
       await updatePrivacySettings(settings);
-      
+
       // Log consent change
       await _logPrivacyEvent('consent_changed', {
         'consentType': consentType,
@@ -201,7 +192,7 @@ class PrivacyService {
   // Request all consents (for initial setup)
   Future<Map<String, bool>> requestAllConsents() async {
     final consents = <String, bool>{};
-    
+
     consents['dataCollection'] = await getDataCollectionConsent();
     consents['analytics'] = await getAnalyticsConsent();
     consents['crashReporting'] = await getCrashReportingConsent();
@@ -211,7 +202,7 @@ class PrivacyService {
     consents['autoDeleteData'] = await getAutoDeleteData();
     consents['shareDataWithThirdParties'] = await getShareDataWithThirdPartiesConsent();
     consents['marketingCommunications'] = await getMarketingCommunicationsConsent();
-    
+
     return consents;
   }
 
@@ -219,13 +210,13 @@ class PrivacyService {
   Future<void> updateAllConsents(Map<String, bool> consents) async {
     try {
       final settings = await getPrivacySettings();
-      
+
       for (final entry in consents.entries) {
         settings[entry.key] = entry.value;
       }
-      
+
       await updatePrivacySettings(settings);
-      
+
       // Log bulk consent update
       await _logPrivacyEvent('bulk_consent_update', consents);
     } catch (e) {
@@ -238,7 +229,7 @@ class PrivacyService {
     try {
       final defaultSettings = getDefaultPrivacySettings();
       await updatePrivacySettings(defaultSettings);
-      
+
       // Log privacy reset
       await _logPrivacyEvent('privacy_reset', defaultSettings);
     } catch (e) {
@@ -251,7 +242,7 @@ class PrivacyService {
     try {
       final privacySettings = await getPrivacySettings();
       final consentHistory = await getConsentHistory();
-      
+
       return {
         'privacySettings': privacySettings,
         'consentHistory': consentHistory,
@@ -272,10 +263,10 @@ class PrivacyService {
     try {
       // Clear all privacy settings
       await _prefs.remove(_privacySettingsKey);
-      
+
       // Clear consent history
       await _clearConsentHistory();
-      
+
       // Log data deletion
       await _logPrivacyEvent('data_deleted', {
         'timestamp': DateTime.now().toIso8601String(),
@@ -304,20 +295,20 @@ class PrivacyService {
   Future<void> _logPrivacyEvent(String eventType, Map<String, dynamic> data) async {
     try {
       final history = await getConsentHistory();
-      
+
       final event = {
         'eventType': eventType,
         'timestamp': DateTime.now().toIso8601String(),
         'data': data,
       };
-      
+
       history.add(event);
-      
+
       // Keep only last 100 events
       if (history.length > 100) {
         history.removeRange(0, history.length - 100);
       }
-      
+
       await _prefs.setString('consent_history', jsonEncode(history));
     } catch (e) {
       // Silently fail for privacy logging
@@ -360,7 +351,7 @@ class PrivacyService {
     try {
       final settings = await getPrivacySettings();
       final history = await getConsentHistory();
-      
+
       return {
         'isCompliant': true, // Add compliance checks here
         'consentCount': history.length,
@@ -384,7 +375,7 @@ class PrivacyService {
   Future<bool> validatePrivacySettings() async {
     try {
       final settings = await getPrivacySettings();
-      
+
       // Check required fields
       final requiredFields = [
         'dataCollection',
@@ -398,19 +389,19 @@ class PrivacyService {
         'shareDataWithThirdParties',
         'marketingCommunications',
       ];
-      
+
       for (final field in requiredFields) {
         if (!settings.containsKey(field)) {
           return false;
         }
       }
-      
+
       // Validate data retention days
       final retentionDays = settings['dataRetentionDays'] as int?;
       if (retentionDays == null || retentionDays < 1 || retentionDays > 3650) {
         return false;
       }
-      
+
       return true;
     } catch (e) {
       return false;
@@ -422,7 +413,7 @@ class PrivacyService {
     try {
       final settings = await getPrivacySettings();
       final compliance = await getPrivacyComplianceStatus();
-      
+
       return {
         'dataCollectionEnabled': settings['dataCollection'] as bool? ?? false,
         'analyticsEnabled': settings['analytics'] as bool? ?? false,

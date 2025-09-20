@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as dev;
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 
@@ -18,6 +19,9 @@ enum ErrorType {
   timeout,
   rateLimit,
   serverError,
+  firebase,
+  firestore,
+  storage,
 }
 
 enum ErrorSeverity { low, medium, high, critical }
@@ -167,8 +171,28 @@ class ErrorHandlingService {
       message = error.toString();
     }
 
+    // Parse Firebase-specific errors first
+    if (error is FirebaseAuthException) {
+      type = ErrorType.authentication;
+      code = error.code;
+      message = _getFirebaseAuthErrorMessage(error);
+      severity = _getFirebaseAuthErrorSeverity(error);
+      isRetryable = _isFirebaseAuthErrorRetryable(error);
+    } else if (error is FirebaseException) {
+      if (error.plugin == 'cloud_firestore') {
+        type = ErrorType.firestore;
+      } else if (error.plugin == 'firebase_storage') {
+        type = ErrorType.storage;
+      } else {
+        type = ErrorType.firebase;
+      }
+      code = error.code;
+      message = _getFirebaseErrorMessage(error);
+      severity = _getFirebaseErrorSeverity(error);
+      isRetryable = _isFirebaseErrorRetryable(error);
+    }
     // Parse common error patterns
-    if (message.contains('network') || message.contains('connection')) {
+    else if (message.contains('network') || message.contains('connection')) {
       type = ErrorType.network;
       severity = ErrorSeverity.medium;
       isRetryable = true;
@@ -288,8 +312,13 @@ class ErrorHandlingService {
         return 'This feature requires an internet connection.';
       case ErrorType.database:
         return 'Unable to save data. Please try again.';
+      case ErrorType.firebase:
+        return 'Firebase service error. Please try again.';
+      case ErrorType.firestore:
+        return 'Unable to access data. Please check your connection.';
+      case ErrorType.storage:
+        return 'File operation failed. Please try again.';
       case ErrorType.unknown:
-      default:
         return 'Something went wrong. Please try again.';
     }
   }
@@ -368,6 +397,154 @@ class ErrorHandlingService {
   }
 
   // Dispose resources
+  // Firebase-specific error handlers
+  String _getFirebaseAuthErrorMessage(FirebaseAuthException error) {
+    switch (error.code) {
+      case 'user-not-found':
+        return 'No account found with this email address.';
+      case 'wrong-password':
+        return 'Incorrect password. Please try again.';
+      case 'email-already-in-use':
+        return 'An account already exists with this email address.';
+      case 'weak-password':
+        return 'Password is too weak. Please choose a stronger password.';
+      case 'invalid-email':
+        return 'Please enter a valid email address.';
+      case 'user-disabled':
+        return 'This account has been disabled. Please contact support.';
+      case 'too-many-requests':
+        return 'Too many failed attempts. Please try again later.';
+      case 'operation-not-allowed':
+        return 'This sign-in method is not enabled.';
+      case 'network-request-failed':
+        return 'Network error. Please check your connection.';
+      case 'requires-recent-login':
+        return 'Please sign in again to continue.';
+      default:
+        return error.message ?? 'Authentication error occurred.';
+    }
+  }
+
+  ErrorSeverity _getFirebaseAuthErrorSeverity(FirebaseAuthException error) {
+    switch (error.code) {
+      case 'user-disabled':
+      case 'too-many-requests':
+        return ErrorSeverity.high;
+      case 'network-request-failed':
+      case 'requires-recent-login':
+        return ErrorSeverity.medium;
+      default:
+        return ErrorSeverity.low;
+    }
+  }
+
+  bool _isFirebaseAuthErrorRetryable(FirebaseAuthException error) {
+    switch (error.code) {
+      case 'network-request-failed':
+      case 'too-many-requests':
+        return true;
+      case 'user-disabled':
+      case 'email-already-in-use':
+        return false;
+      default:
+        return false;
+    }
+  }
+
+  String _getFirebaseErrorMessage(FirebaseException error) {
+    switch (error.code) {
+      case 'permission-denied':
+        return 'You don\'t have permission to access this data.';
+      case 'not-found':
+        return 'The requested data was not found.';
+      case 'already-exists':
+        return 'The data already exists.';
+      case 'resource-exhausted':
+        return 'Service quota exceeded. Please try again later.';
+      case 'failed-precondition':
+        return 'Operation failed due to invalid state.';
+      case 'aborted':
+        return 'Operation was aborted. Please try again.';
+      case 'out-of-range':
+        return 'Request was out of valid range.';
+      case 'unimplemented':
+        return 'This feature is not yet implemented.';
+      case 'internal':
+        return 'Internal server error. Please try again later.';
+      case 'unavailable':
+        return 'Service is currently unavailable. Please try again later.';
+      case 'data-loss':
+        return 'Data corruption detected. Please contact support.';
+      case 'unauthenticated':
+        return 'Please sign in to continue.';
+      case 'deadline-exceeded':
+        return 'Request timed out. Please try again.';
+      case 'cancelled':
+        return 'Operation was cancelled.';
+      default:
+        return error.message ?? 'Firebase error occurred.';
+    }
+  }
+
+  ErrorSeverity _getFirebaseErrorSeverity(FirebaseException error) {
+    switch (error.code) {
+      case 'data-loss':
+      case 'internal':
+        return ErrorSeverity.critical;
+      case 'permission-denied':
+      case 'unauthenticated':
+      case 'resource-exhausted':
+        return ErrorSeverity.high;
+      case 'unavailable':
+      case 'deadline-exceeded':
+      case 'aborted':
+        return ErrorSeverity.medium;
+      default:
+        return ErrorSeverity.low;
+    }
+  }
+
+  bool _isFirebaseErrorRetryable(FirebaseException error) {
+    switch (error.code) {
+      case 'unavailable':
+      case 'deadline-exceeded':
+      case 'aborted':
+      case 'resource-exhausted':
+      case 'internal':
+        return true;
+      case 'permission-denied':
+      case 'not-found':
+      case 'already-exists':
+      case 'unauthenticated':
+        return false;
+      default:
+        return false;
+    }
+  }
+
+  // Firebase-specific error handling methods
+  void handleFirebaseError(FirebaseException error, {Map<String, dynamic>? context}) {
+    handleError(
+      error,
+      context: {
+        ...?context,
+        'firebase_plugin': error.plugin,
+        'firebase_code': error.code,
+      },
+    );
+  }
+
+  void handleFirebaseAuthError(FirebaseAuthException error, {Map<String, dynamic>? context}) {
+    handleError(
+      error,
+      context: {
+        ...?context,
+        'auth_code': error.code,
+        'auth_credential': error.credential?.toString(),
+      },
+    );
+  }
+
   void dispose() {
     _errorController.close();
   }

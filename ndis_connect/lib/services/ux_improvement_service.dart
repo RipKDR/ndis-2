@@ -3,14 +3,12 @@ import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 import 'package:ndis_connect/services/accessibility_service.dart';
-import 'package:ndis_connect/services/error_handling_service.dart';
 
 class UXImprovementService {
   static final UXImprovementService _instance = UXImprovementService._internal();
   factory UXImprovementService() => _instance;
   UXImprovementService._internal();
 
-  final ErrorHandlingService _errorService = ErrorHandlingService();
   final AccessibilityService _accessibilityService = AccessibilityService();
 
   // UX metrics tracking

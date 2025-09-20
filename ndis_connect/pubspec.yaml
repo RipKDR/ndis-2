@@ -1,7 +1,7 @@
 name: ndis_connect
 description: NDIS Connect – Accessible Flutter app for NDIS participants and providers.
 publish_to: "none"
-version: 0.1.0+1
+version: 2.0.2
 
 environment:
   sdk: ">=3.2.0 <4.0.0"
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.6
+  cupertino_icons: ^1.0.8
 
   # Firebase
   firebase_core: ^4.1.0
@@ -23,7 +23,7 @@ dependencies:
   firebase_crashlytics: ^5.0.1
 
   # UI / State
-  provider: ^6.1.2
+  provider: ^6.1.5+1
   get_it: ^8.2.0
 
   # Accessibility & i18n
@@ -34,49 +34,50 @@ dependencies:
   speech_to_text: ^7.3.0
 
   # Maps & Location
-  google_maps_flutter: ^2.5.0
-  connectivity_plus: ^6.0.4
+  google_maps_flutter: ^2.13.1
+  connectivity_plus: ^7.0.0
   geolocator: ^14.0.2
 
   # Security & Offline
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  path_provider: ^2.1.4
+  path_provider: ^2.1.5
   encrypt: ^5.0.3
   crypto: ^3.0.6
-  flutter_secure_storage: ^9.2.2
-  local_auth: ^2.1.8
-  shared_preferences: ^2.2.2
+  flutter_secure_storage: ^9.2.4
+  local_auth: ^2.3.0
+  shared_preferences: ^2.5.3
 
   # Payments
   flutter_stripe: ^12.0.2
 
   # Media/Sharing
-  url_launcher: ^6.3.0
-  share_plus: ^11.1.0
+  url_launcher: ^6.3.2
+  share_plus: ^12.0.0
 
   # Visuals & Docs
-  fl_chart: ^1.1.0 # More compatible charting library
+  fl_chart: ^1.1.1 # More compatible charting library
   timeline_tile: ^2.0.0
-  pdf: ^3.11.0
-  cached_network_image: ^3.3.1
+  pdf: ^3.11.3
+  cached_network_image: ^3.4.1
 
   # Misc
-  http: ^1.2.2
-  wear: ^1.1.0
+  http: ^1.5.0
   uuid: ^4.5.1
 
+  intl: 0.20.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  integration_test:
-    sdk: flutter
   lints: ^6.0.0
-  build_runner: ^2.7.1
-  mockito: ^5.5.0
-  fake_async: ^1.3.1
-  test: ^1.26.2
+  build_runner: ^2.8.0
+  mockito: ^5.5.1
+  fake_async: ^1.3.3
 
+  firebase_auth_platform_interface: 8.1.1
+  firebase_remote_config_platform_interface: 2.0.2
+  cloud_firestore_platform_interface: 7.0.1
+  connectivity_plus_platform_interface: 2.0.1
 flutter:
   uses-material-design: true
   generate: true

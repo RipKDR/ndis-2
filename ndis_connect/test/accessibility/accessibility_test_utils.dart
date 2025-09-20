@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 class AccessibilityTestUtils {
   static bool checkSemantics(WidgetTester tester) {
     // Check for semantic labels
-    final semantics = tester.binding.pipelineOwner.semanticsOwner;
+    final semantics = tester.binding.rootPipelineOwner.semanticsOwner;
     if (semantics != null) {
       final root = semantics.rootSemanticsNode;
       root?.visitChildren((SemanticsNode node) {
@@ -18,12 +18,14 @@ class AccessibilityTestUtils {
 
   static void _checkSemanticNode(SemanticsNode node) {
     // Check for required semantic properties
-    if (node.hasFlag(SemanticsFlag.isButton) ||
-        node.hasFlag(SemanticsFlag.isTextField) ||
-        node.hasFlag(SemanticsFlag.isImage)) {
-      if (node.label.isEmpty) {
-        debugPrint('Semantic node missing label: ${node.label}');
+    final semanticsData = node.getSemanticsData();
+    if (semanticsData.flagsCollection(SemanticsFlag.isButton) ||
+        semanticsData.flagsCollection(SemanticsFlag.isTextField) ||
+        semanticsData.flagsCollection(SemanticsFlag.isImage)) {
+      if (semanticsData.label.isEmpty) { 
+        debugPrint('Semantic node missing label: ${semanticsData.label}');
       }
+    }
     }
 
     // Recursively check children
@@ -31,7 +33,7 @@ class AccessibilityTestUtils {
       _checkSemanticNode(child);
       return true;
     });
-  }
+
 
   static void checkColorContrast(WidgetTester tester) {
     // Basic color contrast checks

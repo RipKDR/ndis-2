@@ -65,13 +65,15 @@ void main() {
           'lastUpdated': DateTime.now().toIso8601String(),
         };
 
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.get()).thenAnswer((_) async => mockQuerySnapshot);
-        when(mockQuerySnapshot.docs).thenReturn([mockDocumentSnapshot]);
+
+        // Fix: Ensure the mockDocumentSnapshot is of the correct type for QueryDocumentSnapshot<Object?>
+        when(mockQuerySnapshot.docs)
+            .thenReturn([mockDocumentSnapshot as QueryDocumentSnapshot<Map<String, dynamic>>]);
         when(mockDocumentSnapshot.data()).thenReturn(mockProviderData);
         when(mockDocumentSnapshot.id).thenReturn('provider-1');
-
-        // Act
         final result = await serviceProviderService.fetchAll();
 
         // Assert
@@ -87,7 +89,8 @@ void main() {
         // Arrange
         const category = ServiceProviderCategory.therapy;
 
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.where('category', isEqualTo: 'therapy')).thenReturn(mockQuery);
         when(mockQuery.get()).thenAnswer((_) async => mockQuerySnapshot);
         when(mockQuerySnapshot.docs).thenReturn([]);
@@ -106,7 +109,8 @@ void main() {
         // Arrange
         const query = 'therapy';
 
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.where('name', isGreaterThanOrEqualTo: 'therapy')).thenReturn(mockQuery);
         when(mockQuery.where('name', isLessThan: 'therapy\uf8ff')).thenReturn(mockQuery);
         when(mockQuery.get()).thenAnswer((_) async => mockQuerySnapshot);
@@ -146,7 +150,8 @@ void main() {
           'lastUpdated': DateTime.now().toIso8601String(),
         };
 
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.doc(providerId)).thenReturn(mockDocument);
         when(mockDocument.get()).thenAnswer((_) async => mockDocumentSnapshot);
         when(mockDocumentSnapshot.exists).thenReturn(true);
@@ -166,7 +171,8 @@ void main() {
         // Arrange
         const providerId = 'non-existent';
 
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.doc(providerId)).thenReturn(mockDocument);
         when(mockDocument.get()).thenAnswer((_) async => mockDocumentSnapshot);
         when(mockDocumentSnapshot.exists).thenReturn(false);
@@ -203,7 +209,8 @@ void main() {
           lastUpdated: DateTime.now(),
         );
 
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.doc('provider-1')).thenReturn(mockDocument);
         when(mockDocument.set(any)).thenAnswer((_) async {});
 
@@ -239,7 +246,8 @@ void main() {
           lastUpdated: DateTime.now(),
         );
 
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.doc('provider-1')).thenReturn(mockDocument);
         when(mockDocument.update(any)).thenAnswer((_) async {});
 
@@ -256,7 +264,8 @@ void main() {
         // Arrange
         const providerId = 'provider-1';
 
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.doc(providerId)).thenReturn(mockDocument);
         when(mockDocument.delete()).thenAnswer((_) async {});
 
@@ -276,7 +285,8 @@ void main() {
         const radiusKm = 10.0;
 
         // Mock fetchAll to return sample providers
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.get()).thenAnswer((_) async => mockQuerySnapshot);
 
         final mockProvidersData = [
@@ -331,7 +341,7 @@ void main() {
           return mockDoc;
         }).toList();
 
-        when(mockQuerySnapshot.docs).thenReturn(mockDocs);
+        when(mockQuerySnapshot.docs).thenReturn(mockDocs as List<QueryDocumentSnapshot<Object?>>);
 
         // Act
         final result = await serviceProviderService.getNearbyProviders(
@@ -350,7 +360,8 @@ void main() {
     group('getAccessibleProviders', () {
       test('should return providers with accessibility features', () async {
         // Arrange
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.get()).thenAnswer((_) async => mockQuerySnapshot);
 
         final mockProvidersData = [
@@ -405,7 +416,7 @@ void main() {
           return mockDoc;
         }).toList();
 
-        when(mockQuerySnapshot.docs).thenReturn(mockDocs);
+        when(mockQuerySnapshot.docs).thenReturn(mockDocs as List<QueryDocumentSnapshot<Object?>>);
 
         // Act
         final result = await serviceProviderService.getAccessibleProviders();
@@ -421,7 +432,8 @@ void main() {
     group('getVerifiedProviders', () {
       test('should return only verified providers', () async {
         // Arrange
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.get()).thenAnswer((_) async => mockQuerySnapshot);
 
         final mockProvidersData = [
@@ -476,7 +488,7 @@ void main() {
           return mockDoc;
         }).toList();
 
-        when(mockQuerySnapshot.docs).thenReturn(mockDocs);
+        when(mockQuerySnapshot.docs).thenReturn(mockDocs as List<QueryDocumentSnapshot<Object?>>);
 
         // Act
         final result = await serviceProviderService.getVerifiedProviders();
@@ -492,7 +504,8 @@ void main() {
     group('getAvailableProviders', () {
       test('should return only available providers', () async {
         // Arrange
-        when(mockFirestore.collection('providers')).thenReturn(mockCollection);
+        when(mockFirestore.collection('providers'))
+            .thenReturn(mockCollection as CollectionReference<Map<String, dynamic>>);
         when(mockCollection.get()).thenAnswer((_) async => mockQuerySnapshot);
 
         final mockProvidersData = [
@@ -516,7 +529,7 @@ void main() {
             'accessibilityFeatures': [],
             'distanceFromUser': 0.0,
             'lastUpdated': DateTime.now().toIso8601String(),
-          },
+          } as Map<String, dynamic>,
           {
             'id': 'provider-2',
             'name': 'Unavailable Provider',
@@ -537,7 +550,7 @@ void main() {
             'accessibilityFeatures': [],
             'distanceFromUser': 0.0,
             'lastUpdated': DateTime.now().toIso8601String(),
-          },
+          } as Map<String, dynamic>,
         ];
 
         final mockDocs = mockProvidersData.map((data) {
@@ -547,7 +560,7 @@ void main() {
           return mockDoc;
         }).toList();
 
-        when(mockQuerySnapshot.docs).thenReturn(mockDocs);
+        when(mockQuerySnapshot.docs).thenReturn(mockDocs as List<QueryDocumentSnapshot<Object?>>);
 
         // Act
         final result = await serviceProviderService.getAvailableProviders();

@@ -38,7 +38,7 @@ class EnhancedLoadingIndicator extends StatelessWidget {
             Text(
               message!,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.7),
+                    color: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.7),
                   ),
               textAlign: TextAlign.center,
             ),
@@ -92,7 +92,7 @@ class EnhancedErrorWidget extends StatelessWidget {
               Text(
                 details!,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.7),
+                      color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.7),
                     ),
                 textAlign: TextAlign.center,
               ),
@@ -140,13 +140,13 @@ class EnhancedEmptyState extends StatelessWidget {
             Icon(
               icon ?? Icons.inbox_outlined,
               size: 64,
-              color: iconColor ?? Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+              color: iconColor ?? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
             ),
             const SizedBox(height: 16),
             Text(
               title,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
               textAlign: TextAlign.center,
             ),
@@ -155,7 +155,7 @@ class EnhancedEmptyState extends StatelessWidget {
               Text(
                 subtitle!,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                     ),
                 textAlign: TextAlign.center,
               ),
@@ -199,8 +199,8 @@ class EnhancedSuccessWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.1),
-        border: Border.all(color: Colors.green.withOpacity(0.3)),
+        color: Colors.green.withValues(alpha: 0.1),
+        border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -431,7 +431,7 @@ class EnhancedToast extends StatelessWidget {
         border: Border.all(color: colors['border']!),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -476,30 +476,29 @@ class EnhancedToast extends StatelessWidget {
     switch (type) {
       case ToastType.success:
         return {
-          'background': Colors.green.withOpacity(0.1),
-          'border': Colors.green.withOpacity(0.3),
+          'background': Colors.green.withValues(alpha: 0.1),
+          'border': Colors.green.withValues(alpha: 0.3),
           'icon': Colors.green,
           'text': Colors.green[800]!,
         };
       case ToastType.error:
         return {
-          'background': Colors.red.withOpacity(0.1),
-          'border': Colors.red.withOpacity(0.3),
+          'background': Colors.red.withValues(alpha: 0.1),
+          'border': Colors.red.withValues(alpha: 0.3),
           'icon': Colors.red,
           'text': Colors.red[800]!,
         };
       case ToastType.warning:
         return {
-          'background': Colors.orange.withOpacity(0.1),
-          'border': Colors.orange.withOpacity(0.3),
+          'background': Colors.orange.withValues(alpha: 0.1),
+          'border': Colors.orange.withValues(alpha: 0.3),
           'icon': Colors.orange,
           'text': Colors.orange[800]!,
         };
       case ToastType.info:
-      default:
         return {
-          'background': Colors.blue.withOpacity(0.1),
-          'border': Colors.blue.withOpacity(0.3),
+          'background': Colors.blue.withValues(alpha: 0.1),
+          'border': Colors.blue.withValues(alpha: 0.3),
           'icon': Colors.blue,
           'text': Colors.blue[800]!,
         };
@@ -515,7 +514,6 @@ class EnhancedToast extends StatelessWidget {
       case ToastType.warning:
         return Icons.warning;
       case ToastType.info:
-      default:
         return Icons.info;
     }
   }

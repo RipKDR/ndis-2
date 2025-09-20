@@ -18,7 +18,7 @@ void main() {
       mockAuth = MockFirebaseAuth();
       mockUser = MockUser();
       mockUserCredential = MockUserCredential();
-      authService = AuthService();
+      authService = AuthService(auth: mockAuth);
     });
 
     group('signInWithEmailAndPassword', () {

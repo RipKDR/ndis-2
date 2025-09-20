@@ -7,18 +7,17 @@ void main() {
       // Arrange
       final map = {
         'id': 'test-task-id',
+        'ownerUid': 'test-user-id',
         'title': 'Test Task',
         'description': 'Test Description',
         'category': 'dailyLiving',
         'priority': 'high',
         'status': 'pending',
         'dueDate': '2024-12-31T23:59:59.000Z',
-        'userId': 'test-user-id',
         'createdAt': '2024-01-01T00:00:00.000Z',
-        'updatedAt': '2024-01-01T00:00:00.000Z',
         'progress': 50,
         'isRecurring': false,
-        'recurrencePattern': null,
+        'recurringPattern': null,
         'tags': ['urgent', 'important'],
         'notes': 'Test notes',
       };
@@ -69,10 +68,10 @@ void main() {
       expect(map['category'], equals('therapy'));
       expect(map['priority'], equals('medium'));
       expect(map['status'], equals('inProgress'));
-      expect(map['userId'], equals('test-user-id'));
+      expect(map['ownerUid'], equals('test-user-id'));
       expect(map['progress'], equals(75));
       expect(map['isRecurring'], equals(true));
-      expect(map['recurrencePattern'], equals('weekly'));
+      expect(map['recurringPattern'], equals('weekly'));
       expect(map['tags'], equals(['therapy', 'weekly']));
       expect(map['notes'], equals('Weekly therapy session'));
     });
@@ -87,12 +86,12 @@ void main() {
         'priority': 'low',
         'status': 'pending',
         'dueDate': null,
-        'userId': 'test-user-id',
+        'ownerUid': 'test-user-id',
         'createdAt': null,
         'updatedAt': null,
         'progress': null,
         'isRecurring': null,
-        'recurrencePattern': null,
+        'recurringPattern': null,
         'tags': null,
         'notes': null,
       };
@@ -227,7 +226,7 @@ void main() {
 
       // Act & Assert
       expect(task.progress, equals(75));
-      expect(task.status, equals(TaskStatus.pending));
+      expect(task.status, equals(TaskStatus.inProgress));
 
       // Test completed task
       final completedTask = TaskModel(

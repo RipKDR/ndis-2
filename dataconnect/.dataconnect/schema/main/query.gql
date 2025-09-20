@@ -1,0 +1,373 @@
+extend type Query {
+  """
+  ✨ Look up a single `ParticipantProfile` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  participantProfile(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ParticipantProfile_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ParticipantProfile_FirstRow
+  ): ParticipantProfile @fdc_generated(from: "ParticipantProfile", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Provider` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  provider(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Provider_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Provider_FirstRow
+  ): Provider @fdc_generated(from: "Provider", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Service` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  service(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Service_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Service_FirstRow
+  ): Service @fdc_generated(from: "Service", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `ServiceAgreement` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  serviceAgreement(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ServiceAgreement_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ServiceAgreement_FirstRow
+  ): ServiceAgreement @fdc_generated(from: "ServiceAgreement", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `ServiceRequest` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  serviceRequest(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ServiceRequest_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ServiceRequest_FirstRow
+  ): ServiceRequest @fdc_generated(from: "ServiceRequest", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `SupportWorkerProfile` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  supportWorkerProfile(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: SupportWorkerProfile_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: SupportWorkerProfile_FirstRow
+  ): SupportWorkerProfile @fdc_generated(from: "SupportWorkerProfile", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `User` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  user(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User @fdc_generated(from: "User", purpose: QUERY_SINGLE)
+  """
+  ✨ List `ParticipantProfile` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  participantProfiles(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ParticipantProfile_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ParticipantProfile_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ParticipantProfile_Having
+  ): [ParticipantProfile!]! @fdc_generated(from: "ParticipantProfile", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Provider` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  providers(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Provider_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Provider_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Provider_Having
+  ): [Provider!]! @fdc_generated(from: "Provider", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Service` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  services(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Service_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Service_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Service_Having
+  ): [Service!]! @fdc_generated(from: "Service", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `ServiceAgreement` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  serviceAgreements(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ServiceAgreement_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ServiceAgreement_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ServiceAgreement_Having
+  ): [ServiceAgreement!]! @fdc_generated(from: "ServiceAgreement", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `ServiceRequest` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  serviceRequests(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ServiceRequest_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ServiceRequest_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ServiceRequest_Having
+  ): [ServiceRequest!]! @fdc_generated(from: "ServiceRequest", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `SupportWorkerProfile` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  supportWorkerProfiles(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: SupportWorkerProfile_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [SupportWorkerProfile_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: SupportWorkerProfile_Having
+  ): [SupportWorkerProfile!]! @fdc_generated(from: "SupportWorkerProfile", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `User` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  users(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: User_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [User_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: User_Having
+  ): [User!]! @fdc_generated(from: "User", purpose: QUERY_MULTIPLE)
+}

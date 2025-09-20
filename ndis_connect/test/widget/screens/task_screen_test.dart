@@ -9,22 +9,33 @@ import 'package:ndis_connect/services/task_service.dart';
 import 'package:ndis_connect/viewmodels/task_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import '../../../test/utils/firebase_test_utils.dart';
 import 'task_screen_test.mocks.dart';
 
 @GenerateMocks([TaskService, FirebaseAuth, User])
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('TaskScreen Widget Tests', () {
     late MockTaskService mockTaskService;
     late MockFirebaseAuth mockAuth;
     late MockUser mockUser;
+
+    setUpAll(() async {
+      // Initialize Firebase for testing
+      await FirebaseTestUtils.initializeFirebaseForTesting();
+    });
 
     setUp(() {
       mockTaskService = MockTaskService();
       mockAuth = MockFirebaseAuth();
       mockUser = MockUser();
 
-      when(mockUser.uid).thenReturn('test-user-id');
       when(mockAuth.currentUser).thenReturn(mockUser);
+    });
+
+    tearDownAll(() async {
+      await FirebaseTestUtils.cleanupTestEnvironment();
     });
 
     Widget createTestWidget() {

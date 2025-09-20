@@ -13,13 +13,13 @@ class MapsService {
   final _db = FirebaseFirestore.instance;
   final _conn = Connectivity();
   // Geolocator instance
-  
+
   final String _cacheBoxName = 'service_providers_cache';
   final String _userLocationBoxName = 'user_location_cache';
-  
+
   // Google Maps API key - should be stored securely in production
   static const String _googleMapsApiKey = 'YOUR_GOOGLE_MAPS_API_KEY';
-  
+
   bool get isOfflineFallback => false;
 
   // Location services
@@ -45,13 +45,15 @@ class MapsService {
 
       // Get current position
       Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-        timeLimit: const Duration(seconds: 10),
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+          timeLimit: Duration(seconds: 10),
+        ),
       );
 
       // Cache location
       await _cacheUserLocation(position);
-      
+
       return position;
     } catch (e) {
       // Try to get cached location
@@ -61,11 +63,13 @@ class MapsService {
 
   Future<void> _cacheUserLocation(Position position) async {
     final box = await Hive.openBox<String>(_userLocationBoxName);
-    await box.put('last_location', jsonEncode({
-      'latitude': position.latitude,
-      'longitude': position.longitude,
-      'timestamp': DateTime.now().toIso8601String(),
-    }));
+    await box.put(
+        'last_location',
+        jsonEncode({
+          'latitude': position.latitude,
+          'longitude': position.longitude,
+          'timestamp': DateTime.now().toIso8601String(),
+        }));
   }
 
   Future<Position?> _getCachedUserLocation() async {
@@ -75,7 +79,7 @@ class MapsService {
       if (cached != null) {
         final data = jsonDecode(cached) as Map<String, dynamic>;
         final timestamp = DateTime.parse(data['timestamp'] as String);
-        
+
         // Only use cached location if it's less than 1 hour old
         if (DateTime.now().difference(timestamp).inHours < 1) {
           return Position(
@@ -114,14 +118,15 @@ class MapsService {
       if (isOnline) {
         // Fetch from Firestore
         Query query = _db.collection('providers');
-        
+
         if (category != null) {
           query = query.where('category', isEqualTo: category.name);
         }
-        
+
         if (searchQuery != null && searchQuery.isNotEmpty) {
-          query = query.where('name', isGreaterThanOrEqualTo: searchQuery)
-                      .where('name', isLessThan: '$searchQuery\uf8ff');
+          query = query
+              .where('name', isGreaterThanOrEqualTo: searchQuery)
+              .where('name', isLessThan: '$searchQuery\uf8ff');
         }
 
         final snapshot = await query.get();
@@ -136,22 +141,24 @@ class MapsService {
         if (userLat != null && userLng != null) {
           providers = providers.map((provider) {
             final distance = calculateDistance(
-              userLat, userLng,
-              provider.lat, provider.lng,
+              userLat,
+              userLng,
+              provider.lat,
+              provider.lng,
             );
             return provider.copyWith(distanceFromUser: distance);
           }).toList();
 
           // Filter by radius
           providers = providers.where((p) => p.distanceFromUser <= radiusKm).toList();
-          
+
           // Sort by distance
           providers.sort((a, b) => a.distanceFromUser.compareTo(b.distanceFromUser));
         }
 
         // Cache results
         await _cacheServiceProviders(providers);
-        
+
         return providers;
       } else {
         // Offline: return cached data
@@ -183,7 +190,7 @@ class MapsService {
       if (cached != null) {
         final data = jsonDecode(cached) as Map<String, dynamic>;
         final timestamp = DateTime.parse(data['timestamp'] as String);
-        
+
         // Only use cached data if it's less than 24 hours old
         if (DateTime.now().difference(timestamp).inHours < 24) {
           final providers = (data['providers'] as List)
@@ -201,16 +208,18 @@ class MapsService {
   // Distance calculation using Haversine formula
   double calculateDistance(double lat1, double lng1, double lat2, double lng2) {
     const double earthRadius = 6371; // Earth's radius in kilometers
-    
+
     final double dLat = _degreesToRadians(lat2 - lat1);
     final double dLng = _degreesToRadians(lng2 - lng1);
-    
+
     final double a = math.sin(dLat / 2) * math.sin(dLat / 2) +
-        math.cos(_degreesToRadians(lat1)) * math.cos(_degreesToRadians(lat2)) *
-        math.sin(dLng / 2) * math.sin(dLng / 2);
-    
+        math.cos(_degreesToRadians(lat1)) *
+            math.cos(_degreesToRadians(lat2)) *
+            math.sin(dLng / 2) *
+            math.sin(dLng / 2);
+
     final double c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
-    
+
     return earthRadius * c;
   }
 
@@ -221,12 +230,10 @@ class MapsService {
   // Google Places API integration for additional data
   Future<Map<String, dynamic>?> getPlaceDetails(String placeId) async {
     try {
-      final url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/place/details/json'
-        '?place_id=$placeId'
-        '&fields=name,formatted_address,formatted_phone_number,website,rating,reviews,opening_hours'
-        '&key=$_googleMapsApiKey'
-      );
+      final url = Uri.parse('https://maps.googleapis.com/maps/api/place/details/json'
+          '?place_id=$placeId'
+          '&fields=name,formatted_address,formatted_phone_number,website,rating,reviews,opening_hours'
+          '&key=$_googleMapsApiKey');
 
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -242,11 +249,9 @@ class MapsService {
   // Geocoding
   Future<LatLng?> geocodeAddress(String address) async {
     try {
-      final url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json'
-        '?address=${Uri.encodeComponent(address)}'
-        '&key=$_googleMapsApiKey'
-      );
+      final url = Uri.parse('https://maps.googleapis.com/maps/api/geocode/json'
+          '?address=${Uri.encodeComponent(address)}'
+          '&key=$_googleMapsApiKey');
 
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -269,11 +274,9 @@ class MapsService {
   // Reverse geocoding
   Future<String?> reverseGeocode(LatLng position) async {
     try {
-      final url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json'
-        '?latlng=${position.latitude},${position.longitude}'
-        '&key=$_googleMapsApiKey'
-      );
+      final url = Uri.parse('https://maps.googleapis.com/maps/api/geocode/json'
+          '?latlng=${position.latitude},${position.longitude}'
+          '&key=$_googleMapsApiKey');
 
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -296,13 +299,11 @@ class MapsService {
     String travelMode,
   ) async {
     try {
-      final url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/directions/json'
-        '?origin=${origin.latitude},${origin.longitude}'
-        '&destination=${destination.latitude},${destination.longitude}'
-        '&mode=$travelMode'
-        '&key=$_googleMapsApiKey'
-      );
+      final url = Uri.parse('https://maps.googleapis.com/maps/api/directions/json'
+          '?origin=${origin.latitude},${origin.longitude}'
+          '&destination=${destination.latitude},${destination.longitude}'
+          '&mode=$travelMode'
+          '&key=$_googleMapsApiKey');
 
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -320,7 +321,7 @@ class MapsService {
     try {
       final providersBox = await Hive.openBox<String>(_cacheBoxName);
       final locationBox = await Hive.openBox<String>(_userLocationBoxName);
-      
+
       await providersBox.clear();
       await locationBox.clear();
     } catch (e) {

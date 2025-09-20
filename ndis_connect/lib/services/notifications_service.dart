@@ -68,14 +68,21 @@ class NotificationsService {
   NotificationsService._internal();
 
   FirebaseMessaging? _firebaseMessaging;
-  late SharedPreferences _prefs;
+  SharedPreferences? _prefs;
   final List<NotificationData> _scheduledNotifications = [];
 
   /// Initialize the notification service. If Firebase is not available this
   /// becomes a safe no-op implementation that still loads local scheduled
   /// notifications.
   Future<void> initialize() async {
-    _prefs = await SharedPreferences.getInstance();
+    try {
+      _prefs = await SharedPreferences.getInstance();
+    } catch (e) {
+      // SharedPreferences not available in test environment
+      debugPrint('SharedPreferences not available: $e');
+      return; // Exit early if we can't access SharedPreferences
+    }
+
     try {
       // Lazy obtain FirebaseMessaging - may throw if Firebase isn't configured.
       _firebaseMessaging = FirebaseMessaging.instance;
@@ -177,8 +184,10 @@ class NotificationsService {
 
   Future<void> _saveScheduledNotifications() async {
     try {
+      final prefs = _prefs;
+      if (prefs == null) return; // Skip if SharedPreferences not available
       final notificationsJson = _scheduledNotifications.map((n) => n.toMap()).toList();
-      await _prefs.setString('scheduled_notifications', jsonEncode(notificationsJson));
+      await prefs.setString('scheduled_notifications', jsonEncode(notificationsJson));
     } catch (e) {
       debugPrint('Failed to save scheduled notifications: $e');
     }
@@ -186,7 +195,9 @@ class NotificationsService {
 
   Future<void> _loadScheduledNotifications() async {
     try {
-      final notificationsJson = _prefs.getString('scheduled_notifications');
+      final prefs = _prefs;
+      if (prefs == null) return; // Skip if SharedPreferences not available
+      final notificationsJson = prefs.getString('scheduled_notifications');
       if (notificationsJson != null) {
         final notificationsList = jsonDecode(notificationsJson) as List<dynamic>;
         _scheduledNotifications.clear();

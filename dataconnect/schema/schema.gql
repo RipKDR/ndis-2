@@ -1,0 +1,83 @@
+type User @table {
+  email: String!
+  userType: String!
+  createdAt: Timestamp!
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  address: String
+}
+
+type ParticipantProfile @table {
+  user: User!
+  ndisNumber: String!
+  supportNeeds: String!
+  goals: String!
+  createdAt: Timestamp!
+  planManagerContact: String
+  fundingAllocation: Float
+}
+
+type SupportWorkerProfile @table {
+  user: User!
+  qualifications: String!
+  experience: String!
+  availability: String!
+  servicesOffered: String!
+  hourlyRate: Float!
+  createdAt: Timestamp!
+  abn: String
+  policeCheckStatus: String
+  firstAidCertificate: String
+}
+
+type Service @table {
+  supportWorkerProfile: SupportWorkerProfile
+  provider: Provider
+  name: String!
+  description: String!
+  category: String!
+  unitOfMeasure: String!
+  costPerUnit: Float!
+  createdAt: Timestamp!
+  imageUrl: String
+}
+
+type ServiceRequest @table {
+  participantProfile: ParticipantProfile!
+  service: Service!
+  supportWorkerProfile: SupportWorkerProfile
+  requestedDate: Date!
+  startTime: String!
+  endTime: String!
+  status: String!
+  createdAt: Timestamp!
+  notes: String
+  location: String
+}
+
+type ServiceAgreement @table {
+  participantProfile: ParticipantProfile!
+  supportWorkerProfile: SupportWorkerProfile
+  provider: Provider
+  startDate: Date!
+  endDate: Date!
+  agreedServices: String!
+  totalBudget: Float!
+  status: String!
+  createdAt: Timestamp!
+  termsAndConditions: String
+}
+
+type Provider @table {
+  adminUser: User
+  name: String!
+  ABN: String!
+  contactPerson: String!
+  contactEmail: String!
+  createdAt: Timestamp!
+  address: String
+  phoneNumber: String
+  website: String
+  servicesOffered: String
+}

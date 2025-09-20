@@ -5,10 +5,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import '../l10n/app_localizations.dart';
 import '../models/service_provider.dart';
 import '../services/maps_service.dart';
 import '../services/service_provider_service.dart';
+import '../widgets/accessibility_widgets.dart';
+import '../widgets/error_boundary.dart';
 
 class ServiceMapScreen extends StatefulWidget {
   static const route = '/map';
@@ -93,67 +96,73 @@ class _ServiceMapScreenState extends State<ServiceMapScreen> {
   Widget build(BuildContext context) {
     final s = AppLocalizations.of(context)!;
     final canShowMap = !kIsWeb && (Platform.isAndroid || Platform.isIOS) && !_offline;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(s.serviceMap),
-        actions: [
-          IconButton(
-            onPressed: _loading ? null : () => _bootstrap(),
-            icon: const Icon(Icons.refresh),
-            tooltip: 'Refresh',
-          ),
-          IconButton(
-            onPressed: () => _showFilters(context),
-            icon: const Icon(Icons.filter_list),
-            tooltip: 'Filters',
-          ),
-        ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SearchBar(
-              hintText: 'Search service providers...',
-              leading: const Icon(Icons.search),
-              trailing: _searchQuery.isNotEmpty
-                  ? [
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _searchQuery = '';
-                            _filterProviders();
-                          });
-                        },
-                        icon: const Icon(Icons.clear),
-                      ),
-                    ]
-                  : null,
-              onChanged: (value) {
-                setState(() {
-                  _searchQuery = value;
-                  _filterProviders();
-                });
-              },
+    return ErrorBoundary(
+        context: 'ServiceMapScreen',
+        onRetry: () {
+          // Retry functionality
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: AccessibleText(s.serviceMap),
+            actions: [
+              AccessibleIconButton(
+                onPressed: _loading ? null : () => _bootstrap(),
+                icon: Icons.refresh,
+                tooltip: 'Refresh',
+              ),
+              AccessibleIconButton(
+                onPressed: () => _showFilters(context),
+                icon: Icons.filter_list,
+                tooltip: 'Filters',
+              ),
+            ],
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(60),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SearchBar(
+                  hintText: 'Search service providers...',
+                  leading: const Icon(Icons.search),
+                  trailing: _searchQuery.isNotEmpty
+                      ? [
+                          AccessibleIconButton(
+                            onPressed: () {
+                              setState(() {
+                                _searchQuery = '';
+                                _filterProviders();
+                              });
+                            },
+                            icon: Icons.clear,
+                            tooltip: 'Clear Search',
+                          ),
+                        ]
+                      : null,
+                  onChanged: (value) {
+                    setState(() {
+                      _searchQuery = value;
+                      _filterProviders();
+                    });
+                  },
+                ), 
+              ),
             ),
           ),
-        ),
-      ),
-      body: _loading
-          ? const Center(child: CircularProgressIndicator())
-          : canShowMap
-              ? _MapView(
-                  providers: _filteredProviders,
-                  userLocation: _userLocation,
+          body: _loading
+              ? const Center(child: CircularProgressIndicator())
+              : canShowMap
+                  ? _MapView(
+                      providers: _filteredProviders,
+                      userLocation: _userLocation,
+                    )
+                  : _ListView(providers: _filteredProviders),
+          floatingActionButton: _userLocation != null
+              ? FloatingActionButton(
+                  onPressed: () => _centerOnUserLocation(),
+                  child: const Icon(Icons.my_location),
+                  tooltip: 'My Location',
                 )
-              : _ListView(providers: _filteredProviders),
-      floatingActionButton: _userLocation != null
-          ? FloatingActionButton(
-              onPressed: () => _centerOnUserLocation(),
-              child: const Icon(Icons.my_location),
-              tooltip: 'My Location',
-            )
-          : null,
-    );
+              : null,
+        ));
   }
 
   void _centerOnUserLocation() {
@@ -307,11 +316,11 @@ class _ListView extends StatelessWidget {
           children: [
             Icon(Icons.search_off, size: 64, color: Colors.grey),
             SizedBox(height: 16),
-            Text(
+            AccessibleText(
               'No service providers found',
               style: TextStyle(fontSize: 18, color: Colors.grey),
             ),
-            Text(
+            AccessibleText(
               'Try adjusting your search or filters',
               style: TextStyle(color: Colors.grey),
             ),
@@ -333,11 +342,13 @@ class _ListView extends StatelessWidget {
 
 class _ProviderCard extends StatelessWidget {
   final ServiceProviderModel provider;
-  const _ProviderCard({required this.provider});
+  const _ProviderCard({
+    required this.provider,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return AccessibleCard(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: ListTile(
         leading: CircleAvatar(
@@ -347,27 +358,27 @@ class _ProviderCard extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        title: Text(
+        title: AccessibleText(
           provider.name,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(provider.categoryDisplayName),
+            AccessibleText(provider.categoryDisplayName),
             if (provider.rating > 0) ...[
               const SizedBox(height: 2),
               Row(
                 children: [
                   Icon(Icons.star, size: 16, color: Colors.amber[600]),
                   const SizedBox(width: 4),
-                  Text(provider.ratingDisplay),
+                  AccessibleText(provider.ratingDisplay),
                 ],
               ),
             ],
             if (provider.distanceFromUser > 0) ...[
               const SizedBox(height: 2),
-              Text('${provider.distanceFromUser.toStringAsFixed(1)} km away'),
+              AccessibleText('${provider.distanceFromUser.toStringAsFixed(1)} km away'),
             ],
           ],
         ),
@@ -431,14 +442,18 @@ class _ProviderCard extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) => _ProviderDetailsSheet(provider: provider),
+      builder: (context) => _ProviderDetailsSheet(
+        provider: provider,
+      ),
     );
   }
 }
 
 class _ProviderDetailsSheet extends StatelessWidget {
   final ServiceProviderModel provider;
-  const _ProviderDetailsSheet({required this.provider});
+  const _ProviderDetailsSheet({
+    required this.provider,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -469,12 +484,12 @@ class _ProviderDetailsSheet extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Text(
+                AccessibleText(
                   provider.name,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 8),
-                Text(
+                AccessibleText(
                   provider.categoryDisplayName,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: Colors.grey[600],
@@ -486,18 +501,18 @@ class _ProviderDetailsSheet extends StatelessWidget {
                     children: [
                       Icon(Icons.star, color: Colors.amber[600]),
                       const SizedBox(width: 4),
-                      Text(provider.ratingDisplay),
+                      AccessibleText(provider.ratingDisplay),
                     ],
                   ),
                 ],
                 const SizedBox(height: 16),
                 if (provider.description.isNotEmpty) ...[
-                  Text(
+                  AccessibleText(
                     'Description',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 8),
-                  Text(provider.description),
+                  AccessibleText(provider.description),
                   const SizedBox(height: 16),
                 ],
                 if (provider.address.isNotEmpty) ...[
@@ -530,7 +545,7 @@ class _ProviderDetailsSheet extends StatelessWidget {
                 ],
                 if (provider.services.isNotEmpty) ...[
                   const SizedBox(height: 16),
-                  Text(
+                  AccessibleText(
                     'Services',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
@@ -540,7 +555,7 @@ class _ProviderDetailsSheet extends StatelessWidget {
                     runSpacing: 8,
                     children: provider.services.map((service) {
                       return Chip(
-                        label: Text(service),
+                        label: AccessibleText(service),
                         backgroundColor: Colors.blue[50],
                       );
                     }).toList(),
@@ -548,7 +563,7 @@ class _ProviderDetailsSheet extends StatelessWidget {
                 ],
                 if (provider.accessibilityFeatures.isNotEmpty) ...[
                   const SizedBox(height: 16),
-                  Text(
+                  AccessibleText(
                     'Accessibility Features',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
@@ -558,7 +573,7 @@ class _ProviderDetailsSheet extends StatelessWidget {
                     runSpacing: 8,
                     children: provider.accessibilityFeatures.map((feature) {
                       return Chip(
-                        label: Text(feature),
+                        label: AccessibleText(feature),
                         backgroundColor: Colors.green[50],
                         avatar: const Icon(Icons.accessibility, size: 16),
                       );
@@ -574,7 +589,7 @@ class _ProviderDetailsSheet extends StatelessWidget {
                           // Open in maps app
                         },
                         icon: const Icon(Icons.directions),
-                        label: const Text('Directions'),
+                        label: const AccessibleText('Directions'),
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -584,7 +599,7 @@ class _ProviderDetailsSheet extends StatelessWidget {
                           // Call provider
                         },
                         icon: const Icon(Icons.phone),
-                        label: const Text('Call'),
+                        label: const AccessibleText('Call'),
                       ),
                     ),
                   ],
@@ -622,7 +637,7 @@ class _InfoRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                AccessibleText(
                   label,
                   style: TextStyle(
                     fontSize: 12,
@@ -630,7 +645,7 @@ class _InfoRow extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text(value),
+                AccessibleText(value),
               ],
             ),
           ),
@@ -676,12 +691,12 @@ class _FilterSheetState extends State<_FilterSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          AccessibleText(
             'Filters',
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 16),
-          Text(
+          AccessibleText(
             'Category',
             style: Theme.of(context).textTheme.titleMedium,
           ),
@@ -690,7 +705,7 @@ class _FilterSheetState extends State<_FilterSheet> {
             spacing: 8,
             children: [
               FilterChip(
-                label: const Text('All'),
+                label: const AccessibleText('All'),
                 selected: _selectedCategory == null,
                 onSelected: (selected) {
                   setState(() {
@@ -701,7 +716,7 @@ class _FilterSheetState extends State<_FilterSheet> {
               ),
               ...ServiceProviderCategory.values.map((category) {
                 return FilterChip(
-                  label: Text(category.name),
+                  label: AccessibleText(category.name),
                   selected: _selectedCategory == category,
                   onSelected: (selected) {
                     setState(() {
@@ -714,7 +729,7 @@ class _FilterSheetState extends State<_FilterSheet> {
             ],
           ),
           const SizedBox(height: 16),
-          Text(
+          AccessibleText(
             'Search Radius: ${_searchRadius.toStringAsFixed(0)} km',
             style: Theme.of(context).textTheme.titleMedium,
           ),
@@ -743,14 +758,14 @@ class _FilterSheetState extends State<_FilterSheet> {
                     widget.onCategoryChanged(null);
                     widget.onRadiusChanged(50.0);
                   },
-                  child: const Text('Clear All'),
+                  child: const AccessibleText('Clear All'),
                 ),
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: FilledButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Apply'),
+                  child: const AccessibleText('Apply'),
                 ),
               ),
             ],

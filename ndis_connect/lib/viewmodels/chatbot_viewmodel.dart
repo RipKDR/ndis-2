@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/chat_message.dart';
@@ -6,9 +5,8 @@ import '../services/chatbot_service.dart';
 
 class ChatbotViewModel extends ChangeNotifier {
   final ChatbotService _chatbotService;
-  final FirebaseAuth _auth;
 
-  ChatbotViewModel(this._chatbotService, this._auth);
+  ChatbotViewModel(this._chatbotService);
 
   // State
   List<ChatMessage> _messages = [];

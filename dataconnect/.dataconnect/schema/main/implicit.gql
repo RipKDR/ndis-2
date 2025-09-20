@@ -1,0 +1,86 @@
+extend type ParticipantProfile {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "ParticipantProfile", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ParticipantProfile`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  userId: UUID! @fdc_generated(from: "ParticipantProfile.user", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Provider {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Provider", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Provider`.`adminUser`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  adminUserId: UUID @fdc_generated(from: "Provider.adminUser", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Service {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Service", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Service`.`provider`. It must match the value of `Provider`.`id`. See `@ref` for how to customize it.
+  """
+  providerId: UUID @fdc_generated(from: "Service.provider", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Service`.`supportWorkerProfile`. It must match the value of `SupportWorkerProfile`.`id`. See `@ref` for how to customize it.
+  """
+  supportWorkerProfileId: UUID @fdc_generated(from: "Service.supportWorkerProfile", purpose: IMPLICIT_REF_FIELD)
+}
+extend type ServiceAgreement {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "ServiceAgreement", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ServiceAgreement`.`participantProfile`. It must match the value of `ParticipantProfile`.`id`. See `@ref` for how to customize it.
+  """
+  participantProfileId: UUID! @fdc_generated(from: "ServiceAgreement.participantProfile", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ServiceAgreement`.`provider`. It must match the value of `Provider`.`id`. See `@ref` for how to customize it.
+  """
+  providerId: UUID @fdc_generated(from: "ServiceAgreement.provider", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ServiceAgreement`.`supportWorkerProfile`. It must match the value of `SupportWorkerProfile`.`id`. See `@ref` for how to customize it.
+  """
+  supportWorkerProfileId: UUID @fdc_generated(from: "ServiceAgreement.supportWorkerProfile", purpose: IMPLICIT_REF_FIELD)
+}
+extend type ServiceRequest {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "ServiceRequest", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ServiceRequest`.`participantProfile`. It must match the value of `ParticipantProfile`.`id`. See `@ref` for how to customize it.
+  """
+  participantProfileId: UUID! @fdc_generated(from: "ServiceRequest.participantProfile", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ServiceRequest`.`service`. It must match the value of `Service`.`id`. See `@ref` for how to customize it.
+  """
+  serviceId: UUID! @fdc_generated(from: "ServiceRequest.service", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ServiceRequest`.`supportWorkerProfile`. It must match the value of `SupportWorkerProfile`.`id`. See `@ref` for how to customize it.
+  """
+  supportWorkerProfileId: UUID @fdc_generated(from: "ServiceRequest.supportWorkerProfile", purpose: IMPLICIT_REF_FIELD)
+}
+extend type SupportWorkerProfile {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "SupportWorkerProfile", purpose: IMPLICIT_KEY_FIELD)
+  """
+  ✨ Implicit foreign key field based on `SupportWorkerProfile`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  userId: UUID! @fdc_generated(from: "SupportWorkerProfile.user", purpose: IMPLICIT_REF_FIELD)
+}
+extend type User {
+  """
+  ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
+  """
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "User", purpose: IMPLICIT_KEY_FIELD)
+}

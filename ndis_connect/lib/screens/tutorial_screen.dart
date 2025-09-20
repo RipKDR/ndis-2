@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../services/tts_service.dart';
+import '../widgets/accessibility_widgets.dart';
+import '../widgets/error_boundary.dart';
 
 class TutorialScreen extends StatefulWidget {
   static const route = '/tutorial';
@@ -31,47 +34,52 @@ class _TutorialScreenState extends State<TutorialScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Tutorial')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Step ${_index + 1}/${steps.length}',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 12),
-            Text(steps[_index], style: Theme.of(context).textTheme.bodyLarge),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                OutlinedButton(
-                  onPressed: _index > 0
-                      ? () => setState(() {
-                            _index--;
-                            _speak();
-                          })
-                      : null,
-                  child: const Text('Back'),
-                ),
-                FilledButton(
-                  onPressed: _index < steps.length - 1
-                      ? () => setState(() {
-                            _index++;
-                            _speak();
-                          })
-                      : () => Navigator.pop(context),
-                  child: Text(_index < steps.length - 1 ? 'Next' : 'Finish'),
-                )
-              ],
-            )
-          ],
+    return ErrorBoundary(
+      context: 'TutorialScreen',
+      onRetry: () {
+        // Retry functionality
+      },
+      child: Scaffold(
+        appBar: AppBar(title: const AccessibleText('Tutorial')),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AccessibleText(
+                'Step ${_index + 1}/${steps.length}',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 12),
+              AccessibleText(steps[_index], style: Theme.of(context).textTheme.bodyLarge),
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  OutlinedButton(
+                    onPressed: _index > 0
+                        ? () => setState(() {
+                              _index--;
+                              _speak();
+                            })
+                        : null,
+                    child: const AccessibleText('Back'),
+                  ),
+                  FilledButton(
+                    onPressed: _index < steps.length - 1
+                        ? () => setState(() {
+                              _index++;
+                              _speak();
+                            })
+                        : () => Navigator.pop(context),
+                    child: AccessibleText(_index < steps.length - 1 ? 'Next' : 'Finish'),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
-

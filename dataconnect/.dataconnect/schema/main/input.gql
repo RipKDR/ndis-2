@@ -1,0 +1,2947 @@
+"""
+✨ `ParticipantProfile_KeyOutput` returns the primary key fields of table type `ParticipantProfile`.
+
+It has the same format as `ParticipantProfile_Key`, but is only used as mutation return value.
+"""
+scalar ParticipantProfile_KeyOutput
+"""
+✨ `Provider_KeyOutput` returns the primary key fields of table type `Provider`.
+
+It has the same format as `Provider_Key`, but is only used as mutation return value.
+"""
+scalar Provider_KeyOutput
+"""
+✨ `Service_KeyOutput` returns the primary key fields of table type `Service`.
+
+It has the same format as `Service_Key`, but is only used as mutation return value.
+"""
+scalar Service_KeyOutput
+"""
+✨ `ServiceAgreement_KeyOutput` returns the primary key fields of table type `ServiceAgreement`.
+
+It has the same format as `ServiceAgreement_Key`, but is only used as mutation return value.
+"""
+scalar ServiceAgreement_KeyOutput
+"""
+✨ `ServiceRequest_KeyOutput` returns the primary key fields of table type `ServiceRequest`.
+
+It has the same format as `ServiceRequest_Key`, but is only used as mutation return value.
+"""
+scalar ServiceRequest_KeyOutput
+"""
+✨ `SupportWorkerProfile_KeyOutput` returns the primary key fields of table type `SupportWorkerProfile`.
+
+It has the same format as `SupportWorkerProfile_Key`, but is only used as mutation return value.
+"""
+scalar SupportWorkerProfile_KeyOutput
+"""
+✨ `User_KeyOutput` returns the primary key fields of table type `User`.
+
+It has the same format as `User_Key`, but is only used as mutation return value.
+"""
+scalar User_KeyOutput
+"""
+✨ Generated data input type for table 'ParticipantProfile'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input ParticipantProfile_Data {
+  """
+  ✨ Generated from Field `ParticipantProfile`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `ParticipantProfile`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ParticipantProfile`.`userId` of type `UUID!`
+  """
+  userId: UUID
+  """
+  ✨ `_expr` server value variant of `userId` (✨ Generated from Field `ParticipantProfile`.`userId` of type `UUID!`)
+  """
+  userId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ParticipantProfile`.`user` of type `User!`
+  """
+  user: User_Key
+  """
+  ✨ Generated from Field `ParticipantProfile`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `ParticipantProfile`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `ParticipantProfile`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `ParticipantProfile`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation` of type `Float`
+  """
+  fundingAllocation: Float
+  """
+  ✨ `_expr` server value variant of `fundingAllocation` (✨ Generated from Field `ParticipantProfile`.`fundingAllocation` of type `Float`)
+  """
+  fundingAllocation_expr: Float_Expr
+  """
+  ✨ `_update` server value variant of `fundingAllocation` (✨ Generated from Field `ParticipantProfile`.`fundingAllocation` of type `Float`)
+  """
+  fundingAllocation_update: [Float_Update!]
+  """
+  ✨ Generated from Field `ParticipantProfile`.`goals` of type `String!`
+  """
+  goals: String
+  """
+  ✨ `_expr` server value variant of `goals` (✨ Generated from Field `ParticipantProfile`.`goals` of type `String!`)
+  """
+  goals_expr: String_Expr
+  """
+  ✨ Generated from Field `ParticipantProfile`.`ndisNumber` of type `String!`
+  """
+  ndisNumber: String
+  """
+  ✨ `_expr` server value variant of `ndisNumber` (✨ Generated from Field `ParticipantProfile`.`ndisNumber` of type `String!`)
+  """
+  ndisNumber_expr: String_Expr
+  """
+  ✨ Generated from Field `ParticipantProfile`.`planManagerContact` of type `String`
+  """
+  planManagerContact: String
+  """
+  ✨ `_expr` server value variant of `planManagerContact` (✨ Generated from Field `ParticipantProfile`.`planManagerContact` of type `String`)
+  """
+  planManagerContact_expr: String_Expr
+  """
+  ✨ Generated from Field `ParticipantProfile`.`supportNeeds` of type `String!`
+  """
+  supportNeeds: String
+  """
+  ✨ `_expr` server value variant of `supportNeeds` (✨ Generated from Field `ParticipantProfile`.`supportNeeds` of type `String!`)
+  """
+  supportNeeds_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'ParticipantProfile'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input ParticipantProfile_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [ParticipantProfile_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: ParticipantProfile_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [ParticipantProfile_Filter!]
+  """
+  ✨ Generated from Field `ParticipantProfile`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`userId` of type `UUID!`
+  """
+  userId: UUID_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`user` of type `User!`
+  """
+  user: User_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation` of type `Float`
+  """
+  fundingAllocation: Float_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`goals` of type `String!`
+  """
+  goals: String_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`ndisNumber` of type `String!`
+  """
+  ndisNumber: String_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`planManagerContact` of type `String`
+  """
+  planManagerContact: String_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`supportNeeds` of type `String!`
+  """
+  supportNeeds: String_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`serviceAgreements_on_participantProfile` of type `[ServiceAgreement!]!`
+  """
+  serviceAgreements_on_participantProfile: ServiceAgreement_ListFilter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`serviceRequests_on_participantProfile` of type `[ServiceRequest!]!`
+  """
+  serviceRequests_on_participantProfile: ServiceRequest_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'ParticipantProfile'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input ParticipantProfile_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [ParticipantProfile_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: ParticipantProfile_Filter
+}
+"""
+✨ Generated having input type for table 'ParticipantProfile'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input ParticipantProfile_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [ParticipantProfile_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: ParticipantProfile_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [ParticipantProfile_Having!]
+  """
+  ✨ Generated from Field `ParticipantProfile`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation_count` of type `Int!`
+  """
+  fundingAllocation_count: Int_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`goals_count` of type `Int!`
+  """
+  goals_count: Int_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`ndisNumber_count` of type `Int!`
+  """
+  ndisNumber_count: Int_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`planManagerContact_count` of type `Int!`
+  """
+  planManagerContact_count: Int_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`supportNeeds_count` of type `Int!`
+  """
+  supportNeeds_count: Int_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`userId_count` of type `Int!`
+  """
+  userId_count: Int_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation_sum` of type `Float`
+  """
+  fundingAllocation_sum: Float_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation_avg` of type `Float`
+  """
+  fundingAllocation_avg: Float_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation_min` of type `Float`
+  """
+  fundingAllocation_min: Float_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation_max` of type `Float`
+  """
+  fundingAllocation_max: Float_Filter
+}
+"""
+✨ Generated key input type for table 'ParticipantProfile'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input ParticipantProfile_Key {
+  """
+  ✨ Generated from Field `ParticipantProfile`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `ParticipantProfile`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'ParticipantProfile'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input ParticipantProfile_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: ParticipantProfile_Filter
+}
+"""
+✨ Generated order input type for table 'ParticipantProfile'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input ParticipantProfile_Order {
+  """
+  ✨ Generated from Field `ParticipantProfile`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`userId` of type `UUID!`
+  """
+  userId: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`user` of type `User!`
+  """
+  user: User_Order
+  """
+  ✨ Generated from Field `ParticipantProfile`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation` of type `Float`
+  """
+  fundingAllocation: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`goals` of type `String!`
+  """
+  goals: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`ndisNumber` of type `String!`
+  """
+  ndisNumber: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`planManagerContact` of type `String`
+  """
+  planManagerContact: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`supportNeeds` of type `String!`
+  """
+  supportNeeds: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation_count` of type `Int!`
+  """
+  fundingAllocation_count: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`goals_count` of type `Int!`
+  """
+  goals_count: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`ndisNumber_count` of type `Int!`
+  """
+  ndisNumber_count: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`planManagerContact_count` of type `Int!`
+  """
+  planManagerContact_count: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`supportNeeds_count` of type `Int!`
+  """
+  supportNeeds_count: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`userId_count` of type `Int!`
+  """
+  userId_count: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation_sum` of type `Float`
+  """
+  fundingAllocation_sum: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation_avg` of type `Float`
+  """
+  fundingAllocation_avg: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation_min` of type `Float`
+  """
+  fundingAllocation_min: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+  """
+  ✨ Generated from Field `ParticipantProfile`.`fundingAllocation_max` of type `Float`
+  """
+  fundingAllocation_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Provider'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Provider_Data {
+  """
+  ✨ Generated from Field `Provider`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Provider`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Provider`.`adminUserId` of type `UUID`
+  """
+  adminUserId: UUID
+  """
+  ✨ `_expr` server value variant of `adminUserId` (✨ Generated from Field `Provider`.`adminUserId` of type `UUID`)
+  """
+  adminUserId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Provider`.`adminUser` of type `User`
+  """
+  adminUser: User_Key
+  """
+  ✨ Generated from Field `Provider`.`ABN` of type `String!`
+  """
+  ABN: String
+  """
+  ✨ `_expr` server value variant of `ABN` (✨ Generated from Field `Provider`.`ABN` of type `String!`)
+  """
+  ABN_expr: String_Expr
+  """
+  ✨ Generated from Field `Provider`.`address` of type `String`
+  """
+  address: String
+  """
+  ✨ `_expr` server value variant of `address` (✨ Generated from Field `Provider`.`address` of type `String`)
+  """
+  address_expr: String_Expr
+  """
+  ✨ Generated from Field `Provider`.`contactEmail` of type `String!`
+  """
+  contactEmail: String
+  """
+  ✨ `_expr` server value variant of `contactEmail` (✨ Generated from Field `Provider`.`contactEmail` of type `String!`)
+  """
+  contactEmail_expr: String_Expr
+  """
+  ✨ Generated from Field `Provider`.`contactPerson` of type `String!`
+  """
+  contactPerson: String
+  """
+  ✨ `_expr` server value variant of `contactPerson` (✨ Generated from Field `Provider`.`contactPerson` of type `String!`)
+  """
+  contactPerson_expr: String_Expr
+  """
+  ✨ Generated from Field `Provider`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `Provider`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `Provider`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `Provider`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `Provider`.`name` of type `String!`
+  """
+  name: String
+  """
+  ✨ `_expr` server value variant of `name` (✨ Generated from Field `Provider`.`name` of type `String!`)
+  """
+  name_expr: String_Expr
+  """
+  ✨ Generated from Field `Provider`.`phoneNumber` of type `String`
+  """
+  phoneNumber: String
+  """
+  ✨ `_expr` server value variant of `phoneNumber` (✨ Generated from Field `Provider`.`phoneNumber` of type `String`)
+  """
+  phoneNumber_expr: String_Expr
+  """
+  ✨ Generated from Field `Provider`.`servicesOffered` of type `String`
+  """
+  servicesOffered: String
+  """
+  ✨ `_expr` server value variant of `servicesOffered` (✨ Generated from Field `Provider`.`servicesOffered` of type `String`)
+  """
+  servicesOffered_expr: String_Expr
+  """
+  ✨ Generated from Field `Provider`.`website` of type `String`
+  """
+  website: String
+  """
+  ✨ `_expr` server value variant of `website` (✨ Generated from Field `Provider`.`website` of type `String`)
+  """
+  website_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Provider'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Provider_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Provider_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Provider_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Provider_Filter!]
+  """
+  ✨ Generated from Field `Provider`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Provider`.`adminUserId` of type `UUID`
+  """
+  adminUserId: UUID_Filter
+  """
+  ✨ Generated from Field `Provider`.`adminUser` of type `User`
+  """
+  adminUser: User_Filter
+  """
+  ✨ Generated from Field `Provider`.`ABN` of type `String!`
+  """
+  ABN: String_Filter
+  """
+  ✨ Generated from Field `Provider`.`address` of type `String`
+  """
+  address: String_Filter
+  """
+  ✨ Generated from Field `Provider`.`contactEmail` of type `String!`
+  """
+  contactEmail: String_Filter
+  """
+  ✨ Generated from Field `Provider`.`contactPerson` of type `String!`
+  """
+  contactPerson: String_Filter
+  """
+  ✨ Generated from Field `Provider`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Provider`.`name` of type `String!`
+  """
+  name: String_Filter
+  """
+  ✨ Generated from Field `Provider`.`phoneNumber` of type `String`
+  """
+  phoneNumber: String_Filter
+  """
+  ✨ Generated from Field `Provider`.`servicesOffered` of type `String`
+  """
+  servicesOffered: String_Filter
+  """
+  ✨ Generated from Field `Provider`.`website` of type `String`
+  """
+  website: String_Filter
+  """
+  ✨ Generated from Field `Provider`.`services_on_provider` of type `[Service!]!`
+  """
+  services_on_provider: Service_ListFilter
+  """
+  ✨ Generated from Field `Provider`.`serviceAgreements_on_provider` of type `[ServiceAgreement!]!`
+  """
+  serviceAgreements_on_provider: ServiceAgreement_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Provider'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Provider_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Provider_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Provider_Filter
+}
+"""
+✨ Generated having input type for table 'Provider'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Provider_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Provider_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Provider_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Provider_Having!]
+  """
+  ✨ Generated from Field `Provider`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`ABN_count` of type `Int!`
+  """
+  ABN_count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`address_count` of type `Int!`
+  """
+  address_count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`adminUserId_count` of type `Int!`
+  """
+  adminUserId_count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`contactEmail_count` of type `Int!`
+  """
+  contactEmail_count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`contactPerson_count` of type `Int!`
+  """
+  contactPerson_count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`name_count` of type `Int!`
+  """
+  name_count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`phoneNumber_count` of type `Int!`
+  """
+  phoneNumber_count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`servicesOffered_count` of type `Int!`
+  """
+  servicesOffered_count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`website_count` of type `Int!`
+  """
+  website_count: Int_Filter
+  """
+  ✨ Generated from Field `Provider`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Provider`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'Provider'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Provider_Key {
+  """
+  ✨ Generated from Field `Provider`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Provider`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Provider'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Provider_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Provider_Filter
+}
+"""
+✨ Generated order input type for table 'Provider'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Provider_Order {
+  """
+  ✨ Generated from Field `Provider`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`adminUserId` of type `UUID`
+  """
+  adminUserId: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`adminUser` of type `User`
+  """
+  adminUser: User_Order
+  """
+  ✨ Generated from Field `Provider`.`ABN` of type `String!`
+  """
+  ABN: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`address` of type `String`
+  """
+  address: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`contactEmail` of type `String!`
+  """
+  contactEmail: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`contactPerson` of type `String!`
+  """
+  contactPerson: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`name` of type `String!`
+  """
+  name: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`phoneNumber` of type `String`
+  """
+  phoneNumber: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`servicesOffered` of type `String`
+  """
+  servicesOffered: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`website` of type `String`
+  """
+  website: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`ABN_count` of type `Int!`
+  """
+  ABN_count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`address_count` of type `Int!`
+  """
+  address_count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`adminUserId_count` of type `Int!`
+  """
+  adminUserId_count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`contactEmail_count` of type `Int!`
+  """
+  contactEmail_count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`contactPerson_count` of type `Int!`
+  """
+  contactPerson_count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`name_count` of type `Int!`
+  """
+  name_count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`phoneNumber_count` of type `Int!`
+  """
+  phoneNumber_count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`servicesOffered_count` of type `Int!`
+  """
+  servicesOffered_count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`website_count` of type `Int!`
+  """
+  website_count: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `Provider`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Service'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Service_Data {
+  """
+  ✨ Generated from Field `Service`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Service`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Service`.`providerId` of type `UUID`
+  """
+  providerId: UUID
+  """
+  ✨ `_expr` server value variant of `providerId` (✨ Generated from Field `Service`.`providerId` of type `UUID`)
+  """
+  providerId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Service`.`supportWorkerProfileId` of type `UUID`
+  """
+  supportWorkerProfileId: UUID
+  """
+  ✨ `_expr` server value variant of `supportWorkerProfileId` (✨ Generated from Field `Service`.`supportWorkerProfileId` of type `UUID`)
+  """
+  supportWorkerProfileId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Service`.`provider` of type `Provider`
+  """
+  provider: Provider_Key
+  """
+  ✨ Generated from Field `Service`.`supportWorkerProfile` of type `SupportWorkerProfile`
+  """
+  supportWorkerProfile: SupportWorkerProfile_Key
+  """
+  ✨ Generated from Field `Service`.`category` of type `String!`
+  """
+  category: String
+  """
+  ✨ `_expr` server value variant of `category` (✨ Generated from Field `Service`.`category` of type `String!`)
+  """
+  category_expr: String_Expr
+  """
+  ✨ Generated from Field `Service`.`costPerUnit` of type `Float!`
+  """
+  costPerUnit: Float
+  """
+  ✨ `_expr` server value variant of `costPerUnit` (✨ Generated from Field `Service`.`costPerUnit` of type `Float!`)
+  """
+  costPerUnit_expr: Float_Expr
+  """
+  ✨ `_update` server value variant of `costPerUnit` (✨ Generated from Field `Service`.`costPerUnit` of type `Float!`)
+  """
+  costPerUnit_update: [Float_Update!]
+  """
+  ✨ Generated from Field `Service`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `Service`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `Service`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `Service`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `Service`.`description` of type `String!`
+  """
+  description: String
+  """
+  ✨ `_expr` server value variant of `description` (✨ Generated from Field `Service`.`description` of type `String!`)
+  """
+  description_expr: String_Expr
+  """
+  ✨ Generated from Field `Service`.`imageUrl` of type `String`
+  """
+  imageUrl: String
+  """
+  ✨ `_expr` server value variant of `imageUrl` (✨ Generated from Field `Service`.`imageUrl` of type `String`)
+  """
+  imageUrl_expr: String_Expr
+  """
+  ✨ Generated from Field `Service`.`name` of type `String!`
+  """
+  name: String
+  """
+  ✨ `_expr` server value variant of `name` (✨ Generated from Field `Service`.`name` of type `String!`)
+  """
+  name_expr: String_Expr
+  """
+  ✨ Generated from Field `Service`.`unitOfMeasure` of type `String!`
+  """
+  unitOfMeasure: String
+  """
+  ✨ `_expr` server value variant of `unitOfMeasure` (✨ Generated from Field `Service`.`unitOfMeasure` of type `String!`)
+  """
+  unitOfMeasure_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Service'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Service_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Service_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Service_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Service_Filter!]
+  """
+  ✨ Generated from Field `Service`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Service`.`providerId` of type `UUID`
+  """
+  providerId: UUID_Filter
+  """
+  ✨ Generated from Field `Service`.`supportWorkerProfileId` of type `UUID`
+  """
+  supportWorkerProfileId: UUID_Filter
+  """
+  ✨ Generated from Field `Service`.`provider` of type `Provider`
+  """
+  provider: Provider_Filter
+  """
+  ✨ Generated from Field `Service`.`supportWorkerProfile` of type `SupportWorkerProfile`
+  """
+  supportWorkerProfile: SupportWorkerProfile_Filter
+  """
+  ✨ Generated from Field `Service`.`category` of type `String!`
+  """
+  category: String_Filter
+  """
+  ✨ Generated from Field `Service`.`costPerUnit` of type `Float!`
+  """
+  costPerUnit: Float_Filter
+  """
+  ✨ Generated from Field `Service`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Service`.`description` of type `String!`
+  """
+  description: String_Filter
+  """
+  ✨ Generated from Field `Service`.`imageUrl` of type `String`
+  """
+  imageUrl: String_Filter
+  """
+  ✨ Generated from Field `Service`.`name` of type `String!`
+  """
+  name: String_Filter
+  """
+  ✨ Generated from Field `Service`.`unitOfMeasure` of type `String!`
+  """
+  unitOfMeasure: String_Filter
+  """
+  ✨ Generated from Field `Service`.`serviceRequests_on_service` of type `[ServiceRequest!]!`
+  """
+  serviceRequests_on_service: ServiceRequest_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Service'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Service_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Service_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Service_Filter
+}
+"""
+✨ Generated having input type for table 'Service'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Service_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Service_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Service_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Service_Having!]
+  """
+  ✨ Generated from Field `Service`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Service`.`category_count` of type `Int!`
+  """
+  category_count: Int_Filter
+  """
+  ✨ Generated from Field `Service`.`costPerUnit_count` of type `Int!`
+  """
+  costPerUnit_count: Int_Filter
+  """
+  ✨ Generated from Field `Service`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `Service`.`description_count` of type `Int!`
+  """
+  description_count: Int_Filter
+  """
+  ✨ Generated from Field `Service`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Service`.`imageUrl_count` of type `Int!`
+  """
+  imageUrl_count: Int_Filter
+  """
+  ✨ Generated from Field `Service`.`name_count` of type `Int!`
+  """
+  name_count: Int_Filter
+  """
+  ✨ Generated from Field `Service`.`providerId_count` of type `Int!`
+  """
+  providerId_count: Int_Filter
+  """
+  ✨ Generated from Field `Service`.`supportWorkerProfileId_count` of type `Int!`
+  """
+  supportWorkerProfileId_count: Int_Filter
+  """
+  ✨ Generated from Field `Service`.`unitOfMeasure_count` of type `Int!`
+  """
+  unitOfMeasure_count: Int_Filter
+  """
+  ✨ Generated from Field `Service`.`costPerUnit_sum` of type `Float`
+  """
+  costPerUnit_sum: Float_Filter
+  """
+  ✨ Generated from Field `Service`.`costPerUnit_avg` of type `Float`
+  """
+  costPerUnit_avg: Float_Filter
+  """
+  ✨ Generated from Field `Service`.`costPerUnit_min` of type `Float`
+  """
+  costPerUnit_min: Float_Filter
+  """
+  ✨ Generated from Field `Service`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Service`.`costPerUnit_max` of type `Float`
+  """
+  costPerUnit_max: Float_Filter
+  """
+  ✨ Generated from Field `Service`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'Service'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Service_Key {
+  """
+  ✨ Generated from Field `Service`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Service`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Service'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Service_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Service_Filter
+}
+"""
+✨ Generated order input type for table 'Service'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Service_Order {
+  """
+  ✨ Generated from Field `Service`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`providerId` of type `UUID`
+  """
+  providerId: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`supportWorkerProfileId` of type `UUID`
+  """
+  supportWorkerProfileId: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`provider` of type `Provider`
+  """
+  provider: Provider_Order
+  """
+  ✨ Generated from Field `Service`.`supportWorkerProfile` of type `SupportWorkerProfile`
+  """
+  supportWorkerProfile: SupportWorkerProfile_Order
+  """
+  ✨ Generated from Field `Service`.`category` of type `String!`
+  """
+  category: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`costPerUnit` of type `Float!`
+  """
+  costPerUnit: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`description` of type `String!`
+  """
+  description: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`imageUrl` of type `String`
+  """
+  imageUrl: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`name` of type `String!`
+  """
+  name: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`unitOfMeasure` of type `String!`
+  """
+  unitOfMeasure: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`category_count` of type `Int!`
+  """
+  category_count: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`costPerUnit_count` of type `Int!`
+  """
+  costPerUnit_count: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`description_count` of type `Int!`
+  """
+  description_count: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`imageUrl_count` of type `Int!`
+  """
+  imageUrl_count: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`name_count` of type `Int!`
+  """
+  name_count: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`providerId_count` of type `Int!`
+  """
+  providerId_count: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`supportWorkerProfileId_count` of type `Int!`
+  """
+  supportWorkerProfileId_count: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`unitOfMeasure_count` of type `Int!`
+  """
+  unitOfMeasure_count: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`costPerUnit_sum` of type `Float`
+  """
+  costPerUnit_sum: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`costPerUnit_avg` of type `Float`
+  """
+  costPerUnit_avg: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`costPerUnit_min` of type `Float`
+  """
+  costPerUnit_min: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`costPerUnit_max` of type `Float`
+  """
+  costPerUnit_max: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'ServiceAgreement'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input ServiceAgreement_Data {
+  """
+  ✨ Generated from Field `ServiceAgreement`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `ServiceAgreement`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ServiceAgreement`.`participantProfileId` of type `UUID!`
+  """
+  participantProfileId: UUID
+  """
+  ✨ `_expr` server value variant of `participantProfileId` (✨ Generated from Field `ServiceAgreement`.`participantProfileId` of type `UUID!`)
+  """
+  participantProfileId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ServiceAgreement`.`providerId` of type `UUID`
+  """
+  providerId: UUID
+  """
+  ✨ `_expr` server value variant of `providerId` (✨ Generated from Field `ServiceAgreement`.`providerId` of type `UUID`)
+  """
+  providerId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ServiceAgreement`.`supportWorkerProfileId` of type `UUID`
+  """
+  supportWorkerProfileId: UUID
+  """
+  ✨ `_expr` server value variant of `supportWorkerProfileId` (✨ Generated from Field `ServiceAgreement`.`supportWorkerProfileId` of type `UUID`)
+  """
+  supportWorkerProfileId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ServiceAgreement`.`participantProfile` of type `ParticipantProfile!`
+  """
+  participantProfile: ParticipantProfile_Key
+  """
+  ✨ Generated from Field `ServiceAgreement`.`provider` of type `Provider`
+  """
+  provider: Provider_Key
+  """
+  ✨ Generated from Field `ServiceAgreement`.`supportWorkerProfile` of type `SupportWorkerProfile`
+  """
+  supportWorkerProfile: SupportWorkerProfile_Key
+  """
+  ✨ Generated from Field `ServiceAgreement`.`agreedServices` of type `String!`
+  """
+  agreedServices: String
+  """
+  ✨ `_expr` server value variant of `agreedServices` (✨ Generated from Field `ServiceAgreement`.`agreedServices` of type `String!`)
+  """
+  agreedServices_expr: String_Expr
+  """
+  ✨ Generated from Field `ServiceAgreement`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `ServiceAgreement`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `ServiceAgreement`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `ServiceAgreement`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `ServiceAgreement`.`endDate` of type `Date!`
+  """
+  endDate: Date
+  """
+  ✨ `_date` server value variant of `endDate` (✨ Generated from Field `ServiceAgreement`.`endDate` of type `Date!`)
+  """
+  endDate_date: Date_Relative
+  """
+  ✨ `_expr` server value variant of `endDate` (✨ Generated from Field `ServiceAgreement`.`endDate` of type `Date!`)
+  """
+  endDate_expr: Date_Expr
+  """
+  ✨ `_update` server value variant of `endDate` (✨ Generated from Field `ServiceAgreement`.`endDate` of type `Date!`)
+  """
+  endDate_update: [Date_Update!]
+  """
+  ✨ Generated from Field `ServiceAgreement`.`startDate` of type `Date!`
+  """
+  startDate: Date
+  """
+  ✨ `_date` server value variant of `startDate` (✨ Generated from Field `ServiceAgreement`.`startDate` of type `Date!`)
+  """
+  startDate_date: Date_Relative
+  """
+  ✨ `_expr` server value variant of `startDate` (✨ Generated from Field `ServiceAgreement`.`startDate` of type `Date!`)
+  """
+  startDate_expr: Date_Expr
+  """
+  ✨ `_update` server value variant of `startDate` (✨ Generated from Field `ServiceAgreement`.`startDate` of type `Date!`)
+  """
+  startDate_update: [Date_Update!]
+  """
+  ✨ Generated from Field `ServiceAgreement`.`status` of type `String!`
+  """
+  status: String
+  """
+  ✨ `_expr` server value variant of `status` (✨ Generated from Field `ServiceAgreement`.`status` of type `String!`)
+  """
+  status_expr: String_Expr
+  """
+  ✨ Generated from Field `ServiceAgreement`.`termsAndConditions` of type `String`
+  """
+  termsAndConditions: String
+  """
+  ✨ `_expr` server value variant of `termsAndConditions` (✨ Generated from Field `ServiceAgreement`.`termsAndConditions` of type `String`)
+  """
+  termsAndConditions_expr: String_Expr
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget` of type `Float!`
+  """
+  totalBudget: Float
+  """
+  ✨ `_expr` server value variant of `totalBudget` (✨ Generated from Field `ServiceAgreement`.`totalBudget` of type `Float!`)
+  """
+  totalBudget_expr: Float_Expr
+  """
+  ✨ `_update` server value variant of `totalBudget` (✨ Generated from Field `ServiceAgreement`.`totalBudget` of type `Float!`)
+  """
+  totalBudget_update: [Float_Update!]
+}
+"""
+✨ Generated filter input type for table 'ServiceAgreement'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input ServiceAgreement_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [ServiceAgreement_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: ServiceAgreement_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [ServiceAgreement_Filter!]
+  """
+  ✨ Generated from Field `ServiceAgreement`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`participantProfileId` of type `UUID!`
+  """
+  participantProfileId: UUID_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`providerId` of type `UUID`
+  """
+  providerId: UUID_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`supportWorkerProfileId` of type `UUID`
+  """
+  supportWorkerProfileId: UUID_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`participantProfile` of type `ParticipantProfile!`
+  """
+  participantProfile: ParticipantProfile_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`provider` of type `Provider`
+  """
+  provider: Provider_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`supportWorkerProfile` of type `SupportWorkerProfile`
+  """
+  supportWorkerProfile: SupportWorkerProfile_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`agreedServices` of type `String!`
+  """
+  agreedServices: String_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`endDate` of type `Date!`
+  """
+  endDate: Date_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`startDate` of type `Date!`
+  """
+  startDate: Date_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`status` of type `String!`
+  """
+  status: String_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`termsAndConditions` of type `String`
+  """
+  termsAndConditions: String_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget` of type `Float!`
+  """
+  totalBudget: Float_Filter
+}
+"""
+✨ Generated first-row input type for table 'ServiceAgreement'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input ServiceAgreement_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [ServiceAgreement_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: ServiceAgreement_Filter
+}
+"""
+✨ Generated having input type for table 'ServiceAgreement'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input ServiceAgreement_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [ServiceAgreement_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: ServiceAgreement_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [ServiceAgreement_Having!]
+  """
+  ✨ Generated from Field `ServiceAgreement`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`agreedServices_count` of type `Int!`
+  """
+  agreedServices_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`endDate_count` of type `Int!`
+  """
+  endDate_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`participantProfileId_count` of type `Int!`
+  """
+  participantProfileId_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`providerId_count` of type `Int!`
+  """
+  providerId_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`startDate_count` of type `Int!`
+  """
+  startDate_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`status_count` of type `Int!`
+  """
+  status_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`supportWorkerProfileId_count` of type `Int!`
+  """
+  supportWorkerProfileId_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`termsAndConditions_count` of type `Int!`
+  """
+  termsAndConditions_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget_count` of type `Int!`
+  """
+  totalBudget_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget_sum` of type `Float`
+  """
+  totalBudget_sum: Float_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget_avg` of type `Float`
+  """
+  totalBudget_avg: Float_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`endDate_min` of type `Date`
+  """
+  endDate_min: Date_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`startDate_min` of type `Date`
+  """
+  startDate_min: Date_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget_min` of type `Float`
+  """
+  totalBudget_min: Float_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`endDate_max` of type `Date`
+  """
+  endDate_max: Date_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`startDate_max` of type `Date`
+  """
+  startDate_max: Date_Filter
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget_max` of type `Float`
+  """
+  totalBudget_max: Float_Filter
+}
+"""
+✨ Generated key input type for table 'ServiceAgreement'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input ServiceAgreement_Key {
+  """
+  ✨ Generated from Field `ServiceAgreement`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `ServiceAgreement`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'ServiceAgreement'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input ServiceAgreement_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: ServiceAgreement_Filter
+}
+"""
+✨ Generated order input type for table 'ServiceAgreement'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input ServiceAgreement_Order {
+  """
+  ✨ Generated from Field `ServiceAgreement`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`participantProfileId` of type `UUID!`
+  """
+  participantProfileId: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`providerId` of type `UUID`
+  """
+  providerId: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`supportWorkerProfileId` of type `UUID`
+  """
+  supportWorkerProfileId: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`participantProfile` of type `ParticipantProfile!`
+  """
+  participantProfile: ParticipantProfile_Order
+  """
+  ✨ Generated from Field `ServiceAgreement`.`provider` of type `Provider`
+  """
+  provider: Provider_Order
+  """
+  ✨ Generated from Field `ServiceAgreement`.`supportWorkerProfile` of type `SupportWorkerProfile`
+  """
+  supportWorkerProfile: SupportWorkerProfile_Order
+  """
+  ✨ Generated from Field `ServiceAgreement`.`agreedServices` of type `String!`
+  """
+  agreedServices: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`endDate` of type `Date!`
+  """
+  endDate: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`startDate` of type `Date!`
+  """
+  startDate: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`status` of type `String!`
+  """
+  status: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`termsAndConditions` of type `String`
+  """
+  termsAndConditions: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget` of type `Float!`
+  """
+  totalBudget: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`agreedServices_count` of type `Int!`
+  """
+  agreedServices_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`endDate_count` of type `Int!`
+  """
+  endDate_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`participantProfileId_count` of type `Int!`
+  """
+  participantProfileId_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`providerId_count` of type `Int!`
+  """
+  providerId_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`startDate_count` of type `Int!`
+  """
+  startDate_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`status_count` of type `Int!`
+  """
+  status_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`supportWorkerProfileId_count` of type `Int!`
+  """
+  supportWorkerProfileId_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`termsAndConditions_count` of type `Int!`
+  """
+  termsAndConditions_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget_count` of type `Int!`
+  """
+  totalBudget_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget_sum` of type `Float`
+  """
+  totalBudget_sum: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget_avg` of type `Float`
+  """
+  totalBudget_avg: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`endDate_min` of type `Date`
+  """
+  endDate_min: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`startDate_min` of type `Date`
+  """
+  startDate_min: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget_min` of type `Float`
+  """
+  totalBudget_min: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`endDate_max` of type `Date`
+  """
+  endDate_max: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`startDate_max` of type `Date`
+  """
+  startDate_max: OrderDirection
+  """
+  ✨ Generated from Field `ServiceAgreement`.`totalBudget_max` of type `Float`
+  """
+  totalBudget_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'ServiceRequest'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input ServiceRequest_Data {
+  """
+  ✨ Generated from Field `ServiceRequest`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `ServiceRequest`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ServiceRequest`.`participantProfileId` of type `UUID!`
+  """
+  participantProfileId: UUID
+  """
+  ✨ `_expr` server value variant of `participantProfileId` (✨ Generated from Field `ServiceRequest`.`participantProfileId` of type `UUID!`)
+  """
+  participantProfileId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ServiceRequest`.`serviceId` of type `UUID!`
+  """
+  serviceId: UUID
+  """
+  ✨ `_expr` server value variant of `serviceId` (✨ Generated from Field `ServiceRequest`.`serviceId` of type `UUID!`)
+  """
+  serviceId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ServiceRequest`.`supportWorkerProfileId` of type `UUID`
+  """
+  supportWorkerProfileId: UUID
+  """
+  ✨ `_expr` server value variant of `supportWorkerProfileId` (✨ Generated from Field `ServiceRequest`.`supportWorkerProfileId` of type `UUID`)
+  """
+  supportWorkerProfileId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ServiceRequest`.`participantProfile` of type `ParticipantProfile!`
+  """
+  participantProfile: ParticipantProfile_Key
+  """
+  ✨ Generated from Field `ServiceRequest`.`service` of type `Service!`
+  """
+  service: Service_Key
+  """
+  ✨ Generated from Field `ServiceRequest`.`supportWorkerProfile` of type `SupportWorkerProfile`
+  """
+  supportWorkerProfile: SupportWorkerProfile_Key
+  """
+  ✨ Generated from Field `ServiceRequest`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `ServiceRequest`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `ServiceRequest`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `ServiceRequest`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `ServiceRequest`.`endTime` of type `String!`
+  """
+  endTime: String
+  """
+  ✨ `_expr` server value variant of `endTime` (✨ Generated from Field `ServiceRequest`.`endTime` of type `String!`)
+  """
+  endTime_expr: String_Expr
+  """
+  ✨ Generated from Field `ServiceRequest`.`location` of type `String`
+  """
+  location: String
+  """
+  ✨ `_expr` server value variant of `location` (✨ Generated from Field `ServiceRequest`.`location` of type `String`)
+  """
+  location_expr: String_Expr
+  """
+  ✨ Generated from Field `ServiceRequest`.`notes` of type `String`
+  """
+  notes: String
+  """
+  ✨ `_expr` server value variant of `notes` (✨ Generated from Field `ServiceRequest`.`notes` of type `String`)
+  """
+  notes_expr: String_Expr
+  """
+  ✨ Generated from Field `ServiceRequest`.`requestedDate` of type `Date!`
+  """
+  requestedDate: Date
+  """
+  ✨ `_date` server value variant of `requestedDate` (✨ Generated from Field `ServiceRequest`.`requestedDate` of type `Date!`)
+  """
+  requestedDate_date: Date_Relative
+  """
+  ✨ `_expr` server value variant of `requestedDate` (✨ Generated from Field `ServiceRequest`.`requestedDate` of type `Date!`)
+  """
+  requestedDate_expr: Date_Expr
+  """
+  ✨ `_update` server value variant of `requestedDate` (✨ Generated from Field `ServiceRequest`.`requestedDate` of type `Date!`)
+  """
+  requestedDate_update: [Date_Update!]
+  """
+  ✨ Generated from Field `ServiceRequest`.`startTime` of type `String!`
+  """
+  startTime: String
+  """
+  ✨ `_expr` server value variant of `startTime` (✨ Generated from Field `ServiceRequest`.`startTime` of type `String!`)
+  """
+  startTime_expr: String_Expr
+  """
+  ✨ Generated from Field `ServiceRequest`.`status` of type `String!`
+  """
+  status: String
+  """
+  ✨ `_expr` server value variant of `status` (✨ Generated from Field `ServiceRequest`.`status` of type `String!`)
+  """
+  status_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'ServiceRequest'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input ServiceRequest_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [ServiceRequest_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: ServiceRequest_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [ServiceRequest_Filter!]
+  """
+  ✨ Generated from Field `ServiceRequest`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`participantProfileId` of type `UUID!`
+  """
+  participantProfileId: UUID_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`serviceId` of type `UUID!`
+  """
+  serviceId: UUID_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`supportWorkerProfileId` of type `UUID`
+  """
+  supportWorkerProfileId: UUID_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`participantProfile` of type `ParticipantProfile!`
+  """
+  participantProfile: ParticipantProfile_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`service` of type `Service!`
+  """
+  service: Service_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`supportWorkerProfile` of type `SupportWorkerProfile`
+  """
+  supportWorkerProfile: SupportWorkerProfile_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`endTime` of type `String!`
+  """
+  endTime: String_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`location` of type `String`
+  """
+  location: String_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`notes` of type `String`
+  """
+  notes: String_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`requestedDate` of type `Date!`
+  """
+  requestedDate: Date_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`startTime` of type `String!`
+  """
+  startTime: String_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`status` of type `String!`
+  """
+  status: String_Filter
+}
+"""
+✨ Generated first-row input type for table 'ServiceRequest'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input ServiceRequest_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [ServiceRequest_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: ServiceRequest_Filter
+}
+"""
+✨ Generated having input type for table 'ServiceRequest'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input ServiceRequest_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [ServiceRequest_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: ServiceRequest_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [ServiceRequest_Having!]
+  """
+  ✨ Generated from Field `ServiceRequest`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`endTime_count` of type `Int!`
+  """
+  endTime_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`location_count` of type `Int!`
+  """
+  location_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`notes_count` of type `Int!`
+  """
+  notes_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`participantProfileId_count` of type `Int!`
+  """
+  participantProfileId_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`requestedDate_count` of type `Int!`
+  """
+  requestedDate_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`serviceId_count` of type `Int!`
+  """
+  serviceId_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`startTime_count` of type `Int!`
+  """
+  startTime_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`status_count` of type `Int!`
+  """
+  status_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`supportWorkerProfileId_count` of type `Int!`
+  """
+  supportWorkerProfileId_count: Int_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`requestedDate_min` of type `Date`
+  """
+  requestedDate_min: Date_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `ServiceRequest`.`requestedDate_max` of type `Date`
+  """
+  requestedDate_max: Date_Filter
+}
+"""
+✨ Generated key input type for table 'ServiceRequest'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input ServiceRequest_Key {
+  """
+  ✨ Generated from Field `ServiceRequest`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `ServiceRequest`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'ServiceRequest'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input ServiceRequest_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: ServiceRequest_Filter
+}
+"""
+✨ Generated order input type for table 'ServiceRequest'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input ServiceRequest_Order {
+  """
+  ✨ Generated from Field `ServiceRequest`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`participantProfileId` of type `UUID!`
+  """
+  participantProfileId: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`serviceId` of type `UUID!`
+  """
+  serviceId: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`supportWorkerProfileId` of type `UUID`
+  """
+  supportWorkerProfileId: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`participantProfile` of type `ParticipantProfile!`
+  """
+  participantProfile: ParticipantProfile_Order
+  """
+  ✨ Generated from Field `ServiceRequest`.`service` of type `Service!`
+  """
+  service: Service_Order
+  """
+  ✨ Generated from Field `ServiceRequest`.`supportWorkerProfile` of type `SupportWorkerProfile`
+  """
+  supportWorkerProfile: SupportWorkerProfile_Order
+  """
+  ✨ Generated from Field `ServiceRequest`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`endTime` of type `String!`
+  """
+  endTime: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`location` of type `String`
+  """
+  location: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`notes` of type `String`
+  """
+  notes: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`requestedDate` of type `Date!`
+  """
+  requestedDate: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`startTime` of type `String!`
+  """
+  startTime: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`status` of type `String!`
+  """
+  status: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`endTime_count` of type `Int!`
+  """
+  endTime_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`location_count` of type `Int!`
+  """
+  location_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`notes_count` of type `Int!`
+  """
+  notes_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`participantProfileId_count` of type `Int!`
+  """
+  participantProfileId_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`requestedDate_count` of type `Int!`
+  """
+  requestedDate_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`serviceId_count` of type `Int!`
+  """
+  serviceId_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`startTime_count` of type `Int!`
+  """
+  startTime_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`status_count` of type `Int!`
+  """
+  status_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`supportWorkerProfileId_count` of type `Int!`
+  """
+  supportWorkerProfileId_count: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`requestedDate_min` of type `Date`
+  """
+  requestedDate_min: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+  """
+  ✨ Generated from Field `ServiceRequest`.`requestedDate_max` of type `Date`
+  """
+  requestedDate_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'SupportWorkerProfile'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input SupportWorkerProfile_Data {
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `SupportWorkerProfile`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`userId` of type `UUID!`
+  """
+  userId: UUID
+  """
+  ✨ `_expr` server value variant of `userId` (✨ Generated from Field `SupportWorkerProfile`.`userId` of type `UUID!`)
+  """
+  userId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`user` of type `User!`
+  """
+  user: User_Key
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`abn` of type `String`
+  """
+  abn: String
+  """
+  ✨ `_expr` server value variant of `abn` (✨ Generated from Field `SupportWorkerProfile`.`abn` of type `String`)
+  """
+  abn_expr: String_Expr
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`availability` of type `String!`
+  """
+  availability: String
+  """
+  ✨ `_expr` server value variant of `availability` (✨ Generated from Field `SupportWorkerProfile`.`availability` of type `String!`)
+  """
+  availability_expr: String_Expr
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `SupportWorkerProfile`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `SupportWorkerProfile`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `SupportWorkerProfile`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`experience` of type `String!`
+  """
+  experience: String
+  """
+  ✨ `_expr` server value variant of `experience` (✨ Generated from Field `SupportWorkerProfile`.`experience` of type `String!`)
+  """
+  experience_expr: String_Expr
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`firstAidCertificate` of type `String`
+  """
+  firstAidCertificate: String
+  """
+  ✨ `_expr` server value variant of `firstAidCertificate` (✨ Generated from Field `SupportWorkerProfile`.`firstAidCertificate` of type `String`)
+  """
+  firstAidCertificate_expr: String_Expr
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate` of type `Float!`
+  """
+  hourlyRate: Float
+  """
+  ✨ `_expr` server value variant of `hourlyRate` (✨ Generated from Field `SupportWorkerProfile`.`hourlyRate` of type `Float!`)
+  """
+  hourlyRate_expr: Float_Expr
+  """
+  ✨ `_update` server value variant of `hourlyRate` (✨ Generated from Field `SupportWorkerProfile`.`hourlyRate` of type `Float!`)
+  """
+  hourlyRate_update: [Float_Update!]
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`policeCheckStatus` of type `String`
+  """
+  policeCheckStatus: String
+  """
+  ✨ `_expr` server value variant of `policeCheckStatus` (✨ Generated from Field `SupportWorkerProfile`.`policeCheckStatus` of type `String`)
+  """
+  policeCheckStatus_expr: String_Expr
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`qualifications` of type `String!`
+  """
+  qualifications: String
+  """
+  ✨ `_expr` server value variant of `qualifications` (✨ Generated from Field `SupportWorkerProfile`.`qualifications` of type `String!`)
+  """
+  qualifications_expr: String_Expr
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`servicesOffered` of type `String!`
+  """
+  servicesOffered: String
+  """
+  ✨ `_expr` server value variant of `servicesOffered` (✨ Generated from Field `SupportWorkerProfile`.`servicesOffered` of type `String!`)
+  """
+  servicesOffered_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'SupportWorkerProfile'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input SupportWorkerProfile_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [SupportWorkerProfile_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: SupportWorkerProfile_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [SupportWorkerProfile_Filter!]
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`userId` of type `UUID!`
+  """
+  userId: UUID_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`user` of type `User!`
+  """
+  user: User_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`abn` of type `String`
+  """
+  abn: String_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`availability` of type `String!`
+  """
+  availability: String_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`experience` of type `String!`
+  """
+  experience: String_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`firstAidCertificate` of type `String`
+  """
+  firstAidCertificate: String_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate` of type `Float!`
+  """
+  hourlyRate: Float_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`policeCheckStatus` of type `String`
+  """
+  policeCheckStatus: String_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`qualifications` of type `String!`
+  """
+  qualifications: String_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`servicesOffered` of type `String!`
+  """
+  servicesOffered: String_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`services_on_supportWorkerProfile` of type `[Service!]!`
+  """
+  services_on_supportWorkerProfile: Service_ListFilter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`serviceAgreements_on_supportWorkerProfile` of type `[ServiceAgreement!]!`
+  """
+  serviceAgreements_on_supportWorkerProfile: ServiceAgreement_ListFilter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`serviceRequests_on_supportWorkerProfile` of type `[ServiceRequest!]!`
+  """
+  serviceRequests_on_supportWorkerProfile: ServiceRequest_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'SupportWorkerProfile'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input SupportWorkerProfile_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [SupportWorkerProfile_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: SupportWorkerProfile_Filter
+}
+"""
+✨ Generated having input type for table 'SupportWorkerProfile'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input SupportWorkerProfile_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [SupportWorkerProfile_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: SupportWorkerProfile_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [SupportWorkerProfile_Having!]
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`abn_count` of type `Int!`
+  """
+  abn_count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`availability_count` of type `Int!`
+  """
+  availability_count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`experience_count` of type `Int!`
+  """
+  experience_count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`firstAidCertificate_count` of type `Int!`
+  """
+  firstAidCertificate_count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate_count` of type `Int!`
+  """
+  hourlyRate_count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`policeCheckStatus_count` of type `Int!`
+  """
+  policeCheckStatus_count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`qualifications_count` of type `Int!`
+  """
+  qualifications_count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`servicesOffered_count` of type `Int!`
+  """
+  servicesOffered_count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`userId_count` of type `Int!`
+  """
+  userId_count: Int_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate_sum` of type `Float`
+  """
+  hourlyRate_sum: Float_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate_avg` of type `Float`
+  """
+  hourlyRate_avg: Float_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate_min` of type `Float`
+  """
+  hourlyRate_min: Float_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate_max` of type `Float`
+  """
+  hourlyRate_max: Float_Filter
+}
+"""
+✨ Generated key input type for table 'SupportWorkerProfile'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input SupportWorkerProfile_Key {
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `SupportWorkerProfile`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'SupportWorkerProfile'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input SupportWorkerProfile_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: SupportWorkerProfile_Filter
+}
+"""
+✨ Generated order input type for table 'SupportWorkerProfile'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input SupportWorkerProfile_Order {
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`userId` of type `UUID!`
+  """
+  userId: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`user` of type `User!`
+  """
+  user: User_Order
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`abn` of type `String`
+  """
+  abn: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`availability` of type `String!`
+  """
+  availability: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`experience` of type `String!`
+  """
+  experience: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`firstAidCertificate` of type `String`
+  """
+  firstAidCertificate: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate` of type `Float!`
+  """
+  hourlyRate: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`policeCheckStatus` of type `String`
+  """
+  policeCheckStatus: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`qualifications` of type `String!`
+  """
+  qualifications: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`servicesOffered` of type `String!`
+  """
+  servicesOffered: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`abn_count` of type `Int!`
+  """
+  abn_count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`availability_count` of type `Int!`
+  """
+  availability_count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`experience_count` of type `Int!`
+  """
+  experience_count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`firstAidCertificate_count` of type `Int!`
+  """
+  firstAidCertificate_count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate_count` of type `Int!`
+  """
+  hourlyRate_count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`policeCheckStatus_count` of type `Int!`
+  """
+  policeCheckStatus_count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`qualifications_count` of type `Int!`
+  """
+  qualifications_count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`servicesOffered_count` of type `Int!`
+  """
+  servicesOffered_count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`userId_count` of type `Int!`
+  """
+  userId_count: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate_sum` of type `Float`
+  """
+  hourlyRate_sum: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate_avg` of type `Float`
+  """
+  hourlyRate_avg: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate_min` of type `Float`
+  """
+  hourlyRate_min: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+  """
+  ✨ Generated from Field `SupportWorkerProfile`.`hourlyRate_max` of type `Float`
+  """
+  hourlyRate_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'User'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input User_Data {
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `User`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `User`.`address` of type `String`
+  """
+  address: String
+  """
+  ✨ `_expr` server value variant of `address` (✨ Generated from Field `User`.`address` of type `String`)
+  """
+  address_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `User`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `User`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `User`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `User`.`email` of type `String!`
+  """
+  email: String
+  """
+  ✨ `_expr` server value variant of `email` (✨ Generated from Field `User`.`email` of type `String!`)
+  """
+  email_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`firstName` of type `String`
+  """
+  firstName: String
+  """
+  ✨ `_expr` server value variant of `firstName` (✨ Generated from Field `User`.`firstName` of type `String`)
+  """
+  firstName_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`lastName` of type `String`
+  """
+  lastName: String
+  """
+  ✨ `_expr` server value variant of `lastName` (✨ Generated from Field `User`.`lastName` of type `String`)
+  """
+  lastName_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`phoneNumber` of type `String`
+  """
+  phoneNumber: String
+  """
+  ✨ `_expr` server value variant of `phoneNumber` (✨ Generated from Field `User`.`phoneNumber` of type `String`)
+  """
+  phoneNumber_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`userType` of type `String!`
+  """
+  userType: String
+  """
+  ✨ `_expr` server value variant of `userType` (✨ Generated from Field `User`.`userType` of type `String!`)
+  """
+  userType_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'User'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input User_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [User_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: User_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [User_Filter!]
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `User`.`address` of type `String`
+  """
+  address: String_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `User`.`email` of type `String!`
+  """
+  email: String_Filter
+  """
+  ✨ Generated from Field `User`.`firstName` of type `String`
+  """
+  firstName: String_Filter
+  """
+  ✨ Generated from Field `User`.`lastName` of type `String`
+  """
+  lastName: String_Filter
+  """
+  ✨ Generated from Field `User`.`phoneNumber` of type `String`
+  """
+  phoneNumber: String_Filter
+  """
+  ✨ Generated from Field `User`.`userType` of type `String!`
+  """
+  userType: String_Filter
+  """
+  ✨ Generated from Field `User`.`participantProfiles_on_user` of type `[ParticipantProfile!]!`
+  """
+  participantProfiles_on_user: ParticipantProfile_ListFilter
+  """
+  ✨ Generated from Field `User`.`providers_on_adminUser` of type `[Provider!]!`
+  """
+  providers_on_adminUser: Provider_ListFilter
+  """
+  ✨ Generated from Field `User`.`supportWorkerProfiles_on_user` of type `[SupportWorkerProfile!]!`
+  """
+  supportWorkerProfiles_on_user: SupportWorkerProfile_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'User'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input User_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [User_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: User_Filter
+}
+"""
+✨ Generated having input type for table 'User'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input User_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [User_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: User_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [User_Having!]
+  """
+  ✨ Generated from Field `User`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`address_count` of type `Int!`
+  """
+  address_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`email_count` of type `Int!`
+  """
+  email_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`firstName_count` of type `Int!`
+  """
+  firstName_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`lastName_count` of type `Int!`
+  """
+  lastName_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`phoneNumber_count` of type `Int!`
+  """
+  phoneNumber_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`userType_count` of type `Int!`
+  """
+  userType_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'User'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input User_Key {
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `User`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'User'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input User_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: User_Filter
+}
+"""
+✨ Generated order input type for table 'User'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input User_Order {
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `User`.`address` of type `String`
+  """
+  address: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `User`.`email` of type `String!`
+  """
+  email: OrderDirection
+  """
+  ✨ Generated from Field `User`.`firstName` of type `String`
+  """
+  firstName: OrderDirection
+  """
+  ✨ Generated from Field `User`.`lastName` of type `String`
+  """
+  lastName: OrderDirection
+  """
+  ✨ Generated from Field `User`.`phoneNumber` of type `String`
+  """
+  phoneNumber: OrderDirection
+  """
+  ✨ Generated from Field `User`.`userType` of type `String!`
+  """
+  userType: OrderDirection
+  """
+  ✨ Generated from Field `User`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`address_count` of type `Int!`
+  """
+  address_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`email_count` of type `Int!`
+  """
+  email_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`firstName_count` of type `Int!`
+  """
+  firstName_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`lastName_count` of type `Int!`
+  """
+  lastName_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`phoneNumber_count` of type `Int!`
+  """
+  phoneNumber_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`userType_count` of type `Int!`
+  """
+  userType_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+}

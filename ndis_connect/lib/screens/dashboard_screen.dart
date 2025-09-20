@@ -3,10 +3,13 @@ import 'package:provider/provider.dart';
 
 import '../l10n/app_localizations.dart';
 import '../services/analytics_service.dart';
+import '../services/memory_optimization_service.dart';
 import '../services/remote_config_service.dart';
 import '../viewmodels/user_viewmodel.dart';
 import '../widgets/emergency_support_sheet.dart';
+import '../widgets/error_boundary.dart';
 import '../widgets/feature_card.dart';
+import '../widgets/lazy_loading_widgets.dart';
 import 'provider_dashboard_screen.dart';
 import 'settings_screen.dart';
 
@@ -16,26 +19,70 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userVm = context.watch<UserViewModel>();
-    if (userVm.loading) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
-    if (userVm.role == 'provider') {
-      return const ProviderDashboardScreen();
-    }
-    return const ParticipantDashboardScreen();
+    return ErrorBoundary(
+      context: 'DashboardScreen',
+      onRetry: () {
+        // Retry loading user data
+        // Trigger a refresh if possible
+      },
+      child: Consumer<UserViewModel>(
+        builder: (context, userVm, child) {
+          if (userVm.loading) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          }
+
+          if (userVm.role == 'provider') {
+            return const ProviderDashboardScreen();
+          }
+
+          return const ParticipantDashboardScreen();
+        },
+      ),
+    );
   }
 }
 
-class ParticipantDashboardScreen extends StatelessWidget {
+class ParticipantDashboardScreen extends StatefulWidget {
   const ParticipantDashboardScreen({super.key});
+
+  @override
+  State<ParticipantDashboardScreen> createState() => _ParticipantDashboardScreenState();
+}
+
+class _ParticipantDashboardScreenState extends State<ParticipantDashboardScreen>
+    with ErrorHandlingMixin, LazyLoadingMixin {
+  final MemoryOptimizationService _memoryService = MemoryOptimizationService();
+
+  @override
+  void initState() {
+    super.initState();
+    _memoryService.initialize();
+  }
 
   @override
   Widget build(BuildContext context) {
     final s = AppLocalizations.of(context)!;
-    final rc = context.read<RemoteConfigService>();
-    final pointsEnabled = rc.pointsEnabled;
-    final badgeVariant = rc.badgeVariant; // A or B
+
+    try {
+      final rc = context.read<RemoteConfigService>();
+      final pointsEnabled = rc.pointsEnabled;
+      final badgeVariant = rc.badgeVariant; // A or B
+
+      return _buildDashboard(context, s, pointsEnabled, badgeVariant);
+    } catch (error, stackTrace) {
+      handleError(
+        error,
+        stackTrace: stackTrace,
+        context: {'operation': 'build_participant_dashboard'},
+      );
+      return _buildErrorFallback(context);
+    }
+  }
+
+  Widget _buildDashboard(
+      BuildContext context, AppLocalizations s, bool pointsEnabled, String badgeVariant) {
     return Scaffold(
       appBar: AppBar(
         title: Text(s.participantDashboard),
@@ -112,7 +159,7 @@ class ParticipantDashboardScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: GridView.builder(
+                child: LazyLoadingGridView(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
                     crossAxisSpacing: 16,
@@ -121,11 +168,18 @@ class ParticipantDashboardScreen extends StatelessWidget {
                     childAspectRatio: width < 600 ? 5 / 4 : 4 / 3,
                   ),
                   itemCount: features.length,
-                  itemBuilder: (ctx, idx) => Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Semantics(
-                      container: true,
-                      child: features[idx],
+                  itemBuilder: (ctx, idx) => LazyLoadingWidget(
+                    builder: (context) => Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Semantics(
+                        container: true,
+                        child: features[idx],
+                      ),
+                    ),
+                    placeholder: const OptimizedCard(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
                   ),
                 ),
@@ -135,6 +189,41 @@ class ParticipantDashboardScreen extends StatelessWidget {
             ],
           );
         }),
+      ),
+    );
+  }
+
+  Widget _buildErrorFallback(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dashboard'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.pushNamed(context, SettingsScreen.route),
+            tooltip: 'Settings',
+          )
+        ],
+      ),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline, size: 64, color: Colors.grey),
+            SizedBox(height: 16),
+            Text(
+              'Unable to load dashboard',
+              style: TextStyle(fontSize: 18),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Please check your connection and try again',
+              style: TextStyle(color: Colors.grey),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }

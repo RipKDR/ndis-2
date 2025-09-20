@@ -9,22 +9,25 @@ import 'task_service_test.mocks.dart';
 
 @GenerateMocks([
   FirebaseFirestore,
-  CollectionReference,
-  DocumentReference,
-  Query,
-  QuerySnapshot,
-  DocumentSnapshot,
-  WriteBatch
+], customMocks: [
+  MockSpec<CollectionReference<Map<String, dynamic>>>(),
+  MockSpec<DocumentReference<Map<String, dynamic>>>(),
+  MockSpec<Query<Map<String, dynamic>>>(),
+  MockSpec<QuerySnapshot<Map<String, dynamic>>>(),
+  MockSpec<DocumentSnapshot<Map<String, dynamic>>>(),
+  MockSpec<QueryDocumentSnapshot<Map<String, dynamic>>>(),
+  MockSpec<WriteBatch>(),
 ])
 void main() {
   group('TaskService', () {
     late TaskService taskService;
     late MockFirebaseFirestore mockFirestore;
-    late MockCollectionReference mockCollection;
-    late MockDocumentReference mockDocument;
-    late MockQuery mockQuery;
+    late MockCollectionReference<Map<String, dynamic>> mockCollection;
+    late MockDocumentReference<Map<String, dynamic>> mockDocument;
+    late MockQuery<Map<String, dynamic>> mockQuery;
     late MockQuerySnapshot mockQuerySnapshot;
     late MockDocumentSnapshot mockDocumentSnapshot;
+    late MockQueryDocumentSnapshot mockQueryDocumentSnapshot;
     late MockWriteBatch mockBatch;
 
     setUp(() {
@@ -34,6 +37,7 @@ void main() {
       mockQuery = MockQuery();
       mockQuerySnapshot = MockQuerySnapshot();
       mockDocumentSnapshot = MockDocumentSnapshot();
+      mockQueryDocumentSnapshot = MockQueryDocumentSnapshot();
       mockBatch = MockWriteBatch();
 
       taskService = TaskService();
@@ -64,9 +68,9 @@ void main() {
         when(mockCollection.orderBy('createdAt', descending: true)).thenReturn(mockQuery);
         when(mockQuery.get(const GetOptions(source: Source.server)))
             .thenAnswer((_) async => mockQuerySnapshot);
-        when(mockQuerySnapshot.docs).thenReturn([mockDocumentSnapshot]);
-        when(mockDocumentSnapshot.data()).thenReturn(mockTaskData);
-        when(mockDocumentSnapshot.id).thenReturn('task-1');
+        when(mockQuerySnapshot.docs).thenReturn([mockQueryDocumentSnapshot]);
+        when(mockQueryDocumentSnapshot.data()).thenReturn(mockTaskData);
+        when(mockQueryDocumentSnapshot.id).thenReturn('task-1');
 
         // Act
         final result = await taskService.fetchTasks(uid);
@@ -294,9 +298,9 @@ void main() {
           'isOfflineCreated': false,
         };
 
-        when(mockQuerySnapshot.docs).thenReturn([mockDocumentSnapshot]);
-        when(mockDocumentSnapshot.data()).thenReturn(mockTaskData);
-        when(mockDocumentSnapshot.id).thenReturn('task-1');
+        when(mockQuerySnapshot.docs).thenReturn([mockQueryDocumentSnapshot]);
+        when(mockQueryDocumentSnapshot.data()).thenReturn(mockTaskData);
+        when(mockQueryDocumentSnapshot.id).thenReturn('task-1');
 
         // Act
         final result = await taskService.searchTasks(uid, query);

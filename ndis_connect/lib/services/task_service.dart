@@ -1,18 +1,49 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
 import '../models/task.dart';
 
 class TaskService {
-  final _db = FirebaseFirestore.instance;
+  final FirebaseFirestore? _db;
   final _uuid = const Uuid();
+  final bool _isFirebaseAvailable;
+
+  TaskService()
+      : _isFirebaseAvailable = _checkFirebaseAvailability(),
+        _db = _checkFirebaseAvailability() ? FirebaseFirestore.instance : null;
+
+  static bool _checkFirebaseAvailability() {
+    try {
+      Firebase.app();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   String _tasksBoxName(String uid) => 'tasks_cache_$uid';
   String _opsBoxName(String uid) => 'tasks_ops_$uid';
 
+  // Helper method for getting cached tasks with filters
+  Future<List<TaskModel>> _getCachedTasks(String uid,
+      {TaskStatus? status, TaskCategory? category}) async {
+    final cached = _readCache(uid);
+    return cached.where((task) {
+      if (status != null && task.status != status) return false;
+      if (category != null && task.category != category) return false;
+      return true;
+    }).toList();
+  }
+
   Future<List<TaskModel>> fetchTasks(String uid,
       {TaskStatus? status, TaskCategory? category}) async {
+    if (!_isFirebaseAvailable || _db == null) {
+      // Return cached tasks when Firebase is not available
+      return _getCachedTasks(uid, status: status, category: category);
+    }
+
     try {
       Query query = _db.collection('tasks').doc(uid).collection('items');
 
@@ -48,6 +79,16 @@ class TaskService {
 
   Future<List<TaskModel>> fetchOverdueTasks(String uid) async {
     final now = DateTime.now();
+
+    if (!_isFirebaseAvailable || _db == null) {
+      // Offline fallback
+      return _readCache(uid).where((task) {
+        return (task.status == TaskStatus.pending || task.status == TaskStatus.inProgress) &&
+            task.dueDate != null &&
+            task.dueDate!.isBefore(now);
+      }).toList();
+    }
+
     try {
       final q = await _db
           .collection('tasks')
@@ -79,6 +120,15 @@ class TaskService {
     final now = DateTime.now();
     final startOfDay = DateTime(now.year, now.month, now.day);
     final endOfDay = startOfDay.add(const Duration(days: 1));
+
+    if (!_isFirebaseAvailable || _db == null) {
+      // Offline fallback
+      return _readCache(uid).where((task) {
+        return task.dueDate != null &&
+            task.dueDate!.isAfter(startOfDay.subtract(const Duration(days: 1))) &&
+            task.dueDate!.isBefore(endOfDay);
+      }).toList();
+    }
 
     try {
       final q = await _db
@@ -114,6 +164,15 @@ class TaskService {
       'id': id,
     };
 
+    if (!_isFirebaseAvailable || _db == null) {
+      if (enqueueIfOffline) {
+        await _enqueue(uid, {'op': 'create', 'data': data});
+      }
+      final createdTask = TaskModel.fromMap(data);
+      await _upsertCache(uid, createdTask);
+      return createdTask;
+    }
+
     try {
       await _db.collection('tasks').doc(uid).collection('items').doc(id).set(data);
     } catch (_) {
@@ -130,6 +189,14 @@ class TaskService {
   }
 
   Future<void> updateTask(String uid, TaskModel task, {bool enqueueIfOffline = true}) async {
+    if (!_isFirebaseAvailable || _db == null) {
+      if (enqueueIfOffline) {
+        await _enqueue(uid, {'op': 'update', 'data': task.toMap()});
+      }
+      await _upsertCache(uid, task);
+      return;
+    }
+
     try {
       await _db
           .collection('tasks')
@@ -149,6 +216,14 @@ class TaskService {
   }
 
   Future<void> deleteTask(String uid, String taskId, {bool enqueueIfOffline = true}) async {
+    if (!_isFirebaseAvailable || _db == null) {
+      if (enqueueIfOffline) {
+        await _enqueue(uid, {'op': 'delete', 'id': taskId});
+      }
+      await _deleteCache(uid, taskId);
+      return;
+    }
+
     try {
       await _db.collection('tasks').doc(uid).collection('items').doc(taskId).delete();
     } catch (_) {
@@ -164,6 +239,22 @@ class TaskService {
 
   Future<void> markTaskComplete(String uid, String taskId, {bool enqueueIfOffline = true}) async {
     final now = DateTime.now();
+
+    if (!_isFirebaseAvailable || _db == null) {
+      if (enqueueIfOffline) {
+        await _enqueue(uid, {
+          'op': 'update',
+          'data': {
+            'id': taskId,
+            'status': TaskStatus.completed.name,
+            'completedAt': now.toIso8601String(),
+            'progress': 100,
+          }
+        });
+      }
+      return;
+    }
+
     try {
       await _db.collection('tasks').doc(uid).collection('items').doc(taskId).update({
         'status': TaskStatus.completed.name,
@@ -204,6 +295,21 @@ class TaskService {
     final status = progress >= 100 ? TaskStatus.completed : TaskStatus.inProgress;
     final completedAt = progress >= 100 ? DateTime.now() : null;
 
+    if (!_isFirebaseAvailable || _db == null) {
+      if (enqueueIfOffline) {
+        await _enqueue(uid, {
+          'op': 'update',
+          'data': {
+            'id': taskId,
+            'progress': progress,
+            'status': status.name,
+            if (completedAt != null) 'completedAt': completedAt.toIso8601String(),
+          }
+        });
+      }
+      return;
+    }
+
     try {
       await _db.collection('tasks').doc(uid).collection('items').doc(taskId).update({
         'progress': progress,
@@ -240,6 +346,10 @@ class TaskService {
   }
 
   Future<void> processQueue(String uid) async {
+    if (!_isFirebaseAvailable || _db == null) {
+      return; // Can't process queue without Firebase
+    }
+
     final box = await Hive.openBox<String>(_opsBoxName(uid));
     final ops = (box.get('ops') != null)
         ? (jsonDecode(box.get('ops')!) as List)
@@ -336,6 +446,10 @@ class TaskService {
   }
 
   Future<List<TaskModel>> getRecurringTasks(String uid) async {
+    if (!_isFirebaseAvailable || _db == null) {
+      return _readCache(uid).where((task) => task.isRecurring).toList();
+    }
+
     try {
       final q = await _db
           .collection('tasks')
@@ -397,18 +511,25 @@ class TaskService {
     }
 
     // Batch create tasks
-    final batch = _db.batch();
-    for (final taskToCreate in tasks) {
-      final docRef = _db.collection('tasks').doc(uid).collection('items').doc(taskToCreate.id);
-      batch.set(docRef, taskToCreate.toMap());
-    }
-
-    try {
-      await batch.commit();
-    } catch (_) {
-      // If batch fails, enqueue individual operations
+    if (!_isFirebaseAvailable || _db == null) {
+      // If Firebase not available, enqueue individual operations
       for (final taskToCreate in tasks) {
         await _enqueue(uid, {'op': 'create', 'data': taskToCreate.toMap()});
+      }
+    } else {
+      final batch = _db.batch();
+      for (final taskToCreate in tasks) {
+        final docRef = _db.collection('tasks').doc(uid).collection('items').doc(taskToCreate.id);
+        batch.set(docRef, taskToCreate.toMap());
+      }
+
+      try {
+        await batch.commit();
+      } catch (_) {
+        // If batch fails, enqueue individual operations
+        for (final taskToCreate in tasks) {
+          await _enqueue(uid, {'op': 'create', 'data': taskToCreate.toMap()});
+        }
       }
     }
 
@@ -433,6 +554,13 @@ class TaskService {
   }
 
   Future<List<TaskModel>> getTasksByDateRange(String uid, DateTime start, DateTime end) async {
+    if (!_isFirebaseAvailable || _db == null) {
+      return _readCache(uid).where((task) {
+        if (task.dueDate == null) return false;
+        return task.dueDate!.isAfter(start) && task.dueDate!.isBefore(end);
+      }).toList();
+    }
+
     try {
       final q = await _db
           .collection('tasks')

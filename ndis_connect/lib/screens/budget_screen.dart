@@ -7,6 +7,8 @@ import '../l10n/app_localizations.dart';
 import '../models/budget.dart';
 import '../services/budget_service.dart';
 import '../viewmodels/budget_viewmodel.dart';
+import '../widgets/accessibility_widgets.dart';
+import '../widgets/error_boundary.dart';
 
 class BudgetScreen extends StatelessWidget {
   static const route = '/budget';
@@ -14,9 +16,15 @@ class BudgetScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => BudgetViewModel(BudgetService(), FirebaseAuth.instance)..load(),
-      child: const _BudgetBody(),
+    return ErrorBoundary(
+      context: 'BudgetScreen',
+      onRetry: () {
+        // Retry functionality
+      },
+      child: ChangeNotifierProvider(
+        create: (_) => BudgetViewModel(BudgetService(), FirebaseAuth.instance)..load(),
+        child: const _BudgetBody(),
+      ),
     );
   }
 }
@@ -29,17 +37,17 @@ class _BudgetBody extends StatelessWidget {
     final vm = context.watch<BudgetViewModel>();
     final s = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(s.budget)),
+      appBar: AppBar(title: AccessibleText(s.budget)),
       body: vm.loading
           ? const Center(child: CircularProgressIndicator())
           : vm.summary == null
-              ? Center(child: Text(s.error))
+              ? Center(child: AccessibleText(s.error))
               : Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Year ${vm.summary!.year}',
+                      AccessibleText('Year ${vm.summary!.year}',
                           style: Theme.of(context).textTheme.titleLarge),
                       const SizedBox(height: 12),
                       SizedBox(height: 220, child: _BudgetPie(summary: vm.summary!)),
@@ -55,7 +63,7 @@ class _BudgetBody extends StatelessWidget {
                           total: vm.summary!.capital,
                           spent: vm.summary!.spentCapital),
                       const SizedBox(height: 8),
-                      Text(
+                      AccessibleText(
                         'Tip: set alerts to avoid overspending. Alerts via Functions trigger push notifications when you near limits.',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
@@ -77,7 +85,7 @@ class _BudgetPie extends StatelessWidget {
     final total = remaining + spent;
 
     if (total == 0) {
-      return const Center(child: Text('No budget data available'));
+      return const Center(child: AccessibleText('No budget data available'));
     }
 
     return PieChart(
@@ -123,8 +131,9 @@ class _BudgetRow extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: Theme.of(context).textTheme.titleSmall),
-            Text('${remaining.toStringAsFixed(0)} remaining / ${total.toStringAsFixed(0)}'),
+            AccessibleText(label, style: Theme.of(context).textTheme.titleSmall),
+            AccessibleText(
+                '${remaining.toStringAsFixed(0)} remaining / ${total.toStringAsFixed(0)}'),
           ],
         ),
         const SizedBox(height: 4),

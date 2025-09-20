@@ -9,7 +9,9 @@ import '../services/notifications_service.dart';
 import '../services/reminders_service.dart';
 import '../services/remote_config_service.dart';
 import '../viewmodels/calendar_viewmodel.dart';
+import '../widgets/accessibility_widgets.dart';
 import '../widgets/calendar_grid.dart';
+import '../widgets/error_boundary.dart';
 
 class CalendarScreen extends StatelessWidget {
   static const route = '/calendar';
@@ -17,9 +19,15 @@ class CalendarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => CalendarViewModel(EventService(), FirebaseAuth.instance),
-      child: const _CalendarView(),
+    return ErrorBoundary(
+      context: 'CalendarScreen',
+      onRetry: () {
+        // Retry functionality
+      },
+      child: ChangeNotifierProvider(
+        create: (_) => CalendarViewModel(EventService(), FirebaseAuth.instance),
+        child: const _CalendarView(),
+      ),
     );
   }
 }
@@ -33,11 +41,11 @@ class _CalendarView extends StatelessWidget {
     final s = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(s.calendar),
+        title: AccessibleText(s.calendar),
         actions: [
-          IconButton(
+          AccessibleIconButton(
             onPressed: vm.loading ? null : () => vm.refresh(),
-            icon: const Icon(Icons.refresh),
+            icon: Icons.refresh,
             tooltip: s.retry,
           ),
         ],
@@ -45,7 +53,7 @@ class _CalendarView extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showEventForm(context),
         icon: const Icon(Icons.add),
-        label: Text(s.newEvent),
+        label: AccessibleText(s.newEvent),
       ),
       body: vm.loading
           ? const Center(child: CircularProgressIndicator())
@@ -56,19 +64,21 @@ class _CalendarView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
-                        icon: const Icon(Icons.chevron_left),
+                      AccessibleIconButton(
+                        icon: Icons.chevron_left,
+                        tooltip: 'Previous Month',
                         onPressed: () {
                           final prev = DateTime(vm.currentMonth.year, vm.currentMonth.month - 1);
                           vm.goToMonth(prev);
                         },
                       ),
-                      Text(
+                      AccessibleText(
                         '${vm.currentMonth.year}-${vm.currentMonth.month.toString().padLeft(2, '0')}',
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.chevron_right),
+                      AccessibleIconButton(
+                        icon: Icons.chevron_right,
+                        tooltip: 'Next Month',
                         onPressed: () {
                           final next = DateTime(vm.currentMonth.year, vm.currentMonth.month + 1);
                           vm.goToMonth(next);
@@ -98,12 +108,12 @@ class _CalendarView extends StatelessWidget {
       builder: (_) => ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Text('Events on ${day.toLocal().toString().split(' ').first}',
+          AccessibleText('Events on ${day.toLocal().toString().split(' ').first}',
               style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           ...todaysEvents.map((e) => ListTile(
-                title: Text(e.title),
-                subtitle: Text(
+                title: AccessibleText(e.title),
+                subtitle: AccessibleText(
                     '${e.start.hour.toString().padLeft(2, '0')}:${e.start.minute.toString().padLeft(2, '0')} - '
                     '${e.end.hour.toString().padLeft(2, '0')}:${e.end.minute.toString().padLeft(2, '0')}'),
                 onTap: () => _showEventForm(context, existing: e),
@@ -115,7 +125,7 @@ class _CalendarView extends StatelessWidget {
               _showEventForm(context, initialDay: day);
             },
             icon: const Icon(Icons.add),
-            label: const Text('New event'),
+            label: const AccessibleText('New event'),
           )
         ],
       ),
@@ -144,7 +154,7 @@ class _CalendarView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(existing == null ? s.newEvent : s.editEvent,
+                AccessibleText(existing == null ? s.newEvent : s.editEvent,
                     style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 12),
                 TextField(
@@ -176,7 +186,7 @@ class _CalendarView extends StatelessWidget {
                 CheckboxListTile(
                   value: allDay,
                   onChanged: (v) => allDay = v ?? false,
-                  title: Text(s.allDay),
+                  title: AccessibleText(s.allDay),
                   controlAffinity: ListTileControlAffinity.leading,
                 ),
                 const SizedBox(height: 12),
@@ -189,7 +199,7 @@ class _CalendarView extends StatelessWidget {
                           if (context.mounted) Navigator.pop(context);
                         },
                         icon: const Icon(Icons.delete),
-                        label: Text(s.delete),
+                        label: AccessibleText(s.delete),
                       ),
                     const Spacer(),
                     FilledButton.icon(
@@ -232,7 +242,7 @@ class _CalendarView extends StatelessWidget {
                         if (context.mounted) Navigator.pop(context);
                       },
                       icon: const Icon(Icons.save),
-                      label: Text(s.save),
+                      label: AccessibleText(s.save),
                     )
                   ],
                 )
@@ -287,7 +297,7 @@ class _DateTimeFieldState extends State<_DateTimeField> {
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: Text('${widget.label}: ${_value.toLocal()}'),
+        child: AccessibleText('${widget.label}: ${_value.toLocal()}'),
       ),
     );
   }

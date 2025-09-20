@@ -10,8 +10,8 @@ import '../models/chat_message.dart';
 
 class ChatbotService {
   final Uri? functionEndpoint; // Cloud Function HTTPS endpoint proxying Dialogflow
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final _conn = Connectivity();
+  final FirebaseAuth _auth;
+  final Connectivity _conn;
   final _uuid = const Uuid();
 
   final String _chatBoxName = 'chat_history';
@@ -54,7 +54,12 @@ class ChatbotService {
     ],
   };
 
-  ChatbotService({this.functionEndpoint});
+  ChatbotService({
+    this.functionEndpoint,
+    FirebaseAuth? auth,
+    Connectivity? connectivity,
+  }) : _auth = auth ?? FirebaseAuth.instance,
+       _conn = connectivity ?? Connectivity();
 
   Future<ChatMessage> sendMessage(String text, {String? sessionId}) async {
     final messageId = _uuid.v4();
