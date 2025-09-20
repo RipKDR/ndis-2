@@ -3,12 +3,14 @@ NDIS Connect – Flutter App (VS Code + BMAD)
 Vision: An accessible, trustworthy companion for NDIS participants and providers to navigate plans, track budgets, access services, collaborate, and stay informed — with offline-first resilience for rural users and enhanced voice accessibility.
 
 BMAD Roles
+
 - Master (M): Set NDIS vision, define user stories, ensure WCAG 2.2 AA compliance and privacy.
 - Scrum Master (SM): Orchestrate sprints, manage VS Code Tasks, uphold CI checks.
 - Developer (DEV): Implement Flutter MVVM features, integrate Firebase/Maps/Dialogflow/Stripe.
 - QA: Test accessibility, performance, offline sync, unit/integration, and user journeys.
 
 BMAD Phases
+
 - Brainstorm (B):
   - Core: Dual dashboards, budget tracker, smart calendar, plan checklist, service map, provider hub, support circle.
   - Accessibility: Voice input/output (speech_to_text, flutter_tts), high-contrast, resizable text, TalkBack/VoiceOver labels.
@@ -35,47 +37,53 @@ BMAD Phases
   - Sprint 8: Provider hub + NDIA submissions.
 
 Setup – Prereqs
+
 - Install: Flutter SDK, Android Studio/Xcode, VS Code, Android/iOS toolchains.
 - VS Code extensions (auto-recommended): Flutter, Dart, Firebase, GitLens, Prettier, Bracket Pair Colorizer, Accessibility Insights (axe-linter), GitHub Copilot.
 - CLIs: Node.js LTS, Firebase CLI, FlutterFire CLI, Git.
 
 Terminal Commands (Windows PowerShell)
-1) Create project
+
+1. Create project
    flutter create ndis_connect
    cd ndis_connect
 
-2) Add FlutterFire CLI and core Firebase libs
+2. Add FlutterFire CLI and core Firebase libs
    dart pub add firebase_core firebase_auth cloud_firestore firebase_messaging firebase_analytics firebase_storage firebase_functions firebase_remote_config
 
-3) Maps, AI, voice, localization, payments, a11y, offline, security
+3. Maps, AI, voice, localization, payments, a11y, offline, security
    dart pub add google_maps_flutter dialog_flowtter flutter_tts speech_to_text flutter_localizations intl flutter_stripe provider get_it http connectivity_plus hive hive_flutter path_provider encrypt flutter_secure_storage local_auth charts_flutter timeline_tile pdf url_launcher share_plus
 
-4) Wearables (optional) + testing
+4. Wearables (optional) + testing
    dart pub add wear
    dart pub add --dev flutter_test integration_test build_runner
 
-5) Firebase tooling
+5. Firebase tooling
    npm install -g firebase-tools
    dart pub global activate flutterfire_cli
-   flutterfire configure  # then add iOS/Android apps
+   flutterfire configure # then add iOS/Android apps
 
-6) Stripe setup (flutter_stripe)
+6. Stripe setup (flutter_stripe)
+
    # Android: add payment activity + Gradle config per docs
+
    # iOS: add URL scheme and merchant ID
 
-7) Google Maps keys
+7. Google Maps keys
+
    # Android/iOS manifest and AppDelegate entitlements per plugin docs
 
-8) Run
+8. Run
    flutter pub get
-   flutter run -d chrome  # or connected device
+   flutter run -d chrome # or connected device
 
-9) Git (version control)
+9. Git (version control)
    git init
    git add .
    git commit -m "chore: scaffold NDIS Connect"
 
 Workspace Structure
+
 - .vscode: editor settings, tasks
 - ndis_connect/pubspec.yaml: Flutter deps
 - ndis_connect/lib/main.dart: app entry
@@ -85,6 +93,7 @@ Workspace Structure
 - ndis_connect/lib/l10n/: ARB files, generated localizations
 
 Firestore Structure (proposed)
+
 - users/{uid}: profile, role, settings
 - plans/{uid}/years/{yyyy}: budgets, goals
 - tasks/{uid}/{taskId}: checklist items
@@ -94,23 +103,27 @@ Firestore Structure (proposed)
 - feedback/{uid}/{feedbackId}
 
 Remote Config (examples)
+
 - points_enabled: true
 - ai_assist_level: basic|premium
 - ab_badge_variant: A|B
 
 Security & Privacy
+
 - Auth: Firebase Auth + local_auth biometrics gate.
 - Data: Encrypt local Hive boxes using key in secure storage; encrypt sensitive payloads as needed.
 - Rules: Firestore rules enforcing role-based access and least privilege.
 - Telemetry: Firebase Analytics with privacy toggles and minimal PII.
 
 Testing & Release
+
 - Tests: flutter test, golden tests for widgets, integration_test for Firebase flows.
 - a11y: Semantics, labels, large fonts, color contrast checks.
 - Beta: Firebase App Distribution.
 - Stores: Play Store/App Store submissions with privacy details.
 
 Notes
+
 - Dialogflow packages vary; if dialog_flowtter is unavailable, consider dialogflow_grpc via Functions proxy.
 - Stripe: prefer flutter_stripe; stripe_platform_interface is low-level.
 - Indigenous languages require community review; ARB placeholders provided.

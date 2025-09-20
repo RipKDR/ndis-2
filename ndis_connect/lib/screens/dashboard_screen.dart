@@ -6,6 +6,7 @@ import '../services/analytics_service.dart';
 import '../services/remote_config_service.dart';
 import '../viewmodels/user_viewmodel.dart';
 import '../widgets/emergency_support_sheet.dart';
+import '../widgets/feature_card.dart';
 import 'provider_dashboard_screen.dart';
 import 'settings_screen.dart';
 
@@ -58,81 +59,82 @@ class ParticipantDashboardScreen extends StatelessWidget {
           );
         },
       ),
-      body: ListView(
+      body: Padding(
         padding: const EdgeInsets.all(16),
-        children: [
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            children: [
-              _FeatureCard(
-                  title: s.budget,
-                  icon: Icons.pie_chart,
-                  onTap: () => Navigator.pushNamed(context, '/budget')),
-              _FeatureCard(
-                  title: s.calendar,
-                  icon: Icons.calendar_today,
-                  onTap: () => Navigator.pushNamed(context, '/calendar')),
-              _FeatureCard(
-                  title: s.tasks,
-                  icon: Icons.check_circle,
-                  onTap: () => Navigator.pushNamed(context, '/tasks')),
-              _FeatureCard(
-                  title: s.serviceMap,
-                  icon: Icons.map,
-                  onTap: () => Navigator.pushNamed(context, '/map')),
-              _FeatureCard(
-                title: 'AI Assistant',
-                icon: Icons.smart_toy,
-                onTap: () => Navigator.pushNamed(context, '/chatbot'),
-              ),
-              if (pointsEnabled)
-                _FeatureCard(
-                  title: s.points,
-                  icon: badgeVariant == 'B' ? Icons.military_tech : Icons.emoji_events,
-                  onTap: () {},
-                ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(s.offlineMode, style: Theme.of(context).textTheme.labelMedium),
-        ],
-      ),
-    );
-  }
-}
+        child: LayoutBuilder(builder: (context, constraints) {
+          // Determine number of columns based on width
+          final width = constraints.maxWidth;
+          final crossAxisCount = width >= 1000
+              ? 4
+              : width >= 700
+                  ? 3
+                  : width >= 500
+                      ? 2
+                      : 1;
 
-class _FeatureCard extends StatelessWidget {
-  final String title;
-  final IconData icon;
-  final VoidCallback onTap;
-  const _FeatureCard({required this.title, required this.icon, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 160,
-      height: 120,
-      child: Card(
-        elevation: 2,
-        child: InkWell(
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(icon, size: 32),
-                const SizedBox(height: 12),
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
+          final features = <Widget>[
+            FeatureCard.large(
+              title: s.budget,
+              icon: Icons.pie_chart,
+              onTap: () => Navigator.pushNamed(context, '/budget'),
             ),
-          ),
-        ),
+            FeatureCard.large(
+              title: s.calendar,
+              icon: Icons.calendar_today,
+              onTap: () => Navigator.pushNamed(context, '/calendar'),
+            ),
+            FeatureCard.large(
+              title: s.tasks,
+              icon: Icons.check_circle,
+              onTap: () => Navigator.pushNamed(context, '/tasks'),
+            ),
+            FeatureCard.large(
+              title: s.serviceMap,
+              icon: Icons.map,
+              onTap: () => Navigator.pushNamed(context, '/map'),
+            ),
+            FeatureCard.large(
+              title: 'AI Assistant',
+              icon: Icons.smart_toy,
+              onTap: () => Navigator.pushNamed(context, '/chatbot'),
+            ),
+          ];
+
+          if (pointsEnabled) {
+            features.add(FeatureCard.large(
+              title: s.points,
+              icon: badgeVariant == 'B' ? Icons.military_tech : Icons.emoji_events,
+              onTap: () {},
+            ));
+          }
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    // Slightly taller cards for easier touch targets on mobile
+                    childAspectRatio: width < 600 ? 5 / 4 : 4 / 3,
+                  ),
+                  itemCount: features.length,
+                  itemBuilder: (ctx, idx) => Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Semantics(
+                      container: true,
+                      child: features[idx],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(s.offlineMode, style: Theme.of(context).textTheme.labelMedium),
+            ],
+          );
+        }),
       ),
     );
   }

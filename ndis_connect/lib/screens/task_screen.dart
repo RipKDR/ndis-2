@@ -453,12 +453,12 @@ class _TaskCard extends StatelessWidget {
               children: [
                 Chip(
                   label: Text(task.category.name),
-                  backgroundColor: _getCategoryColor(task.category).withOpacity(0.2),
+                  backgroundColor: _getCategoryColor(task.category).withAlpha(51),
                 ),
                 const SizedBox(width: 8),
                 Chip(
                   label: Text(task.priority.name),
-                  backgroundColor: _getPriorityColor(task.priority).withOpacity(0.2),
+                  backgroundColor: _getPriorityColor(task.priority).withAlpha(51),
                 ),
               ],
             ),

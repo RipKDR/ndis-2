@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../l10n/app_localizations.dart';
 import '../models/chat_message.dart';
 import '../services/chatbot_service.dart';
 import '../services/error_handling_service.dart';
@@ -70,7 +69,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final s = AppLocalizations.of(context)!;
+    // AppLocalizations not currently used in this screen; remove unused local to satisfy lints.
 
     return Scaffold(
       appBar: AppBar(

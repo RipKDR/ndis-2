@@ -8,6 +8,7 @@ import 'screens/budget_screen.dart';
 import 'screens/calendar_screen.dart';
 import 'screens/chatbot_screen.dart';
 import 'screens/dashboard_screen.dart';
+import 'screens/dev_preview.dart';
 import 'screens/feedback_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/onboarding_role_screen.dart';
@@ -16,6 +17,7 @@ import 'screens/settings_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/task_screen.dart';
 import 'screens/tutorial_screen.dart';
+import 'ui/design_tokens.dart';
 import 'viewmodels/app_settings_viewmodel.dart';
 import 'viewmodels/connectivity_viewmodel.dart';
 
@@ -40,25 +42,12 @@ class _NdisAppState extends State<NdisApp> {
     final settings = context.watch<AppSettingsViewModel>();
     final highContrast = settings.highContrast;
     final textScale = settings.textScale;
+    // Decide dark mode based on platform brightness for now (could be user-controlled)
+    final platformBrightness = MediaQuery.platformBrightnessOf(context);
+    final dark = platformBrightness == Brightness.dark;
 
-    final baseTheme = ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-      useMaterial3: true,
+    final baseTheme = DesignTokens.themeData(highContrast: highContrast, dark: dark).copyWith(
       visualDensity: VisualDensity.adaptivePlatformDensity,
-    );
-
-    final contrastTheme = baseTheme.copyWith(
-      colorScheme: baseTheme.colorScheme.copyWith(
-        primary: Colors.black,
-        onPrimary: Colors.yellow,
-        surface: Colors.black,
-        onSurface: Colors.yellow,
-        secondary: Colors.yellow[700],
-      ),
-      textTheme: baseTheme.textTheme.apply(
-        bodyColor: Colors.yellow,
-        displayColor: Colors.yellow,
-      ),
     );
 
     return MediaQuery(
@@ -66,7 +55,7 @@ class _NdisAppState extends State<NdisApp> {
       child: MaterialApp(
         title: 'NDIS Connect',
         locale: settings.locale,
-        theme: highContrast ? contrastTheme : baseTheme,
+        theme: baseTheme,
         navigatorObservers: [
           FirebaseAnalyticsObserver(analytics: _analytics),
         ],
@@ -126,6 +115,7 @@ class _NdisAppState extends State<NdisApp> {
           TaskScreen.route: (_) => const TaskScreen(),
           ServiceMapScreen.route: (_) => const ServiceMapScreen(),
           ChatbotScreen.route: (_) => const ChatbotScreen(),
+          DevPreviewScreen.route: (_) => const DevPreviewScreen(),
         },
         initialRoute: SplashScreen.route,
       ),

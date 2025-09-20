@@ -41,41 +41,58 @@ Future<void> main() async {
     await secureStorage.write(key: 'hive_key', value: key.base64);
   }
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  // Register background handler only on mobile platforms
-  if (!kIsWeb &&
-      (fnd.defaultTargetPlatform == fnd.TargetPlatform.android ||
-          fnd.defaultTargetPlatform == fnd.TargetPlatform.iOS)) {
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  }
+  // Initialize Firebase safely. If it fails, continue with no-op fallbacks.
+  var firebaseAvailable = false;
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    firebaseAvailable = true;
 
-  // Only enable crashlytics in production/staging
-  if (AppConfig.enableCrashlytics) {
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-  }
+    // Register background handler only on mobile platforms
+    if (!kIsWeb &&
+        (fnd.defaultTargetPlatform == fnd.TargetPlatform.android ||
+            fnd.defaultTargetPlatform == fnd.TargetPlatform.iOS)) {
+      FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    }
 
-  // Remote Config defaults
-  final remoteConfig = FirebaseRemoteConfig.instance;
-  await remoteConfig.setDefaults(<String, dynamic>{
-    'points_enabled': true,
-    'ai_assist_level': 'basic',
-    'ab_badge_variant': 'A',
-  });
-  await remoteConfig.fetchAndActivate();
+    // Only enable crashlytics in production/staging
+    if (AppConfig.enableCrashlytics) {
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+    }
+
+    // Remote Config defaults and activation
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    await remoteConfig.setDefaults(<String, dynamic>{
+      'points_enabled': true,
+      'ai_assist_level': 'basic',
+      'ab_badge_variant': 'A',
+    });
+    await remoteConfig.fetchAndActivate();
+  } catch (e) {
+    // If Firebase fails to initialize (missing config/keys/etc.), continue.
+    // Services that depend on Firebase must handle the absence gracefully.
+    // Log the error locally; avoid crashing the app at startup.
+    // ignore: avoid_print
+    print('Firebase initialize failed, continuing without Firebase: $e');
+    firebaseAvailable = false;
+  }
 
   final authService = AuthService();
   final analyticsService = AnalyticsService();
-  final rcService = RemoteConfigService(remoteConfig);
+  final rcService = RemoteConfigService(firebaseAvailable ? FirebaseRemoteConfig.instance : null);
   final storageEncryptionService = StorageEncryptionService();
   final ttsService = TtsService();
   final userService = UserService();
   final notificationsService = NotificationsService();
   final errorHandlingService = ErrorHandlingService();
 
-  // Initialize services
-  await notificationsService.initialize();
+  // Initialize services. Only initialize Firebase-dependent services when Firebase is available.
+  if (firebaseAvailable) {
+    await notificationsService.initialize();
+  } else {
+    // NotificationsService will remain in a safe, uninitialized state and expose no-op methods.
+  }
   errorHandlingService.initialize();
 
   runZonedGuarded(() {
@@ -95,7 +112,17 @@ Future<void> main() async {
       child: const NdisApp(),
     ));
   }, (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    // If Crashlytics is available use it, otherwise log the error.
+    if (AppConfig.enableCrashlytics) {
+      try {
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+        return;
+      } catch (_) {
+        // fall through to local logging
+      }
+    }
+    // ignore: avoid_print
+    print('Unhandled error: $error');
   });
 }
 
